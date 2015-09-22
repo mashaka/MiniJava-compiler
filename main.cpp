@@ -6,8 +6,10 @@
 
 extern FILE* yyin;
 
-extern int yyparse(void);
+// extern int yyparse(void);
 // extern "C" int yyparse (void);
+
+int yylex(void);
 
 using namespace std;
 
@@ -28,8 +30,13 @@ int main(int argc, char **argv)
             cerr << "Error: cannot open file\n";
             exit(1);
     }
+
+    cout << "Hay" << endl;
+
     yyin = handle;
-    yyparse();
+    yylex();
+    
+    // yyparse();
 }
 
 void yyerror(string s)
