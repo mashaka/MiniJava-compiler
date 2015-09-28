@@ -1,4 +1,6 @@
-program
-var
-begin
-end
+class {}
+if( ) {
+	
+} else {
+	
+}

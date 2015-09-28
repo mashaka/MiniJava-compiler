@@ -9,43 +9,46 @@
 "{"(\\.|[^"}"])*"}"     /* comment */
 [ \t\n]                 /* whitespace */
 
-"program"               { printf("program"); }
-"begin"                 { printf("begin"  ); }
-"end"                   { printf("end"    ); }
-"var"                   { printf("var"    ); }
-"integer"               { printf("integer"); }
-
-"if"                    { printf("if"     ); }
-"then"                  { printf("then"   ); }
-"else"                  { printf("else"   ); }
-"while"                 { printf("while"  ); }
-"do"                    { printf("do"     ); }
-
-"not"                   { printf("not"    ); }
-"or"                    { printf("or"     ); }
-"and"                   { printf("and"    ); }
-
-"write"                 { printf("write"  ); }
-
-";"                     { printf(";"      ); }
-":"                     { printf(":"      ); }
-":="                    { printf(":="     ); }
-"+"                     { printf("+"      ); }
-"-"                     { printf("-"      ); }
-"*"                     { printf("*"      ); }
-"/"                     { printf("/"      ); }
-"div"                   { printf("div"    ); }
-"mod"                   { printf("mod"    ); }
-"("                     { printf("("      ); }
-")"                     { printf(")"      ); }
-"="                     { printf("="      ); }
-"<>"                    { printf("<>"     ); }
-">"                     { printf(">"      ); }
-">="                    { printf(">="     ); }
-"<"                     { printf("<"      ); }
-"<="                    { printf("<="     ); }
-"."                     { printf("."      ); }
-","                     { printf(","      ); }
+"boolean"				{ printf("BOOLEAN");}
+"break"					{ printf("BREAK");}               
+"case"					{ printf("CASE");}                
+"class"					{ printf("CLASS");}
+"continue"				{ printf("CONTINUE");}
+"else"					{ printf("ELSE");}
+"extends"				{ printf("EXTENDS");}
+"float"					{ printf("FLOAT");}
+"default"				{ printf("DEFAULT");}
+"int"					{ printf("INT");}
+"new"					{ printf("NEW");}
+"if"					{ printf("IF");}
+"public"				{ printf("PUBLIC");}
+"switch"				{ printf("SWITCH");}
+"return"				{ printf("RETURN");}
+"static"				{ printf("STATIC");}
+"while"					{ printf("WHILE");}
+"this"					{ printf("THIS");}
+"null"					{ printf("NULL LITERAL");}
+")"						{ printf("LPAREN");}
+"("						{ printf("RPAREN");}
+"{"						{ printf("LBRACE");}
+"}"						{ printf("RBRACE");}
+"["						{ printf("LBRACK");}
+"]"						{ printf("RBRACK");}
+";"						{ printf("SEMICOLON");}
+","						{ printf("COMMA");}
+"."						{ printf("DOT");}
+"="						{ printf("EQ");}
+"<"						{ printf("LT");}
+"!"						{ printf("NOT");}
+":"						{ printf("COLON");}
+"&&"					{ printf("ANDAND");}
+"||"					{ printf("OROR");}
+"+"						{ printf("PLUS");}
+"-"						{ printf("MINUS");}
+"*"						{ printf("MULT");}
+"/"						{ printf("DIV");}
+"&"						{ printf("AND");}
+"|"						{ printf("OR");}
 
 .                       { fprintf(stderr, "Unknown token: %s\n", yytext); exit(EXIT_FAILURE); }
 
