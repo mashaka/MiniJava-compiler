@@ -1,6 +1,19 @@
-make:
-	flex lex.l
-	g++ -std=c++11 lex.yy.c main.cpp
-	./a.out example.txt
-clean:
-	rm -f lex.yy.c
+BISON=bison
+FLEX=flex
+CXX=g++
+
+all: mini_java_compiler
+
+syntax.tab.cc syntax.tab.hh: syntax.yy
+	$(BISON) -d $<
+
+lex.yy.c: lex.l
+	$(FLEX) $<
+
+# add logic c++ file and others here !!!
+mini_java_compiler: lex.yy.c main.cpp
+	$(CXX) -std=c++11 $^ -o $@ 
+
+
+	./mini_java_compiler example.txt
+	rm -f syntax.tab.cc syntax.tab.hh lex.yy.c mini_java_compiler
