@@ -1,6 +1,6 @@
 class {}
 if( ) {
-	
+	int lalala = 6;
 } else {
 	
 }
