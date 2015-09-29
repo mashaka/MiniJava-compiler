@@ -33,183 +33,201 @@
 
 "boolean"				{ 	
 							update_location(yyleng);
-							printf("BOOLEAN ");
+							printf("BOOLEAN");
 						}
 "break"					{ 	
 							update_location(yyleng);
-							printf("BREAK ");
+							printf("BREAK");
 						}               
 "case"					{ 	
 							update_location(yyleng);
-							printf("CASE ");
+							printf("CASE");
 						}                
 "class"					{ 	
 							update_location(yyleng);
-							printf("CLASS ");
+							printf("CLASS");
 						}
 "continue"				{ 	
 							update_location(yyleng);
-							printf("CONTINUE ");
+							printf("CONTINUE");
 						}
 "else"					{ 	
 							update_location(yyleng);
-							printf("ELSE ");
+							printf("ELSE");
 						}
 "extends"				{ 	
 							update_location(yyleng);
-							printf("EXTENDS ");
+							printf("EXTENDS");
 						}
 "float"					{ 	
 							update_location(yyleng);
-							printf("FLOAT ");
+							printf("FLOAT");
 						}
 "default"				{ 	
 							update_location(yyleng);
-							printf("DEFAULT ");
+							printf("DEFAULT");
 						}
 "int"					{ 	
 							update_location(yyleng);
-							printf("INT ");
+							printf("INT");
 						}
 "new"					{ 	
 							update_location(yyleng);
-							printf("NEW ");
+							printf("NEW");
 						}
 "if"					{ 	
 							update_location(yyleng);
-							printf("IF ");
+							printf("IF");
 						}
 "public"				{ 	
 							update_location(yyleng);
-							printf("PUBLIC ");
+							printf("PUBLIC");
 						}
 "switch"				{ 	
 							update_location(yyleng);
-							printf("SWITCH ");
+							printf("SWITCH");
 						}
 "return"				{ 	
 							update_location(yyleng);
-							printf("RETURN ");
+							printf("RETURN");
 						}
 "static"				{ 	
 							update_location(yyleng);
-							printf("STATIC ");
+							printf("STATIC");
+						}
+"String"				{ 	
+							update_location(yyleng);
+							printf("STRING");
 						}
 "while"					{ 	
 							update_location(yyleng);
-							printf("WHILE ");
+							printf("WHILE");
+						}
+"void"					{ 	
+							update_location(yyleng);
+							printf("VOID");
 						}
 "this"					{ 	
 							update_location(yyleng);
-							printf("THIS ");
+							printf("THIS");
 						}
 "null"					{ 	
 							update_location(yyleng);
-							printf("NULL LITERAL ");
+							printf("NULL LITERAL");
 						}
 ")"						{ 	
 							update_location(yyleng);
-							printf("LPAREN ");
+							printf("LPAREN");
 						}
 "("						{ 	
 							update_location(yyleng);
-							printf("RPAREN ");
+							printf("RPAREN");
 						}
 "{"						{ 	
 							update_location(yyleng);
-							printf("LBRACE ");
+							printf("LBRACE");
 						}
 "}"						{ 	
 							update_location(yyleng);
-							printf("RBRACE ");
+							printf("RBRACE");
 						}
 "["						{ 	
 							update_location(yyleng);
-							printf("LBRACK ");
+							printf("LBRACK");
 						}
 "]"						{ 	
 							update_location(yyleng);
-							printf("RBRACK ");
+							printf("RBRACK");
 						}
 ";"						{ 	
 							update_location(yyleng);
-							printf("SEMICOLON ");
+							printf("SEMICOLON");
 						}
 ","						{ 	
 							update_location(yyleng);
-							printf("COMMA ");
+							printf("COMMA");
 						}
 "."						{ 	
 							update_location(yyleng);
-							printf("DOT ");
+							printf("DOT");
 						}
 "="						{ 	
 							update_location(yyleng);
-							printf("EQ ");
+							printf("EQ");
 						}
 "<"						{ 	
 							update_location(yyleng);
-							printf("LT ");
+							printf("LT");
 						}
 ">"						{ 	
 							update_location(yyleng);
-							printf("GT ");
+							printf("GT");
 						}
 "<="					{ 	
 							update_location(yyleng);
-							printf("LET ");
+							printf("LET");
 						}
 ">="					{ 	
 							update_location(yyleng);
-							printf("GET ");
+							printf("GET");
 						}
 "!"						{ 	
 							update_location(yyleng);
-							printf("NOT ");
+							printf("NOT");
 						}
 ":"						{ 	
 							update_location(yyleng);
-							printf("COLON ");
+							printf("COLON");
 						}
 "&&"					{ 	
 							update_location(yyleng);
-							printf("ANDAND ");
+							printf("ANDAND");
 						}
 "||"					{ 	
 							update_location(yyleng);
-							printf("OROR ");
+							printf("OROR");
 						}
 "+"						{ 	
 							update_location(yyleng);
-							printf("PLUS ");
+							printf("PLUS");
 						}
 "-"						{ 	
 							update_location(yyleng);
-							printf("MINUS ");
+							printf("MINUS");
 						}
 "*"						{ 	
 							update_location(yyleng);
-							printf("MULT ");
+							printf("MULT");
 						}
 "/"						{ 	
 							update_location(yyleng);
-							printf("DIV ");
+							printf("DIV");
 						}
 "&"						{ 	
 							update_location(yyleng);
-							printf("AND ");
+							printf("AND");
 						}
 "|"						{ 	
 							update_location(yyleng);
-							printf("OR ");
+							printf("OR");
 						}
+
 [_a-zA-Z]+[_a-zA-Z0-9]* { 	
 							update_location(yyleng);
-							printf("ID(%s) ", yytext);
+							printf("ID(%s)", yytext);
 						}
 [1-9]+[0-9]*			{ 	
 							update_location(yyleng);
-							printf("INT(%s)", yytext); }
+							printf("INT(%s)", yytext); 
+						}
+([0-9]++\.+[0-9]*)|(\.[0-9]+)		{ 	
+							update_location(yyleng);
+							printf("REAL(%s)", yytext); 
+						}
+\".*\"		{ 	
+							update_location(yyleng);
+							printf("STRING(%s)", yytext); 
+						}
 .                       { 	fprintf(stderr, "Unknown token: %s\n", yytext); exit(EXIT_FAILURE); }
 
 %%
