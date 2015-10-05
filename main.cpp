@@ -9,7 +9,11 @@ extern FILE* yyin;
 // extern int yyparse(void);
 // extern "C" int yyparse (void);
 
-int yylex(void);
+extern int yylex(void);
+extern int yyparse(void);
+
+// int yylex();
+// extern void yyerror(string s);
 
 using namespace std;
 
@@ -34,7 +38,7 @@ int main(int argc, char **argv)
     yyin = handle;
     yylex();
     
-    // yyparse();
+    yyparse();
 }
 
 void yyerror(string s)

@@ -1,5 +1,7 @@
 %{	
-// need to include classes.h file or smth like that	
+	int yylex(void);
+	void yyerror(const char *);
+// need to include classes.h file or smth like that
 %}
 
 %union{
@@ -49,6 +51,10 @@
 %token T_DIV 
 %token T_AND 
 %token T_OR
+%token T_STRING
+%token T_VOID
+%token T_NULL
+%token T_ID
 
 %%
 

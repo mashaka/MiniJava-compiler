@@ -11,7 +11,7 @@ lex.yy.c: lex.l
 	$(FLEX) $<
 
 # add logic c++ file and others here !!!
-mini_java_compiler: lex.yy.c main.cpp
+mini_java_compiler: lex.yy.c syntax.tab.cc main.cpp
 	$(CXX) -std=c++11 $^ -o $@ 
 
 
