@@ -10,10 +10,8 @@ syntax.tab.cc syntax.tab.hh: syntax.yy
 lex.yy.c: lex.l
 	$(FLEX) $<
 
-# add logic c++ file and others here !!!
 mini_java_compiler: lex.yy.c syntax.tab.cc main.cpp
-	$(CXX) -std=c++11 $^ -o $@ 
-
+	$(CXX) -std=c++11 $^ -o $@
 
 	./mini_java_compiler example.txt
-	rm -f syntax.tab.cc syntax.tab.hh lex.yy.c mini_java_compiler
+	rm -f syntax.tab.cc syntax.tab.hh lex.yy.c mini_java_compiler syntax.output

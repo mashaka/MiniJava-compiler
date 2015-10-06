@@ -36,13 +36,13 @@ int main(int argc, char **argv)
     }
 
     yyin = handle;
-    yylex();
+    // yylex();
     
     yyparse();
 }
 
-void yyerror(string s)
-{
-        cerr << "Parser error: " << s << "\n";
-        exit(1);
-}
+// void yyerror(string s)
+// {
+//         cerr << "Parser error: " << s << "\n";
+//         exit(1);
+// }

@@ -1,6 +1,7 @@
 %{	
 	int yylex(void);
 	void yyerror(const char *);
+	#include <stdio.h>
 // need to include classes.h file or smth like that
 %}
 
@@ -58,8 +59,10 @@
 
 %%
 
-separator
-	:
+
+program
+	: T_CLASS { printf("*****"); }
+	| {}
 	;
 
 %%
