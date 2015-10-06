@@ -59,10 +59,21 @@
 
 %%
 
-
-program
-	: T_CLASS { printf("*****"); }
-	| {}
+Goal
+	: MainClass ( ClassDeclaration )* { printf("**Goal**") }
 	;
+
+MainClass
+	: T_CLASS Identifier T_LBRACE T_PUBLIC T_STATIC T_VOID "main" T_LPAREN T_STRING T_LBRACK T_RBRACK Identifier T_RPAREN T_LBRACE Statement T_RBRACE T_RBRACE { printf("**MainClass**") }
+	;
+
+ClassDeclaration
+	: T_CLASS Identifier ( T_EXTENDS Identifier )? T_LBRACE ( VarDeclaration )* ( MethodDeclaration )* T_RBRACE { printf("**ClassDeclaration**") }
+	;
+
+VarDeclaration
+	: Type Identifier ";" { printf("**VarDeclaration**") }
+	;
+
 
 %%
