@@ -143,6 +143,21 @@
 							printf("NULL LITERAL");
 							return T_NULL;
 						}
+"length"				{
+							update_location(yyleng);
+							printf("LENGTH");
+							return T_LENGTH;
+						}
+"true"					{
+							update_location(yyleng);
+							printf("TRUE");
+							return T_TRUE;
+						}
+"false"					{
+							update_location(yyleng);
+							printf("FALSE");
+							return T_FALSE;
+						}
 ")"						{
 							update_location(yyleng);
 							printf("LPAREN");
@@ -262,6 +277,11 @@
 							update_location(yyleng);
 							printf("OR");
 							return T_OR;
+						}
+"System.out.println"	{
+							update_location(yyleng);
+							printf("PRINT");
+							return T_PRINT;
 						}
 
 [_a-zA-Z]+[_a-zA-Z0-9]* {
