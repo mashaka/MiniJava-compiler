@@ -154,7 +154,7 @@ StatementStarFake
 
 Expression
     : Expression T_ANDAND Expression                                               { printf("**Statement1**") }
-    | Expression T_LT T_Expression                                                 { printf("**Statement2**") }
+    | Expression T_LT Expression                                                   { printf("**Statement2**") }
     | Expression T_PLUS Expression                                                 { printf("**Statement3**") }
     | Expression T_MINUS Expression                                                { printf("**Statement4**") }
     | Expression T_MULT Expression                                                 { printf("**Statement5**") }
