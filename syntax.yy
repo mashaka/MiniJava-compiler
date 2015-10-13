@@ -72,7 +72,8 @@ MainClass
     ;
 
 ClassDeclaration
-    : T_CLASS Identifier ( T_EXTENDS Identifier )? T_LBRACE ( VarDeclaration )* ( MethodDeclaration )* T_RBRACE { printf("**ClassDeclaration**") }
+    : T_CLASS Identifier T_EXTENDS Identifier T_LBRACE ( VarDeclaration )* ( MethodDeclaration )* T_RBRACE { printf("**ClassDeclaration1**") }
+    : T_CLASS Identifier T_LBRACE ( VarDeclaration )* ( MethodDeclaration )* T_RBRACE { printf("**ClassDeclaration2**") }
     ;
 
 VarDeclaration
@@ -80,7 +81,8 @@ VarDeclaration
     ;
 
 MethodDeclaration
-    : T_PUBLIC Type Identifier T_LPAREN ( Type Identifier ( T_COMMA Type Identifier )* )? T_RPAREN T_LBRACE ( VarDeclaration )* ( Statement )* T_RETURN Expression T_SEMICOLON T_RBRACE { printf("**MethodDeclaration**") }
+    : T_PUBLIC Type Identifier T_LPAREN Type Identifier ( T_COMMA Type Identifier )* T_RPAREN T_LBRACE ( VarDeclaration )* ( Statement )* T_RETURN Expression T_SEMICOLON T_RBRACE { printf("**MethodDeclaration**") }
+    : T_PUBLIC Type Identifier T_LPAREN T_RPAREN T_LBRACE ( VarDeclaration )* ( Statement )* T_RETURN Expression T_SEMICOLON T_RBRACE { printf("**MethodDeclaration**") }
     ;
 
 Type
@@ -103,16 +105,17 @@ Expression
     : Expression ( T_ANDAND | T_LT | T_PLUS | T_MINUS | T_MULT ) Expression                 { printf("**Statement1**") }
     | Expression T_LBRACK Expression T_RBRACK                                               { printf("**Statement2**") }
     | Expression T_DOT T_LENGTH                                                             { printf("**Statement3**") }
-    | Expression T_DOT Identifier T_LPAREN ( Expression ( T_COMMA Expression )* )? T_RPAREN { printf("**Statement4**") }
-    | <INTEGER_LITERAL>                                                                     { printf("**Statement5**") }
-    | T_TRUE                                                                                { printf("**Statement6**") }
-    | T_FALSE                                                                               { printf("**Statement7**") }
-    | Identifier                                                                            { printf("**Statement8**") }
-    | T_THIS                                                                                { printf("**Statement9**") }
-    | T_NEW T_INT T_LBRACK Expression T_RBRACK                                              { printf("**Statement10**") }
-    | T_NEW Identifier T_LPAREN T_RPAREN                                                    { printf("**Statement11**") }
-    | T_NOT Expression                                                                      { printf("**Statement12**") }
-    | T_LPAREN Expression T_RPAREN                                                          { printf("**Statement13**") }
+    | Expression T_DOT Identifier T_LPAREN Expression ( T_COMMA Expression )* T_RPAREN      { printf("**Statement4**") }
+    | Expression T_DOT Identifier T_LPAREN T_RPAREN                                         { printf("**Statement5**") }
+    | <INTEGER_LITERAL>                                                                     { printf("**Statement6**") }
+    | T_TRUE                                                                                { printf("**Statement7**") }
+    | T_FALSE                                                                               { printf("**Statement8**") }
+    | Identifier                                                                            { printf("**Statement9**") }
+    | T_THIS                                                                                { printf("**Statement10**") }
+    | T_NEW T_INT T_LBRACK Expression T_RBRACK                                              { printf("**Statement11**") }
+    | T_NEW Identifier T_LPAREN T_RPAREN                                                    { printf("**Statement12**") }
+    | T_NOT Expression                                                                      { printf("**Statement13**") }
+    | T_LPAREN Expression T_RPAREN                                                          { printf("**Statement14**") }
     ;
 
 Identifier  ::= <IDENTIFIER>
