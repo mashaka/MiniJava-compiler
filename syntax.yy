@@ -74,7 +74,7 @@ MainClass
 
 ClassDeclaration
     : T_CLASS Identifier T_EXTENDS Identifier T_LBRACE VarDeclarationStar MethodDeclarationStar T_RBRACE { printf("**ClassDeclaration1**") }
-    : T_CLASS Identifier T_LBRACE VarDeclarationStar MethodDeclarationStar T_RBRACE                      { printf("**ClassDeclaration2**") }
+    | T_CLASS Identifier T_LBRACE VarDeclarationStar MethodDeclarationStar T_RBRACE                      { printf("**ClassDeclaration2**") }
     ;
 
 ClassDeclarationStar
@@ -113,7 +113,7 @@ VarDeclarationStarFake
 
 MethodDeclaration
     : T_PUBLIC Type Identifier T_LPAREN Type Identifier CommaTypeIdentifierStar T_RPAREN T_LBRACE VarDeclarationStar StatementStar T_RETURN Expression T_SEMICOLON T_RBRACE    { printf("**MethodDeclaration1**") }
-    : T_PUBLIC Type Identifier T_LPAREN T_RPAREN T_LBRACE VarDeclarationStar StatementStar T_RETURN Expression T_SEMICOLON T_RBRACE                                                 { printf("**MethodDeclaration2**") }
+    | T_PUBLIC Type Identifier T_LPAREN T_RPAREN T_LBRACE VarDeclarationStar StatementStar T_RETURN Expression T_SEMICOLON T_RBRACE                                                 { printf("**MethodDeclaration2**") }
     ;
 
 CommaTypeIdentifierStar
