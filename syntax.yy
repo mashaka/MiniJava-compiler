@@ -30,7 +30,8 @@
 %token T_NULL_LITERAL 
 %token T_LENGTH 
 %token T_TRUE 
-%token T_FALSE 
+%token T_FALSE
+%token T_MAIN
 %token T_LPAREN 
 %token T_RPAREN 
 %token T_LBRACE 
@@ -64,25 +65,65 @@
 %%
 
 Goal
-    : MainClass ( ClassDeclaration )* { printf("**Goal**") }
+    : MainClass ClassDeclarationStar { printf("**Goal**") }
     ;
 
 MainClass
-    : T_CLASS Identifier T_LBRACE T_PUBLIC T_STATIC T_VOID "main" T_LPAREN T_STRING T_LBRACK T_RBRACK Identifier T_RPAREN T_LBRACE Statement T_RBRACE T_RBRACE { printf("**MainClass**") }
+    : T_CLASS Identifier T_LBRACE T_PUBLIC T_STATIC T_VOID T_MAIN T_LPAREN T_STRING T_LBRACK T_RBRACK Identifier T_RPAREN T_LBRACE Statement T_RBRACE T_RBRACE { printf("**MainClass**") }
     ;
 
 ClassDeclaration
-    : T_CLASS Identifier T_EXTENDS Identifier T_LBRACE ( VarDeclaration )* ( MethodDeclaration )* T_RBRACE { printf("**ClassDeclaration1**") }
-    : T_CLASS Identifier T_LBRACE ( VarDeclaration )* ( MethodDeclaration )* T_RBRACE { printf("**ClassDeclaration2**") }
+    : T_CLASS Identifier T_EXTENDS Identifier T_LBRACE VarDeclarationStar MethodDeclarationStar T_RBRACE { printf("**ClassDeclaration1**") }
+    : T_CLASS Identifier T_LBRACE VarDeclarationStar MethodDeclarationStar T_RBRACE                      { printf("**ClassDeclaration2**") }
+    ;
+
+ClassDeclarationStar
+    :                          { printf("**ClassDeclarationStar1**") }
+    | ClassDeclarationStarFake { printf("**ClassDeclarationStar2**") }
+    ;
+
+ClassDeclarationStarFake
+    : ClassDeclaration                        { printf("**ClassDeclarationStarFake1**") }
+    | ClassDeclarationStarFake VarDeclaration { printf("**ClassDeclarationStarFake2**") }
+    ;
+
+MethodDeclarationStar
+    :                           { printf("**MethodDeclarationStar1**") }
+    | MethodDeclarationStarFake { printf("**MethodDeclarationStar2**") }
+    ;
+
+MethodDeclarationStarFake
+    : MethodDeclaration                           { printf("**MethodDeclarationStarFake1**") }
+    | MethodDeclarationStarFake MethodDeclaration { printf("**MethodDeclarationStarFake2**") }
     ;
 
 VarDeclaration
-    : Type Identifier ";" { printf("**VarDeclaration**") }
+    : Type Identifier T_SEMICOLON { printf("**VarDeclaration**") }
+    ;
+
+VarDeclarationStar
+    :                           { printf("**VarDeclarationStar1**") }
+    | VarDeclarationStarFake    { printf("**VarDeclarationStar2**") }
+    ;
+
+VarDeclarationStarFake
+    : VarDeclaration                        { printf("**VarDeclarationStarFake1**") }
+    | VarDeclarationStarFake VarDeclaration { printf("**VarDeclarationStarFake2**") }
     ;
 
 MethodDeclaration
-    : T_PUBLIC Type Identifier T_LPAREN Type Identifier ( T_COMMA Type Identifier )* T_RPAREN T_LBRACE ( VarDeclaration )* ( Statement )* T_RETURN Expression T_SEMICOLON T_RBRACE { printf("**MethodDeclaration**") }
-    : T_PUBLIC Type Identifier T_LPAREN T_RPAREN T_LBRACE ( VarDeclaration )* ( Statement )* T_RETURN Expression T_SEMICOLON T_RBRACE { printf("**MethodDeclaration**") }
+    : T_PUBLIC Type Identifier T_LPAREN Type Identifier CommaTypeIdentifierStar T_RPAREN T_LBRACE VarDeclarationStar StatementStar T_RETURN Expression T_SEMICOLON T_RBRACE    { printf("**MethodDeclaration1**") }
+    : T_PUBLIC Type Identifier T_LPAREN T_RPAREN T_LBRACE VarDeclarationStar StatementStar T_RETURN Expression T_SEMICOLON T_RBRACE                                                 { printf("**MethodDeclaration2**") }
+    ;
+
+CommaTypeIdentifierStar
+    :                               { printf("**CommaTypeIdentifierStar1**") }
+    | CommaTypeIdentifierStarFake   { printf("**CommaTypeIdentifierStar2**") }
+    ;
+
+CommaTypeIdentifierStarFake
+    : T_COMMA Type Identifier                               { printf("**CommaTypeIdentifierStarFake1**") }
+    | CommaTypeIdentifierStarFake T_COMMA Type Identifier   { printf("**CommaTypeIdentifierStarFake2**") }
     ;
 
 Type
@@ -93,7 +134,7 @@ Type
     ;
 
 Statement
-    : T_LBRACE ( Statement )* T_RBRACE
+    : T_LBRACE StatementStar T_RBRACE
     | T_IF T_LPAREN Expression T_RPAREN Statement T_ELSE Statement          { printf("**Statement1**") }
     | T_WHILE T_LPAREN Expression T_RPAREN Statement                        { printf("**Statement2**") }
     | T_PRINT T_LPAREN Expression T_LPAREN T_SEMICOLON                      { printf("**Statement3**") }
@@ -101,11 +142,21 @@ Statement
     | Identifier T_LBRACK Expression T_RBRACK T_EQ Expression T_SEMICOLON   { printf("**Statement5**") }
     ;
 
+StatementStar
+    :                   { printf("**StatementStar1**") }
+    | StatementStarFake { printf("**StatementStar2**") }
+    ;
+
+StatementStarFake
+    : Statement                     { printf("**StatementStarFake1**") }
+    | StatementStarFake Statement   { printf("**StatementStarFake2**") }
+    ;
+
 Expression
     : Expression ( T_ANDAND | T_LT | T_PLUS | T_MINUS | T_MULT ) Expression                 { printf("**Statement1**") }
     | Expression T_LBRACK Expression T_RBRACK                                               { printf("**Statement2**") }
     | Expression T_DOT T_LENGTH                                                             { printf("**Statement3**") }
-    | Expression T_DOT Identifier T_LPAREN Expression ( T_COMMA Expression )* T_RPAREN      { printf("**Statement4**") }
+    | Expression T_DOT Identifier T_LPAREN Expression CommaExpressionStar T_RPAREN          { printf("**Statement4**") }
     | Expression T_DOT Identifier T_LPAREN T_RPAREN                                         { printf("**Statement5**") }
     | <INTEGER_LITERAL>                                                                     { printf("**Statement6**") }
     | T_TRUE                                                                                { printf("**Statement7**") }
@@ -118,5 +169,18 @@ Expression
     | T_LPAREN Expression T_RPAREN                                                          { printf("**Statement14**") }
     ;
 
-Identifier  ::= <IDENTIFIER>
+CommaExpressionStar
+    :                           { printf("**CommaExpressionStar1**") }
+    | CommaExpressionStarFake   { printf("**CommaExpressionStar2**") }
+    ;
+
+CommaExpressionStarFake
+    : T_COMMA Expression                            { printf("**CommaExpressionStarFake1**") }
+    | CommaExpressionStarFake T_COMMA Expression    { printf("**CommaExpressionStarFake2**") }
+    ;
+
+Identifier
+    : T_ID { printf("**Identifier**") }
+    ;
+
 %%

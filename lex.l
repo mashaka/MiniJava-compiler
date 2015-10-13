@@ -158,6 +158,11 @@
 							printf("FALSE");
 							return T_FALSE;
 						}
+"main"					{
+							update_location(yyleng);
+							printf("MAIN");
+							return T_MAIN;
+						}
 ")"						{
 							update_location(yyleng);
 							printf("LPAREN");
