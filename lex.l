@@ -163,12 +163,12 @@
 							printf("MAIN");
 							return T_MAIN;
 						}
-")"						{
+"("						{
 							update_location(yyleng);
 							printf("LPAREN");
 							return T_LPAREN;
 						}
-"("						{
+")"						{
 							update_location(yyleng);
 							printf("RPAREN");
 							return T_RPAREN;
