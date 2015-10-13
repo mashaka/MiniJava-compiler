@@ -153,20 +153,24 @@ StatementStarFake
     ;
 
 Expression
-    : Expression ( T_ANDAND | T_LT | T_PLUS | T_MINUS | T_MULT ) Expression                 { printf("**Statement1**") }
-    | Expression T_LBRACK Expression T_RBRACK                                               { printf("**Statement2**") }
-    | Expression T_DOT T_LENGTH                                                             { printf("**Statement3**") }
-    | Expression T_DOT Identifier T_LPAREN Expression CommaExpressionStar T_RPAREN          { printf("**Statement4**") }
-    | Expression T_DOT Identifier T_LPAREN T_RPAREN                                         { printf("**Statement5**") }
-    | <INTEGER_LITERAL>                                                                     { printf("**Statement6**") }
-    | T_TRUE                                                                                { printf("**Statement7**") }
-    | T_FALSE                                                                               { printf("**Statement8**") }
-    | Identifier                                                                            { printf("**Statement9**") }
-    | T_THIS                                                                                { printf("**Statement10**") }
-    | T_NEW T_INT T_LBRACK Expression T_RBRACK                                              { printf("**Statement11**") }
-    | T_NEW Identifier T_LPAREN T_RPAREN                                                    { printf("**Statement12**") }
-    | T_NOT Expression                                                                      { printf("**Statement13**") }
-    | T_LPAREN Expression T_RPAREN                                                          { printf("**Statement14**") }
+    : Expression T_ANDAND Expression                                               { printf("**Statement1**") }
+    | Expression T_LT T_Expression                                                 { printf("**Statement2**") }
+    | Expression T_PLUS Expression                                                 { printf("**Statement3**") }
+    | Expression T_MINUS Expression                                                { printf("**Statement4**") }
+    | Expression T_MULT Expression                                                 { printf("**Statement5**") }
+    | Expression T_LBRACK Expression T_RBRACK                                      { printf("**Statement6**") }
+    | Expression T_DOT T_LENGTH                                                    { printf("**Statement7**") }
+    | Expression T_DOT Identifier T_LPAREN Expression CommaExpressionStar T_RPAREN { printf("**Statement8**") }
+    | Expression T_DOT Identifier T_LPAREN T_RPAREN                                { printf("**Statement9**") }
+    | T_INT                                                                        { printf("**Statement10**") }
+    | T_TRUE                                                                       { printf("**Statement11**") }
+    | T_FALSE                                                                      { printf("**Statement12**") }
+    | Identifier                                                                   { printf("**Statement13**") }
+    | T_THIS                                                                       { printf("**Statement14**") }
+    | T_NEW T_INT T_LBRACK Expression T_RBRACK                                     { printf("**Statement15**") }
+    | T_NEW Identifier T_LPAREN T_RPAREN                                           { printf("**Statement16**") }
+    | T_NOT Expression                                                             { printf("**Statement17**") }
+    | T_LPAREN Expression T_RPAREN                                                 { printf("**Statement18**") }
     ;
 
 CommaExpressionStar
