@@ -96,23 +96,13 @@ ClassDeclaration
     ;
 
 ClassDeclarationStar
-    : %empty                   { printf("**ClassDeclarationStar1**"); }
-    | ClassDeclarationStarFake { printf("**ClassDeclarationStar2**"); }
-    ;
-
-ClassDeclarationStarFake
-    : ClassDeclaration                          { printf("**ClassDeclarationStarFake1**"); }
-    | ClassDeclarationStarFake ClassDeclaration { printf("**ClassDeclarationStarFake2**"); }
+    : %empty                                { printf("**ClassDeclarationStar1**"); }
+    | ClassDeclaration ClassDeclarationStar { printf("**ClassDeclarationStar2**"); }
     ;
 
 MethodDeclarationStar
-    : %empty                    { printf("**MethodDeclarationStar1**"); }
-    | MethodDeclarationStarFake { printf("**MethodDeclarationStar2**"); }
-    ;
-
-MethodDeclarationStarFake
-    : MethodDeclaration                           { printf("**MethodDeclarationStarFake1**"); }
-    | MethodDeclarationStarFake MethodDeclaration { printf("**MethodDeclarationStarFake2**"); }
+    : %empty                                    { printf("**MethodDeclarationStar1**"); }
+    | MethodDeclaration MethodDeclarationStar   { printf("**MethodDeclarationStar2**"); }
     ;
 
 VarDeclaration
@@ -120,7 +110,7 @@ VarDeclaration
     ;
 
 VarDeclarationStar
-    : %empty                 { printf("**VarDeclarationStar1**"); }
+    : %empty                            { printf("**VarDeclarationStar1**"); }
     | VarDeclarationStar VarDeclaration { printf("**VarDeclarationStar2**"); }
     ;
 
@@ -131,12 +121,7 @@ MethodDeclaration
 
 CommaTypeIdentifierStar
     : %empty                        { printf("**CommaTypeIdentifierStar1**"); }
-    | CommaTypeIdentifierStarFake   { printf("**CommaTypeIdentifierStar2**"); }
-    ;
-
-CommaTypeIdentifierStarFake
-    : T_COMMA Type T_ID                             { printf("**CommaTypeIdentifierStarFake1**"); }
-    | CommaTypeIdentifierStarFake T_COMMA Type T_ID { printf("**CommaTypeIdentifierStarFake2**"); }
+    | T_COMMA Type T_ID CommaTypeIdentifierStar   { printf("**CommaTypeIdentifierStar2**"); }
     ;
 
 Type
@@ -156,13 +141,8 @@ Statement
     ;
 
 StatementStar
-    : %empty            { printf("**StatementStar1**"); }
-    | StatementStarFake { printf("**StatementStar2**"); }
-    ;
-
-StatementStarFake
-    : Statement                   { printf("**StatementStarFake1**"); }
-    | StatementStarFake Statement { printf("**StatementStarFake2**"); }
+    : %empty                    { printf("**StatementStar1**"); }
+    | Statement StatementStar   { printf("**StatementStar2**"); }
     ;
 
 Expression
@@ -188,12 +168,7 @@ Expression
 
 CommaExpressionStar
     : %empty                  { printf("**CommaExpressionStar1**"); }
-    | CommaExpressionStarFake { printf("**CommaExpressionStar2**"); }
-    ;
-
-CommaExpressionStarFake
-    : T_COMMA Expression                         { printf("**CommaExpressionStarFake1**"); }
-    | CommaExpressionStarFake T_COMMA Expression { printf("**CommaExpressionStarFake2**"); }
+    | T_COMMA Expression CommaExpressionStar { printf("**CommaExpressionStar2**"); }
     ;
 
 %%
