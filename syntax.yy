@@ -121,12 +121,7 @@ VarDeclaration
 
 VarDeclarationStar
     : %empty                 { printf("**VarDeclarationStar1**"); }
-    | VarDeclarationStarFake { printf("**VarDeclarationStar2**"); }
-    ;
-
-VarDeclarationStarFake
-    : VarDeclaration                        { printf("**VarDeclarationStarFake1**"); }
-    | VarDeclarationStarFake VarDeclaration { printf("**VarDeclarationStarFake2**"); }
+    | VarDeclarationStar VarDeclaration { printf("**VarDeclarationStar2**"); }
     ;
 
 MethodDeclaration
