@@ -75,4 +75,4 @@ class Interpreter : public Visitor {
 		n->e1->accept(this, tabsCount + 1); //ClassDeclaration
 		n->e2->accept(this, tabsCount + 1); //ClassDeclarationStar
 	}
-}
+};
