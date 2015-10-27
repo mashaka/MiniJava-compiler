@@ -100,11 +100,6 @@ ClassDeclarationStar
     | ClassDeclaration ClassDeclarationStar { printf("**ClassDeclarationStar2**"); }
     ;
 
-MethodDeclarationStar
-    : %empty                                    { printf("**MethodDeclarationStar1**"); }
-    | MethodDeclaration MethodDeclarationStar   { printf("**MethodDeclarationStar2**"); }
-    ;
-
 VarDeclaration
     : Type T_ID T_SEMICOLON { printf("**VarDeclaration**"); }
     ;
@@ -117,6 +112,11 @@ VarDeclarationStar
 MethodDeclaration
     : T_PUBLIC Type T_ID T_LPAREN Type T_ID CommaTypeIdentifierStar T_RPAREN T_LBRACE VarDeclarationStar StatementStar T_RETURN Expression T_SEMICOLON T_RBRACE { printf("**MethodDeclaration1**"); }
     | T_PUBLIC Type T_ID T_LPAREN T_RPAREN T_LBRACE VarDeclarationStar StatementStar T_RETURN Expression T_SEMICOLON T_RBRACE                                   { printf("**MethodDeclaration2**"); }
+    ;
+
+MethodDeclarationStar
+    : %empty                                    { printf("**MethodDeclarationStar1**"); }
+    | MethodDeclaration MethodDeclarationStar   { printf("**MethodDeclarationStar2**"); }
     ;
 
 CommaTypeIdentifierStar
