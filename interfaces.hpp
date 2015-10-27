@@ -61,6 +61,7 @@ class MainClass : public IMainClass {
 //-----------------------------------------------------
 
 class ClassDeclaration1 : public IClassDeclaration {
+public:
 	ClassDeclaration1( IVarDeclarationStar* _varDeclarationStar, IMethodDeclarationStar* _methodDeclarationStar ):
 		varDeclarationStar( _varDeclarationStar ), methodDeclarationStar(_methodDeclarationStar) {}
 
@@ -69,27 +70,67 @@ class ClassDeclaration1 : public IClassDeclaration {
 		delete methodDeclarationStar;
 	}
 
+	void accept( IVisitor* visitor ) {
+		visitor->visit( this );
+	}	
+
 	IVarDeclarationStar* varDeclarationStar;
 	IMethodDeclarationStar* methodDeclarationStar;
 };
 
 class ClassDeclaration2 : public IClassDeclaration {
+public:
+	ClassDeclaration2( IVarDeclarationStar* _varDeclarationStar, IMethodDeclarationStar* _methodDeclarationStar ):
+		varDeclarationStar( _varDeclarationStar ), methodDeclarationStar(_methodDeclarationStar) {}
 
+	~ClassDeclaration2() {
+		delete varDeclarationStar;
+		delete methodDeclarationStar;
+	}
+
+	void accept( IVisitor* visitor ) {
+		visitor->visit( this );
+	}
+
+	IVarDeclarationStar* varDeclarationStar;
+	IMethodDeclarationStar* methodDeclarationStar;
 };
 
 //-----------------------------------------------------
 
 class ClassDeclarationStar1 : public IClassDeclarationStar {
+public:
+	ClassDeclarationStar1() {}
 
+	~ClassDeclarationStar1() {}
+
+	void accept( IVisitor* visitor ) {
+		visitor->visit( this );
+	}
 };
 
 class ClassDeclarationStar2 : public IClassDeclarationStar {
+public:
+	ClassDeclarationStar2( IClassDeclaration* _classDeclaration, IClassDeclarationStar* _classDeclarationStar ):
+		classDeclaration( _classDeclaration ), classDeclarationStar( classDeclarationStar ) {}
 
+	~ClassDeclarationStar2() {
+		delete classDeclaration;
+		delete classDeclarationStar;
+	}
+
+	void accept( IVisitor* visitor ) {
+		visitor->visit( this );
+	}
+
+	IClassDeclaration* classDeclaration;
+	IClassDeclarationStar* classDeclarationStar
 };
 
 //-----------------------------------------------------
 
 class VarDeclaration : public IVarDeclaration {
+public:
 
 };
 
