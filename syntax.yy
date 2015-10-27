@@ -96,8 +96,8 @@ ClassDeclaration
     ;
 
 ClassDeclarationStar
-    : %empty                                { ClassDeclarationStar1(); printf("**ClassDeclarationStar1**"); }
-    | ClassDeclaration ClassDeclarationStar { ClassDeclarationStar2(); printf("**ClassDeclarationStar2**"); }
+    : %empty                                { ClassDeclarationStar1();       printf("**ClassDeclarationStar1**"); }
+    | ClassDeclaration ClassDeclarationStar { ClassDeclarationStar2($1, $2); printf("**ClassDeclarationStar2**"); }
     ;
 
 VarDeclaration
@@ -105,8 +105,8 @@ VarDeclaration
     ;
 
 VarDeclarationStar
-    : %empty                            { VarDeclarationStar1(); printf("**VarDeclarationStar1**"); }
-    | VarDeclarationStar VarDeclaration { VarDeclarationStar2(); printf("**VarDeclarationStar2**"); }
+    : %empty                            { VarDeclarationStar1();       printf("**VarDeclarationStar1**"); }
+    | VarDeclarationStar VarDeclaration { VarDeclarationStar2($1, $2); printf("**VarDeclarationStar2**"); }
     ;
 
 MethodDeclaration
@@ -115,8 +115,8 @@ MethodDeclaration
     ;
 
 MethodDeclarationStar
-    : %empty                                    { MethodDeclarationStar1(); printf("**MethodDeclarationStar1**"); }
-    | MethodDeclaration MethodDeclarationStar   { MethodDeclarationStar2(); printf("**MethodDeclarationStar2**"); }
+    : %empty                                    { MethodDeclarationStar1();       printf("**MethodDeclarationStar1**"); }
+    | MethodDeclaration MethodDeclarationStar   { MethodDeclarationStar2($1, $2); printf("**MethodDeclarationStar2**"); }
     ;
 
 CommaTypeIdentifierStar
@@ -141,8 +141,8 @@ Statement
     ;
 
 StatementStar
-    : %empty                    { StatementStar1(); printf("**StatementStar1**"); }
-    | Statement StatementStar   { StatementStar2(); printf("**StatementStar2**"); }
+    : %empty                    { StatementStar1();       printf("**StatementStar1**"); }
+    | Statement StatementStar   { StatementStar2($1, $2); printf("**StatementStar2**"); }
     ;
 
 Expression
@@ -167,8 +167,8 @@ Expression
     ;
 
 CommaExpressionStar
-    : %empty                                    { CommaExpressionStar1(); printf("**CommaExpressionStar1**"); }
-    | T_COMMA Expression CommaExpressionStar    { CommaExpressionStar2(); printf("**CommaExpressionStar2**"); }
+    : %empty                                    { CommaExpressionStar1();       printf("**CommaExpressionStar1**"); }
+    | T_COMMA Expression CommaExpressionStar    { CommaExpressionStar2($1, $2); printf("**CommaExpressionStar2**"); }
     ;
 
 %%
