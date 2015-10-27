@@ -255,7 +255,19 @@ class ExpressionBracks : public IExpression {
 };
 
 class ExpressionLength : public IExpression {
+public:
+    ExpressionLength( IExpression* _expression ):
+        expression( _expression ) {}
 
+    ~ExpressionLength() {
+        delete expression;
+    }
+
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
+    }
+
+    IExpression* expression;
 };
 
 class ExpressionMethod : public IExpression {
@@ -263,51 +275,155 @@ class ExpressionMethod : public IExpression {
 };
 
 class ExpressionEmptyMethod : public IExpression {
+public:
+    ExpressionEmptyMethod( IExpression* _expression ):
+        expression( _expression ) {}
 
+    ~ExpressionEmptyMethod() {
+        delete expression;
+    }
+
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
+    }
+
+    IExpression* expression;
 };
 
 class ExpressionInt : public IExpression {
+    ExpressionInt() {}
 
+    ~ExpressionInt() {}
+
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
+    }
 };
 
 class ExpressionTrue : public IExpression {
+    ExpressionTrue() {}
 
+    ~ExpressionTrue() {}
+
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
+    }
 };
 
 class ExpressionFalse : public IExpression {
+    ExpressionFalse() {}
 
+    ~ExpressionFalse() {}
+
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
+    }
 };
 
 class ExpressionId : public IExpression {
+    ExpressionId() {}
 
+    ~ExpressionId() {}
+
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
+    }
 };
 
 class ExpressionThis : public IExpression {
+    ExpressionThis() {}
 
+    ~ExpressionThis() {}
+
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
+    }
 };
 
 class ExpressionNew : public IExpression {
+public:
+    ExpressionNew( IExpression* _expression ):
+        expression( _expression ) {}
 
+    ~ExpressionNew() {
+        delete expression;
+    }
+
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
+    }
+
+    IExpression* expression;
 };
 
 class ExpressionEmptyNew : public IExpression {
+    ExpressionEmptyNew() {}
 
+    ~ExpressionEmptyNew() {}
+
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
+    }
 };
 
 class ExpressionNot : public IExpression {
+public:
+    ExpressionNot( IExpression* _expression ):
+        expression( _expression ) {}
 
+    ~ExpressionNot() {
+        delete expression;
+    }
+
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
+    }
+
+    IExpression* expression;
 };
 
 class ExpressionParens : public IExpression {
+public:
+    ExpressionParens( IExpression* _expression ):
+        expression( _expression ) {}
 
+    ~ExpressionParens() {
+        delete expression;
+    }
+
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
+    }
+
+    IExpression* expression;
 };
 
 //-----------------------------------------------------
 
 class CommaExpressionStar1 : public ICommaExpressionStar {
+    CommaExpressionStar1() {}
 
+    ~CommaExpressionStar1() {}
+
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
+    }
 };
 
 class CommaExpressionStar2 : public ICommaExpressionStar {
+public:
+    CommaExpressionStar2( IExpression* _expression, ICommaExpressionStar* _commaExpressionStar ):
+        expression( _expression ), commaExpressionStar( _commaExpressionStar ) {}
 
+    ~CommaExpressionStar2() {
+        delete expression;
+        delete commaExpressionStar;
+    }
+
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
+    }
+
+    IExpression* expression;
+    ICommaExpressionStar* commaExpressionStar;
 };
