@@ -1,3 +1,5 @@
+//#include "visitor.cpp"
+
 #define interface struct
 
 interface IAbstract {
@@ -5,29 +7,20 @@ public:
 	virtual void accept() const = 0;
 };
 
-interface IGoal : public IAbstract {
-};
-
-interface IMainClass : public IAbstract {
-};
-
-interface IClassDeclaration : public IAbstract {
-};
-
-interface IVarDeclaration : public IAbstract {
-};
-
-interface IMethodDeclaration : public IAbstract {
-};
-
-interface IType : public IAbstract {
-};
-
-interface IStatement : public IAbstract {
-};
-
-interface IExpression : public IAbstract {
-};
+interface IGoal : public IAbstract {};
+interface IMainClass : public IAbstract {};
+interface IClassDeclaration : public IAbstract {};
+interface IClassDeclarationStar : public IAbstract {};
+interface IVarDeclaration : public IAbstract {};
+interface IVarDeclarationStar : public IAbstract {};
+interface IMethodDeclaration : public IAbstract {};
+interface IMethodDeclarationStar : public IAbstract {};
+interface IType : public IAbstract {};
+interface ICommaTypeIdentifierStar : public IAbstract {};
+interface IStatement : public IAbstract {};
+interface IStatementStar : public IAbstract {};
+interface IExpression : public IAbstract {};
+interface ICommaExpressionStar : public IAbstract {};
 
 //-----------------------------------------------------
 
@@ -43,7 +36,21 @@ class MainClass : public IMainClass {
 
 //-----------------------------------------------------
 
-class ClassDeclaration : public IClassDeclaration {
+class ClassDeclaration1 : public IClassDeclaration {
+
+};
+
+class ClassDeclaration2 : public IClassDeclaration {
+
+};
+
+//-----------------------------------------------------
+
+class ClassDeclarationStar1 : public IClassDeclarationStar {
+
+};
+
+class ClassDeclarationStar2 : public IClassDeclarationStar {
 
 };
 
