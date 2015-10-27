@@ -1,10 +1,10 @@
-//#include "visitor.cpp"
+#include "visitor.hpp"
 
 #define interface struct
 
 interface IAbstract {
 public:
-	virtual void accept() const = 0;
+	virtual void accept(IVisitor*) const = 0;
 };
 
 interface IGoal : public IAbstract {};
@@ -25,19 +25,52 @@ interface ICommaExpressionStar : public IAbstract {};
 //-----------------------------------------------------
 
 class Goal : public IGoal {
+	Goal( IMainClass* _mainClass, IClassDeclarationStar* _classDeclarationStar ):
+		mainClass(_mainClass), classDeclarationStar(_classDeclarationStar) {}
 
+	~Goal() {
+		delete mainClass;
+		delete classDeclarationStar;
+	}
+
+	void accept( IVisitor* visitor ) {
+		visitor->visit( this );
+	}
+
+	IMainClass* mainClass;
+	IClassDeclarationStar* classDeclarationStar
 };
 
 //-----------------------------------------------------
 
 class MainClass : public IMainClass {
+	MainClass( IStatement* _statement ):
+		statement(_statement) {}
 
+	~MainClass() {
+		delete statement;
+	}
+
+	void accept( IVisitor* visitor ) {
+		visitor->visit( this );
+	}
+
+	IStatement* statement;
 };
 
 //-----------------------------------------------------
 
 class ClassDeclaration1 : public IClassDeclaration {
+	ClassDeclaration1( IVarDeclarationStar* _varDeclarationStar, IMethodDeclarationStar* _methodDeclarationStar ):
+		varDeclarationStar( _varDeclarationStar ), methodDeclarationStar(_methodDeclarationStar) {}
 
+	~ClassDeclaration1() {
+		delete varDeclarationStar;
+		delete methodDeclarationStar;
+	}
+
+	IVarDeclarationStar* varDeclarationStar;
+	IMethodDeclarationStar* methodDeclarationStar;
 };
 
 class ClassDeclaration2 : public IClassDeclaration {
@@ -120,6 +153,10 @@ class TypeIdentifier : public IType {
 
 //-----------------------------------------------------
 
+class StatementStar : public IStatement {
+
+};
+
 class StatementIf : public IStatement {
 
 };
@@ -132,7 +169,11 @@ class StatementPrint : public IStatement {
 
 };
 
-class StatementIdentifier : public IStatement {
+class StatementIdentifier1 : public IStatement {
+
+};
+
+class StatementIdentifier2 : public IStatement {
 
 };
 

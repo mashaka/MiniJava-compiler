@@ -1,6 +1,6 @@
 #include "interfaces.hpp"
 
-class Visitor {
+class IVisitor {
 public:
 	virtual void visit(const Goal* n, int tabsCount);
 	virtual void visit(const MainClass* n, int tabsCount);
