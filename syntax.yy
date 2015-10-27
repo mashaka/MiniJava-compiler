@@ -132,7 +132,8 @@ Type
     ;
 
 Statement
-    : T_LBRACE StatementStar T_RBRACE
+    : T_LBRACE StatementStar T_RBRACE 
+    { printf("**Statement0**"); }
     | T_IF T_LPAREN Expression T_RPAREN Statement T_ELSE Statement  { printf("**Statement1**"); }
     | T_WHILE T_LPAREN Expression T_RPAREN Statement                { printf("**Statement2**"); }
     | T_PRINT T_LPAREN Expression T_RPAREN T_SEMICOLON              { printf("**Statement3**"); }
