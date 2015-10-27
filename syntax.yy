@@ -83,93 +83,92 @@
 %%
 
 Goal
-    : MainClass ClassDeclarationStar { printf("**Goal**"); }
+    : MainClass ClassDeclarationStar { Goal($1, $2); printf("**Goal**"); }
     ;
 
 MainClass
-    : T_CLASS T_ID T_LBRACE T_PUBLIC T_STATIC T_VOID T_MAIN T_LPAREN T_STRING T_LBRACK T_RBRACK T_ID T_RPAREN T_LBRACE Statement T_RBRACE T_RBRACE { printf("**MainClass**"); }
+    : T_CLASS T_ID T_LBRACE T_PUBLIC T_STATIC T_VOID T_MAIN T_LPAREN T_STRING T_LBRACK T_RBRACK T_ID T_RPAREN T_LBRACE Statement T_RBRACE T_RBRACE { MainClass($15); printf("**MainClass**"); }
     ;
 
 ClassDeclaration
-    : T_CLASS T_ID T_EXTENDS T_ID T_LBRACE VarDeclarationStar MethodDeclarationStar T_RBRACE { printf("**ClassDeclaration1**"); }
-    | T_CLASS T_ID T_LBRACE VarDeclarationStar MethodDeclarationStar T_RBRACE                { printf("**ClassDeclaration2**"); }
+    : T_CLASS T_ID T_EXTENDS T_ID T_LBRACE VarDeclarationStar MethodDeclarationStar T_RBRACE { ClassDeclaration1($6, $7); printf("**ClassDeclaration1**"); }
+    | T_CLASS T_ID T_LBRACE VarDeclarationStar MethodDeclarationStar T_RBRACE                { ClassDeclaration2($4, $5); printf("**ClassDeclaration2**"); }
     ;
 
 ClassDeclarationStar
-    : %empty                                { printf("**ClassDeclarationStar1**"); }
-    | ClassDeclaration ClassDeclarationStar { printf("**ClassDeclarationStar2**"); }
+    : %empty                                { ClassDeclarationStar1();       printf("**ClassDeclarationStar1**"); }
+    | ClassDeclaration ClassDeclarationStar { ClassDeclarationStar2($1, $2); printf("**ClassDeclarationStar2**"); }
     ;
 
 VarDeclaration
-    : Type T_ID T_SEMICOLON { printf("**VarDeclaration**"); }
+    : Type T_ID T_SEMICOLON { VarDeclaration($1); printf("**VarDeclaration**"); }
     ;
 
 VarDeclarationStar
-    : %empty                            { printf("**VarDeclarationStar1**"); }
-    | VarDeclarationStar VarDeclaration { printf("**VarDeclarationStar2**"); }
+    : %empty                            { VarDeclarationStar1();       printf("**VarDeclarationStar1**"); }
+    | VarDeclarationStar VarDeclaration { VarDeclarationStar2($1, $2); printf("**VarDeclarationStar2**"); }
     ;
 
 MethodDeclaration
-    : T_PUBLIC Type T_ID T_LPAREN Type T_ID CommaTypeIdentifierStar T_RPAREN T_LBRACE VarDeclarationStar StatementStar T_RETURN Expression T_SEMICOLON T_RBRACE { printf("**MethodDeclaration1**"); }
-    | T_PUBLIC Type T_ID T_LPAREN T_RPAREN T_LBRACE VarDeclarationStar StatementStar T_RETURN Expression T_SEMICOLON T_RBRACE                                   { printf("**MethodDeclaration2**"); }
+    : T_PUBLIC Type T_ID T_LPAREN Type T_ID CommaTypeIdentifierStar T_RPAREN T_LBRACE VarDeclarationStar StatementStar T_RETURN Expression T_SEMICOLON T_RBRACE { MethodDeclaration1($2, $5, $7, $10, $11, $13); printf("**MethodDeclaration1**"); }
+    | T_PUBLIC Type T_ID T_LPAREN T_RPAREN T_LBRACE VarDeclarationStar StatementStar T_RETURN Expression T_SEMICOLON T_RBRACE                                   { MethodDeclaration2($2, $7, $8, $10); printf("**MethodDeclaration2**"); }
     ;
 
 MethodDeclarationStar
-    : %empty                                    { printf("**MethodDeclarationStar1**"); }
-    | MethodDeclaration MethodDeclarationStar   { printf("**MethodDeclarationStar2**"); }
+    : %empty                                    { MethodDeclarationStar1();       printf("**MethodDeclarationStar1**"); }
+    | MethodDeclaration MethodDeclarationStar   { MethodDeclarationStar2($1, $2); printf("**MethodDeclarationStar2**"); }
     ;
 
 CommaTypeIdentifierStar
-    : %empty                        { printf("**CommaTypeIdentifierStar1**"); }
-    | T_COMMA Type T_ID CommaTypeIdentifierStar   { printf("**CommaTypeIdentifierStar2**"); }
+    : %empty                                      { CommaTypeIdentifierStar1();       printf("**CommaTypeIdentifierStar1**"); }
+    | T_COMMA Type T_ID CommaTypeIdentifierStar   { CommaTypeIdentifierStar2($2, $4); printf("**CommaTypeIdentifierStar2**"); }
     ;
 
 Type
-    : T_INT T_LBRACK T_RBRACK { printf("**Type1**"); }
-    | T_BOOLEAN               { printf("**Type2**"); }
-    | T_INT                   { printf("**Type3**"); }
-    | T_ID                    { printf("**Type4**"); }
+    : T_INT T_LBRACK T_RBRACK { TypeIntArray();   printf("**TypeIntArray**"); }
+    | T_BOOLEAN               { TypeBoolean();    printf("**TypeBoolean**"); }
+    | T_INT                   { TypeInt();        printf("**TypeInt**"); }
+    | T_ID                    { TypeIdentifier(); printf("**TypeIdentifier**"); }
     ;
 
 Statement
-    : T_LBRACE StatementStar T_RBRACE 
-    { printf("**Statement0**"); }
-    | T_IF T_LPAREN Expression T_RPAREN Statement T_ELSE Statement  { printf("**Statement1**"); }
-    | T_WHILE T_LPAREN Expression T_RPAREN Statement                { printf("**Statement2**"); }
-    | T_PRINT T_LPAREN Expression T_RPAREN T_SEMICOLON              { printf("**Statement3**"); }
-    | T_ID T_EQ Expression T_SEMICOLON                              { printf("**Statement4**"); }
-    | T_ID T_LBRACK Expression T_RBRACK T_EQ Expression T_SEMICOLON { printf("**Statement5**"); }
+    : T_LBRACE StatementStar T_RBRACE                               { StatementStar($2);            printf("**StatementStar**"); }
+    | T_IF T_LPAREN Expression T_RPAREN Statement T_ELSE Statement  { StatementIf($3, $5, $6);      printf("**StatementIf**"); }
+    | T_WHILE T_LPAREN Expression T_RPAREN Statement                { StatementWhile($3, $5);       printf("**StatementWhile**"); }
+    | T_PRINT T_LPAREN Expression T_RPAREN T_SEMICOLON              { StatementPrint($3, $5);       printf("**StatementPrint**"); }
+    | T_ID T_EQ Expression T_SEMICOLON                              { StatementIdentifier1($3);     printf("**StatementIdentifier1**"); }
+    | T_ID T_LBRACK Expression T_RBRACK T_EQ Expression T_SEMICOLON { StatementIdentifier2($3, $6); printf("**StatementIdentifier2**"); }
     ;
 
 StatementStar
-    : %empty                    { printf("**StatementStar1**"); }
-    | Statement StatementStar   { printf("**StatementStar2**"); }
+    : %empty                    { StatementStar1();       printf("**StatementStar1**"); }
+    | Statement StatementStar   { StatementStar2($1, $2); printf("**StatementStar2**"); }
     ;
 
 Expression
-    : Expression T_ANDAND Expression                                         { printf("**Expression1**"); }
-    | Expression T_LT Expression                                             { printf("**Expression2**"); }
-    | Expression T_PLUS Expression                                           { printf("**Expression3**"); }
-    | Expression T_MINUS Expression                                          { printf("**Expression4**"); }
-    | Expression T_MULT Expression                                           { printf("**Expression5**"); }
-    | Expression T_LBRACK Expression T_RBRACK                                { printf("**Expression6**"); }
-    | Expression T_DOT T_LENGTH                                              { printf("**Expression7**"); }
-    | Expression T_DOT T_ID T_LPAREN Expression CommaExpressionStar T_RPAREN { printf("**Expression8**"); }
-    | Expression T_DOT T_ID T_LPAREN T_RPAREN                                { printf("**Expression9**"); }
-    | T_INT                                                                  { printf("**Expression10**"); }
-    | T_TRUE                                                                 { printf("**Expression11**"); }
-    | T_FALSE                                                                { printf("**Expression12**"); }
-    | T_ID                                                                   { printf("**Expression13**"); }
-    | T_THIS                                                                 { printf("**Expression14**"); }
-    | T_NEW T_INT T_LBRACK Expression T_RBRACK                               { printf("**Expression15**"); }
-    | T_NEW T_ID T_LPAREN T_RPAREN                                           { printf("**Expression16**"); }
-    | T_NOT Expression                                                       { printf("**Expression17**"); }
-    | T_LPAREN Expression T_RPAREN                                           { printf("**Expression18**"); }
+    : Expression T_ANDAND Expression                                         { ExpressionAndAnd($1, $3);     printf("**ExpressionAndAnd**"); }
+    | Expression T_LT Expression                                             { ExpressionLessThen($1, $3);   printf("**ExpressionLessThen**"); }
+    | Expression T_PLUS Expression                                           { ExpressionPlus($1, $3);       printf("**ExpressionPlus**"); }
+    | Expression T_MINUS Expression                                          { ExpressionMinus($1, $3);      printf("**ExpressionMinus**"); }
+    | Expression T_MULT Expression                                           { ExpressionMult($1, $3);       printf("**ExpressionMult**"); }
+    | Expression T_LBRACK Expression T_RBRACK                                { ExpressionBracks($1, $3);     printf("**ExpressionBracks**"); }
+    | Expression T_DOT T_LENGTH                                              { ExpressionLength($1);         printf("**ExpressionLength**"); }
+    | Expression T_DOT T_ID T_LPAREN Expression CommaExpressionStar T_RPAREN { ExpressionMethod($1, $5, $6); printf("**ExpressionMethod**"); }
+    | Expression T_DOT T_ID T_LPAREN T_RPAREN                                { ExpressionEmptyMethod($1);    printf("**ExpressionEmptyMethod**"); }
+    | T_INT                                                                  { ExpressionInt();              printf("**ExpressionInt**"); }
+    | T_TRUE                                                                 { ExpressionTrue();             printf("**ExpressionTrue**"); }
+    | T_FALSE                                                                { ExpressionFalse();            printf("**ExpressionFalse**"); }
+    | T_ID                                                                   { ExpressionId();               printf("**ExpressionId**"); }
+    | T_THIS                                                                 { ExpressionThis();             printf("**ExpressionThis**"); }
+    | T_NEW T_INT T_LBRACK Expression T_RBRACK                               { ExpressionNew($4);            printf("**ExpressionNew**"); }
+    | T_NEW T_ID T_LPAREN T_RPAREN                                           { ExpressionEmptyNew();         printf("**ExpressionEmptyNew**"); }
+    | T_NOT Expression                                                       { ExpressionNot($2);            printf("**ExpressionNot**"); }
+    | T_LPAREN Expression T_RPAREN                                           { ExpressionParens($2);         printf("**ExpressionParens**"); }
     ;
 
 CommaExpressionStar
-    : %empty                                    { printf("**CommaExpressionStar1**"); }
-    | T_COMMA Expression CommaExpressionStar    { printf("**CommaExpressionStar2**"); }
+    : %empty                                    { CommaExpressionStar1();       printf("**CommaExpressionStar1**"); }
+    | T_COMMA Expression CommaExpressionStar    { CommaExpressionStar2($1, $2); printf("**CommaExpressionStar2**"); }
     ;
 
 %%
