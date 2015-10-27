@@ -124,24 +124,52 @@ public:
 	}
 
 	IClassDeclaration* classDeclaration;
-	IClassDeclarationStar* classDeclarationStar
+	IClassDeclarationStar* classDeclarationStar;
 };
 
 //-----------------------------------------------------
 
 class VarDeclaration : public IVarDeclaration {
 public:
+	VarDeclaration( IType* _type ):
+		type( _type ) {}
 
+	~VarDeclaration() {
+		delete type;
+	}
+
+	void accept( IVisitor* visitor ) {
+		visitor->visit( this );
+	}
+
+	IType* type;
 };
 
 //-----------------------------------------------------
 
 class VarDeclarationStar1 : public IVarDeclarationStar {
+public:
+	VarDeclarationStar1() {}
 
+	~VarDeclarationStar1() {}
+
+	void accept( IVisitor* visitor ) {
+		visitor->visit( this );
+	}
 };
 
 class VarDeclarationStar2 : public IVarDeclarationStar {
+	VarDeclarationStar2( IVarDeclarationStar* _varDeclarationStar, IVarDeclaration* _varDeclaration ):
+		varDeclarationStar( _varDeclarationStar ), varDeclaration( _varDeclaration ) {}
 
+	~VarDeclarationStar2() {}
+
+	void accept( IVisitor* visitor ) {
+		visitor->visit( this );
+	}
+
+	IVarDeclarationStar* varDeclarationStar;
+	IVarDeclaration* varDeclaration;
 };
 
 //-----------------------------------------------------
