@@ -110,4 +110,4 @@ class Interpreter : public Visitor {
 		printTabs(tabsCount+1); printf(";\n");
 		printTabs(tabsCount+1); printf("}\n");
 	}
-}
+};
