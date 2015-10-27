@@ -159,6 +159,7 @@ public:
 };
 
 class VarDeclarationStar2 : public IVarDeclarationStar {
+public:
 	VarDeclarationStar2( IVarDeclarationStar* _varDeclarationStar, IVarDeclaration* _varDeclaration ):
 		varDeclarationStar( _varDeclarationStar ), varDeclaration( _varDeclaration ) {}
 
@@ -175,11 +176,42 @@ class VarDeclarationStar2 : public IVarDeclarationStar {
 //-----------------------------------------------------
 
 class MethodDeclaration1 : public IMethodDeclaration {
+public:
+	MethodDeclaration1( IType* _type1, IType* _type2, ICommaTypeIdentifierStar* _commaType, IVarDeclarationStar* _varDeclarationStar, IStatementStar* _statementStar, IExpression* _expression ):
+		type1( _type1 ), type2( _type2 ), commaType( _commaType ), varDeclarationStar( _varDeclarationStar ), statementStar( _statementStar ), expression( _expression ) {}
 
+	~MethodDeclaration1() {
+		delete type1;
+		delete type2;
+		delete commaType;
+		delete varDeclarationStar;
+		delete statementStar;
+		delete expression;
+	}
+
+	IType* type1, type2;
+	ICommaTypeIdentifierStar* commaType;
+	IVarDeclarationStar* varDeclarationStar;
+	IStatementStar* statementStar;
+	IExpression* expression;
 };
 
 class MethodDeclaration2 : public IMethodDeclaration {
+public:
+	MethodDeclaration2( IType* _type, IVarDeclarationStar* _varDeclarationStar, IStatementStar* _statementStar, IExpression* _expression ):
+		type( _type ), varDeclarationStar( _varDeclarationStar ), statementStar( _statementStar ), expression( _expression ) {}
 
+	~MethodDeclaration2() {
+		delete type;
+		delete varDeclarationStar;
+		delete statementStar;
+		delete expression;
+	}
+
+	IType* type;
+	IVarDeclarationStar* varDeclarationStar;
+	IStatementStar* statementStar;
+	IExpression* expression;
 };
 
 //-----------------------------------------------------
