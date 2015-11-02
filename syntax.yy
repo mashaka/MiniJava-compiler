@@ -132,10 +132,10 @@ Type
     ;
 
 Statement
-    : T_LBRACE StatementStar T_RBRACE                               { StatementStar($2);            printf("**StatementStar**"); }
-    | T_IF T_LPAREN Expression T_RPAREN Statement T_ELSE Statement  { StatementIf($3, $5, $6);      printf("**StatementIf**"); }
+    : T_LBRACE StatementStar T_RBRACE                               { StatementStarBraced($2);      printf("**StatementStarBraced**"); }
+    | T_IF T_LPAREN Expression T_RPAREN Statement T_ELSE Statement  { StatementIf($3, $5, $7);      printf("**StatementIf**"); }
     | T_WHILE T_LPAREN Expression T_RPAREN Statement                { StatementWhile($3, $5);       printf("**StatementWhile**"); }
-    | T_PRINT T_LPAREN Expression T_RPAREN T_SEMICOLON              { StatementPrint($3, $5);       printf("**StatementPrint**"); }
+    | T_PRINT T_LPAREN Expression T_RPAREN T_SEMICOLON              { StatementPrint($3);           printf("**StatementPrint**"); }
     | T_ID T_EQ Expression T_SEMICOLON                              { StatementIdentifier1($3);     printf("**StatementIdentifier1**"); }
     | T_ID T_LBRACK Expression T_RBRACK T_EQ Expression T_SEMICOLON { StatementIdentifier2($3, $6); printf("**StatementIdentifier2**"); }
     ;
