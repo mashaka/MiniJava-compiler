@@ -84,7 +84,7 @@ public:
 		visitor->visit( this, tabsCount );
 	}	
 
-    char* e1, e2;
+    char* e1, *e2;
 	IVarDeclarationStar* e3;
 	IMethodDeclarationStar* e4;
 };
@@ -209,8 +209,8 @@ public:
 		delete e8;
 	}
 
-	IType* e1, e3;
-    char* e2, e4;
+	IType* e1, *e3;
+    char* e2, *e4;
 	ICommaTypeIdentifierStar* e5;
 	IVarDeclarationStar* e6;
 	IStatementStar* e7;
@@ -456,7 +456,7 @@ public:
         visitor->visit( this, tabsCount );
     }
 
-    char* e1
+    char* e1;
     IExpression* e2, e3;
 };
 
@@ -627,7 +627,7 @@ public:
         visitor->visit( this, tabsCount );
     }
 
-    IExpression* e1, e3;
+    IExpression* e1, *e3;
     char* e2;
     ICommaExpressionStar* e4;
 };
