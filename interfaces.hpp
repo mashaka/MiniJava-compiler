@@ -634,7 +634,7 @@ public:
 
 class ExpressionEmptyMethod : public IExpression {
 public:
-    ExpressionEmptyMethod( IExpression* _expression, IType* _type ):
+    ExpressionEmptyMethod( IExpression* _expression, char* _type ):
         e1( _expression ), e2( _type ) {}
 
     ~ExpressionEmptyMethod() {
@@ -647,7 +647,7 @@ public:
     }
 
     IExpression* e1;
-    IType *e2;
+    char *e2;
 };
 
 class ExpressionNum : public IExpression {
