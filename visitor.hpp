@@ -1,3 +1,6 @@
+#pragma once
+#include <stdio.h>
+
 #include "interfaces.hpp"
 
 class IVisitor {
