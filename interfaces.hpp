@@ -27,6 +27,7 @@ interface ICommaExpressionStar : public IAbstract {};
 //-----------------------------------------------------
 
 class Goal : public IGoal {
+public:
 	Goal( IMainClass* _mainClass, IClassDeclarationStar* _classDeclarationStar ):
 		mainClass(_mainClass), classDeclarationStar(_classDeclarationStar) {}
 
@@ -40,12 +41,13 @@ class Goal : public IGoal {
 	}
 
 	IMainClass* mainClass;
-	IClassDeclarationStar* classDeclarationStar
+	IClassDeclarationStar* classDeclarationStar;
 };
 
 //-----------------------------------------------------
 
 class MainClass : public IMainClass {
+public:
 	MainClass( IStatement* _statement ):
 		statement(_statement) {}
 
@@ -617,11 +619,11 @@ public:
     IExpression* expression;
 };
 
-class ExpressionInt : public IExpression {
+class ExpressionNum : public IExpression {
 public:
-    ExpressionInt() {}
+    ExpressionNum() {}
 
-    ~ExpressionInt() {}
+    ~ExpressionNum() {}
 
     void accept( IVisitor* visitor ) {
         visitor->visit( this );

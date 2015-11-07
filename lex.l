@@ -73,11 +73,6 @@
 							printf("EXTENDS");
 							return T_EXTENDS;
 						}
-"float"					{
-							update_location(yyleng);
-							printf("FLOAT");
-							return T_FLOAT;
-						}
 "default"				{
 							update_location(yyleng);
 							printf("DEFAULT");
@@ -117,11 +112,6 @@
 							update_location(yyleng);
 							printf("STATIC");
 							return T_STATIC;
-						}
-"String"				{
-							update_location(yyleng);
-							printf("STRING");
-							return T_STRING;
 						}
 "while"					{
 							update_location(yyleng);
@@ -296,18 +286,8 @@
 						}
 [1-9]+[0-9]*			{
 							update_location(yyleng);
-							printf("INT(%s)", yytext); 
-							return T_INT;
-						}
-([0-9]++\.+[0-9]*)|(\.[0-9]+)		{
-							update_location(yyleng);
-							printf("REAL(%s)", yytext); 
-							return T_FLOAT;
-						}
-\".*\"					{
-							update_location(yyleng);
-							printf("STRING(%s)", yytext);
-							return T_STRING;
+							printf("NUM(%s)", yytext); 
+							return T_NUM;
 						}
 .                       { 	fprintf(stderr, "Unknown token: %s\n", yytext); exit(EXIT_FAILURE); }
 

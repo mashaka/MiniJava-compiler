@@ -17,7 +17,6 @@
 %token T_CONTINUE
 %token T_ELSE
 %token T_EXTENDS
-%token T_FLOAT
 %token T_DEFAULT
 %token T_INT
 %token T_NEW
@@ -62,6 +61,7 @@
 %token T_NULL
 %token T_ID
 %token T_PRINT
+%token T_NUM
 
 %left T_COMMA
 %left T_DOT
@@ -158,7 +158,7 @@ Expression
     | Expression T_DOT T_LENGTH                                              { $$ = new ExpressionLength($1);         }
     | Expression T_DOT T_ID T_LPAREN Expression CommaExpressionStar T_RPAREN { $$ = new ExpressionMethod($1, $5, $6); }
     | Expression T_DOT T_ID T_LPAREN T_RPAREN                                { $$ = new ExpressionEmptyMethod($1);    }
-    | T_INT                                                                  { $$ = new ExpressionInt();              }
+    | T_NUM                                                                  { $$ = new ExpressionNum();              }
     | T_TRUE                                                                 { $$ = new ExpressionTrue();             }
     | T_FALSE                                                                { $$ = new ExpressionFalse();            }
     | T_ID                                                                   { $$ = new ExpressionId();               }
