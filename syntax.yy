@@ -157,7 +157,7 @@ Expression
     | Expression T_LBRACK Expression T_RBRACK                                { $$ = new ExpressionBracks($1, $3);         }
     | Expression T_DOT T_LENGTH                                              { $$ = new ExpressionLength($1);             }
     | Expression T_DOT T_ID T_LPAREN Expression CommaExpressionStar T_RPAREN { $$ = new ExpressionMethod($1, $3, $5, $6); }
-    | Expression T_DOT T_ID T_LPAREN T_RPAREN                                { $$ = new ExpressionEmptyMethod($1);        }
+    | Expression T_DOT T_ID T_LPAREN T_RPAREN                                { $$ = new ExpressionEmptyMethod($1, $3);        }
     | T_NUM                                                                  { $$ = new ExpressionNum($1);                }
     | T_TRUE                                                                 { $$ = new ExpressionTrue();                 }
     | T_FALSE                                                                { $$ = new ExpressionFalse();                }

@@ -63,17 +63,6 @@ class Interpreter : public IVisitor {
 		n->e2->accept(this, tabsCount + 1); //ClassDeclarationStar
 	}
 
-	void visit(const MethodDeclarationStar1* n, int tabsCount){
-		printTabs(tabsCount); 	printf("%s\n", "MethodDeclarationStar1");
-		printTabs(tabsCount+1); printf("empty\n");
-	}
-
-	void visit(const MethodDeclarationStar2* n, int tabsCount){
-		printTabs(tabsCount); 	printf("%s\n", "MethodDeclarationStar2");
-		n->e1->accept(this, tabsCount + 1); //MethodDeclaration
-		n->e2->accept(this, tabsCount + 1); //MethodDeclarationStar
-	}
-
 	void visit(const VarDeclaration* n, int tabsCount){
 		printTabs(tabsCount); 	printf("%s\n", "VarDeclaration");
 		n->e1->accept(this, tabsCount + 1); //Type
@@ -90,6 +79,17 @@ class Interpreter : public IVisitor {
 		printTabs(tabsCount); 	printf("%s\n", "VarDeclarationStar2");
 		n->e1->accept(this, tabsCount + 1); //VarDeclarationStar
 		n->e2->accept(this, tabsCount + 1); //VarDeclaration
+	}
+
+	void visit(const MethodDeclarationStar1* n, int tabsCount){
+		printTabs(tabsCount); 	printf("%s\n", "MethodDeclarationStar1");
+		printTabs(tabsCount+1); printf("empty\n");
+	}
+
+	void visit(const MethodDeclarationStar2* n, int tabsCount){
+		printTabs(tabsCount); 	printf("%s\n", "MethodDeclarationStar2");
+		n->e1->accept(this, tabsCount + 1); //MethodDeclaration
+		n->e2->accept(this, tabsCount + 1); //MethodDeclarationStar
 	}
 
 	void visit(const MethodDeclaration1* n, int tabsCount){
@@ -159,13 +159,11 @@ class Interpreter : public IVisitor {
 	//Type 2
 	void visit(const TypeBoolean* n, int tabsCount){
 		printTabs(tabsCount); 	printf("%s\n", "TypeBoolean");
-		printTabs(tabsCount+1); printf("BOOL(%s)\n", n->e1); //value
 	}
 
 	//Type 3
 	void visit(const TypeInt* n, int tabsCount){
 		printTabs(tabsCount); 	printf("%s\n", "TypeInt");
-		printTabs(tabsCount+1); printf("INT(%s)\n", n->e1); //value
 	}
 
 	//Type 4
