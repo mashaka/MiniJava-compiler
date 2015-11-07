@@ -29,75 +29,85 @@ interface ICommaExpressionStar : public IAbstract {};
 class Goal : public IGoal {
 public:
 	Goal( IMainClass* _mainClass, IClassDeclarationStar* _classDeclarationStar ):
-		mainClass(_mainClass), classDeclarationStar(_classDeclarationStar) {}
+		e1(_mainClass), e2(_classDeclarationStar) {}
 
 	~Goal() {
-		delete mainClass;
-		delete classDeclarationStar;
+		delete e1;
+		delete e2;
 	}
 
 	void accept( IVisitor* visitor ) {
 		visitor->visit( this );
 	}
 
-	IMainClass* mainClass;
-	IClassDeclarationStar* classDeclarationStar;
+	IMainClass* e1;
+	IClassDeclarationStar* e2;
 };
 
 //-----------------------------------------------------
 
 class MainClass : public IMainClass {
 public:
-	MainClass( IStatement* _statement ):
-		statement(_statement) {}
+	MainClass( IType* _type1, IType* _type2, IStatement* _statement ):
+		e1(_type1), e2(_type2), e3(_statement) {}
 
 	~MainClass() {
-		delete statement;
+		delete e1;
+        delete e2;
+        delete e3;
 	}
 
 	void accept( IVisitor* visitor ) {
 		visitor->visit( this );
 	}
 
-	IStatement* statement;
+    IType* e1;
+    IType* e2;
+	IStatement* e3;
 };
 
 //-----------------------------------------------------
 
 class ClassDeclaration1 : public IClassDeclaration {
 public:
-	ClassDeclaration1( IVarDeclarationStar* _varDeclarationStar, IMethodDeclarationStar* _methodDeclarationStar ):
-		varDeclarationStar( _varDeclarationStar ), methodDeclarationStar(_methodDeclarationStar) {}
+	ClassDeclaration1( IType* _type1, IType* _type2, IVarDeclarationStar* _varDeclarationStar, IMethodDeclarationStar* _methodDeclarationStar ):
+		e1(_type1), e2(_type2), e3( _varDeclarationStar ), e4(_methodDeclarationStar) {}
 
 	~ClassDeclaration1() {
-		delete varDeclarationStar;
-		delete methodDeclarationStar;
+		delete e1;
+		delete e2;
+        delete e3;
+        delete e4;
 	}
 
 	void accept( IVisitor* visitor ) {
 		visitor->visit( this );
 	}	
 
-	IVarDeclarationStar* varDeclarationStar;
-	IMethodDeclarationStar* methodDeclarationStar;
+    IType* e1;
+    IType* e2;
+	IVarDeclarationStar* e3;
+	IMethodDeclarationStar* e4;
 };
 
 class ClassDeclaration2 : public IClassDeclaration {
 public:
-	ClassDeclaration2( IVarDeclarationStar* _varDeclarationStar, IMethodDeclarationStar* _methodDeclarationStar ):
-		varDeclarationStar( _varDeclarationStar ), methodDeclarationStar(_methodDeclarationStar) {}
+	ClassDeclaration2( IType* _type, IVarDeclarationStar* _varDeclarationStar, IMethodDeclarationStar* _methodDeclarationStar ):
+		e1(_type), e2( _varDeclarationStar ), e3(_methodDeclarationStar) {}
 
 	~ClassDeclaration2() {
-		delete varDeclarationStar;
-		delete methodDeclarationStar;
+		delete e1;
+		delete e2;
+        delete e3;
 	}
 
 	void accept( IVisitor* visitor ) {
 		visitor->visit( this );
 	}
 
-	IVarDeclarationStar* varDeclarationStar;
-	IMethodDeclarationStar* methodDeclarationStar;
+    IType* e1;
+	IVarDeclarationStar* e2;
+	IMethodDeclarationStar* e3;
 };
 
 //-----------------------------------------------------
@@ -116,37 +126,39 @@ public:
 class ClassDeclarationStar2 : public IClassDeclarationStar {
 public:
 	ClassDeclarationStar2( IClassDeclaration* _classDeclaration, IClassDeclarationStar* _classDeclarationStar ):
-		classDeclaration( _classDeclaration ), classDeclarationStar( classDeclarationStar ) {}
+		e1( _classDeclaration ), e2( classDeclarationStar ) {}
 
 	~ClassDeclarationStar2() {
-		delete classDeclaration;
-		delete classDeclarationStar;
+		delete e1;
+		delete e2;
 	}
 
 	void accept( IVisitor* visitor ) {
 		visitor->visit( this );
 	}
 
-	IClassDeclaration* classDeclaration;
-	IClassDeclarationStar* classDeclarationStar;
+	IClassDeclaration* e1;
+	IClassDeclarationStar* e2;
 };
 
 //-----------------------------------------------------
 
 class VarDeclaration : public IVarDeclaration {
 public:
-	VarDeclaration( IType* _type ):
-		type( _type ) {}
+	VarDeclaration( IType* _type1, IType* _type2 ):
+		e1( _type1 ), e2( _type2 ) {}
 
 	~VarDeclaration() {
-		delete type;
+		delete e1;
+        delete e2;
 	}
 
 	void accept( IVisitor* visitor ) {
 		visitor->visit( this );
 	}
 
-	IType* type;
+	IType* e1;
+    IType* e2;
 };
 
 //-----------------------------------------------------
@@ -165,60 +177,63 @@ public:
 class VarDeclarationStar2 : public IVarDeclarationStar {
 public:
 	VarDeclarationStar2( IVarDeclarationStar* _varDeclarationStar, IVarDeclaration* _varDeclaration ):
-		varDeclarationStar( _varDeclarationStar ), varDeclaration( _varDeclaration ) {}
+		e1( _varDeclarationStar ), e2( _varDeclaration ) {}
 
 	~VarDeclarationStar2() {
-		delete varDeclarationStar;
-		delete varDeclaration;
+		delete e1;
+		delete e2;
 	}
 
 	void accept( IVisitor* visitor ) {
 		visitor->visit( this );
 	}
 
-	IVarDeclarationStar* varDeclarationStar;
-	IVarDeclaration* varDeclaration;
+	IVarDeclarationStar* e1;
+	IVarDeclaration* e2;
 };
 
 //-----------------------------------------------------
 
 class MethodDeclaration1 : public IMethodDeclaration {
 public:
-	MethodDeclaration1( IType* _type1, IType* _type2, ICommaTypeIdentifierStar* _commaType, IVarDeclarationStar* _varDeclarationStar, IStatementStar* _statementStar, IExpression* _expression ):
-		type1( _type1 ), type2( _type2 ), commaType( _commaType ), varDeclarationStar( _varDeclarationStar ), statementStar( _statementStar ), expression( _expression ) {}
+	MethodDeclaration1( IType* _type1, IType* _type2, IType* _type3, IType* _type4, ICommaTypeIdentifierStar* _commaType, IVarDeclarationStar* _varDeclarationStar, IStatementStar* _statementStar, IExpression* _expression ):
+		e1( _type1 ), e2( _type2 ), e3( _type1 ), e4( _type2 ), e5( _commaType ), e6( _varDeclarationStar ), e7( _statementStar ), e8( _expression ) {}
 
 	~MethodDeclaration1() {
-		delete type1;
-		delete type2;
-		delete commaType;
-		delete varDeclarationStar;
-		delete statementStar;
-		delete expression;
+		delete e1;
+		delete e2;
+        delete e3;
+        delete e4;
+		delete e5;
+		delete e6;
+		delete e7;
+		delete e8;
 	}
 
-	IType* type1, type2;
-	ICommaTypeIdentifierStar* commaType;
-	IVarDeclarationStar* varDeclarationStar;
-	IStatementStar* statementStar;
-	IExpression* expression;
+	IType* e1, e2, e3, e4;
+	ICommaTypeIdentifierStar* e5;
+	IVarDeclarationStar* e6;
+	IStatementStar* e7;
+	IExpression* e8;
 };
 
 class MethodDeclaration2 : public IMethodDeclaration {
 public:
-	MethodDeclaration2( IType* _type, IVarDeclarationStar* _varDeclarationStar, IStatementStar* _statementStar, IExpression* _expression ):
-		type( _type ), varDeclarationStar( _varDeclarationStar ), statementStar( _statementStar ), expression( _expression ) {}
+	MethodDeclaration2( IType* _type1, IType* _type2, IVarDeclarationStar* _varDeclarationStar, IStatementStar* _statementStar, IExpression* _expression ):
+		e1( _type1 ), e2( _type2 ), e3( _varDeclarationStar ), e4( _statementStar ), e5( _expression ) {}
 
 	~MethodDeclaration2() {
-		delete type;
-		delete varDeclarationStar;
-		delete statementStar;
-		delete expression;
+		delete e1;
+		delete e2;
+		delete e3;
+		delete e4;
+        delete e5;
 	}
 
-	IType* type;
-	IVarDeclarationStar* varDeclarationStar;
-	IStatementStar* statementStar;
-	IExpression* expression;
+	IType* e1, e2;
+	IVarDeclarationStar* e3;
+	IStatementStar* e4;
+	IExpression* e5;
 };
 
 //-----------------------------------------------------
@@ -237,19 +252,19 @@ public:
 class MethodDeclarationStar2 : public IMethodDeclarationStar {
 public:
 	MethodDeclarationStar2( IMethodDeclaration* _methodDeclaration, IMethodDeclarationStar* _methodDeclarationStar ):
-		methodDeclaration( _methodDeclaration ), methodDeclarationStar( _methodDeclarationStar ) {}
+		e1( _methodDeclaration ), e2( _methodDeclarationStar ) {}
 
 	~MethodDeclarationStar2() {
-		delete methodDeclaration;
-		delete methodDeclarationStar;
+		delete e1;
+		delete e2;
 	}
 
 	void accept( IVisitor* visitor ) {
 		visitor->visit( this );
 	}
 
-	IMethodDeclaration* methodDeclaration;
-	IMethodDeclarationStar* methodDeclarationStar;
+	IMethodDeclaration* e1;
+	IMethodDeclarationStar* e2;
 };
 
 //-----------------------------------------------------
@@ -267,20 +282,21 @@ public:
 
 class CommaTypeIdentifierStar2 : public ICommaTypeIdentifierStar {
 public:
-	CommaTypeIdentifierStar2( IType* _type, ICommaTypeIdentifierStar* _commaTypeIdentifierStar ):
-		type( _type ), commaTypeIdentifierStar( _commaTypeIdentifierStar ) {}
+	CommaTypeIdentifierStar2( IType* _type1, IType* _type2, ICommaTypeIdentifierStar* _commaTypeIdentifierStar ):
+		e1( _type1 ), e2( _type2 ), e3( _commaTypeIdentifierStar ) {}
 
 	~CommaTypeIdentifierStar2() {
-		delete type;
-		delete commaTypeIdentifierStar;
+		delete e1;
+		delete e2;
+        delete e3;
 	}
 
 	void accept( IVisitor* visitor ) {
 		visitor->visit( this );
 	}
 
-	IType* type;
-	ICommaTypeIdentifierStar* commaTypeIdentifierStar;
+	IType* e1, e2;
+	ICommaTypeIdentifierStar* e3;
 };
 
 //-----------------------------------------------------
@@ -320,13 +336,18 @@ public:
 
 class TypeIdentifier : public IType {
 public:
-    TypeIdentifier() {}
+    TypeIdentifier(IType* _type):
+        e1(_type) {}
 
-    ~TypeIdentifier() {}
+    ~TypeIdentifier() {
+        delete e1;
+    }
 
     void accept( IVisitor* visitor ) {
         visitor->visit( this );
     }
+
+    IType* e1;
 };
 
 //-----------------------------------------------------
@@ -334,103 +355,107 @@ public:
 class StatementStarBraced : public IStatement {
 public:
     StatementStarBraced( IStatementStar* _statementStar ):
-        statementStar( _statementStar ) {}
+        e1( _statementStar ) {}
 
     ~StatementStarBraced() {
-        delete statementStar;
+        delete e1;
     }
 
     void accept( IVisitor* visitor ) {
         visitor->visit( this );
     }
 
-    IStatementStar* statementStar;
+    IStatementStar* e1;
 };
 
 class StatementIf : public IStatement {
 public:
     StatementIf( IExpression* _expression, IStatement* _statement1, IStatement* _statement2 ):
-        expression( _expression ), statement1( _statement1 ), statement2( _statement2 ) {}
+        e1( _expression ), e2( _statement1 ), e3( _statement2 ) {}
 
     ~StatementIf() {
-        delete expression;
-        delete statement1;
-        delete statement2;
+        delete e1;
+        delete e2;
+        delete e3;
     }
 
     void accept( IVisitor* visitor ) {
         visitor->visit( this );
     }
 
-    IExpression* expression;
-    IStatement* statement1, statement2;
+    IExpression* e1;
+    IStatement* e2, e3;
 };
 
 class StatementWhile : public IStatement {
 public:
     StatementWhile( IExpression* _expression, IStatement* _statement ):
-        expression( _expression ), statement( _statement ) {}
+        e1( _expression ), e2( _statement ) {}
 
     ~StatementWhile() {
-        delete expression;
-        delete statement;
+        delete e1;
+        delete e2;
     }
 
     void accept( IVisitor* visitor ) {
         visitor->visit( this );
     }
 
-    IExpression* expression;
-    IStatement* statement;
+    IExpression* e1;
+    IStatement* e2;
 };
 
 class StatementPrint : public IStatement {
 public:
     StatementPrint( IExpression* _expression ):
-        expression( _expression ) {}
+        e1( _expression ) {}
 
     ~StatementPrint() {
-        delete expression;
+        delete e1;
     }
 
     void accept( IVisitor* visitor ) {
         visitor->visit( this );
     }
 
-    IExpression* expression;
+    IExpression* e1;
 };
 
 class StatementIdentifier1 : public IStatement {
 public:
-    StatementIdentifier1( IExpression* _expression ):
-        expression( _expression ) {}
+    StatementIdentifier1( IType* _type, IExpression* _expression ):
+        e1( _type ), e2( _expression ) {}
 
     ~StatementIdentifier1() {
-        delete expression;
+        delete e1;
+        delete e2;
     }
 
     void accept( IVisitor* visitor ) {
         visitor->visit( this );
     }
 
-    IExpression* expression;
+    IType* e1;
+    IExpression* e2;
 };
 
 class StatementIdentifier2 : public IStatement {
 public:
-    StatementIdentifier2( IExpression* _expression1, IExpression* _expression2 ):
-        expression1( _expression1 ), expression2( _expression2 ) {}
+    StatementIdentifier2( IType* _type, IExpression* _expression1, IExpression* _expression2 ):
+        e1( _type ), e2( _expression1 ), e3( _expression2 ) {}
 
     ~StatementIdentifier2() {
-        delete expression1;
-        delete expression2;
+        delete e1;
+        delete e2;
+        delete e3;
     }
 
     void accept( IVisitor* visitor ) {
         visitor->visit( this );
     }
 
-    IExpression* expression1, expression2;
+    IType* e1
+    IExpression* e2, e3;
 };
 
 //-----------------------------------------------------
@@ -449,19 +474,19 @@ public:
 class StatementStar2 : public IStatementStar {
 public:
     StatementStar2( IStatement* _statement, IStatementStar* _statementStar ):
-        statement( _statement ), statementStar( _statementStar ) {}
+        e1( _statement ), e2( _statementStar ) {}
 
     ~StatementStar2() {
-        delete statement;
-        delete statementStar;
+        delete e1;
+        delete e2;
     }
 
     void accept( IVisitor* visitor ) {
         visitor->visit( this );
     }
 
-    IStatement* statement;
-    IStatementStar* statementStar;
+    IStatement* e1;
+    IStatementStar* e2;
 };
 
 //-----------------------------------------------------
@@ -469,165 +494,172 @@ public:
 class ExpressionAndAnd : public IExpression {
 public:
     ExpressionAndAnd( IExpression* _expression1, IExpression* _expression2 ):
-        expression1( _expression1 ), expression2( _expression2 ) {}
+        e1( _expression1 ), e2( _expression2 ) {}
 
     ~ExpressionAndAnd() {
-        delete expression1;
-        delete expression2;
+        delete e1;
+        delete e2;
     }
 
     void accept( IVisitor* visitor ) {
         visitor->visit( this );
     }
 
-    IExpression* expression1, expression2;
+    IExpression* e1, e2;
 };
 
 class ExpressionLessThen : public IExpression {
 public:
     ExpressionLessThen( IExpression* _expression1, IExpression* _expression2 ):
-        expression1( _expression1 ), expression2( _expression2 ) {}
+        e1( _expression1 ), e2( _expression2 ) {}
 
     ~ExpressionLessThen() {
-        delete expression1;
-        delete expression2;
+        delete e1;
+        delete e2;
     }
 
     void accept( IVisitor* visitor ) {
         visitor->visit( this );
     }
 
-    IExpression* expression1, expression2;
+    IExpression* e1, e2;
 };
 
 class ExpressionPlus : public IExpression {
 public:
     ExpressionPlus( IExpression* _expression1, IExpression* _expression2 ):
-        expression1( _expression1 ), expression2( _expression2 ) {}
+        e1( _expression1 ), e2( _expression2 ) {}
 
     ~ExpressionPlus() {
-        delete expression1;
-        delete expression2;
+        delete e1;
+        delete e2;
     }
 
     void accept( IVisitor* visitor ) {
         visitor->visit( this );
     }
 
-    IExpression* expression1, expression2;
+    IExpression* e1, e2;
 };
 
 class ExpressionMinus : public IExpression {
 public:
     ExpressionMinus( IExpression* _expression1, IExpression* _expression2 ):
-        expression1( _expression1 ), expression2( _expression2 ) {}
+        e1( _expression1 ), e2( _expression2 ) {}
 
     ~ExpressionMinus() {
-        delete expression1;
-        delete expression2;
+        delete e1;
+        delete e2;
     }
 
     void accept( IVisitor* visitor ) {
         visitor->visit( this );
     }
 
-    IExpression* expression1, expression2;
+    IExpression* e1, e2;
 };
 
 class ExpressionMult : public IExpression {
 public:
     ExpressionMult( IExpression* _expression1, IExpression* _expression2 ):
-        expression1( _expression1 ), expression2( _expression2 ) {}
+        e1( _expression1 ), e2( _expression2 ) {}
 
     ~ExpressionMult() {
-        delete expression1;
-        delete expression2;
+        delete e1;
+        delete e2;
     }
 
     void accept( IVisitor* visitor ) {
         visitor->visit( this );
     }
 
-    IExpression* expression1, expression2;
+    IExpression* e1, e2;
 };
 
 class ExpressionBracks : public IExpression {
 public:
     ExpressionBracks( IExpression* _expression1, IExpression* _expression2 ):
-        expression1( _expression1 ), expression2( _expression2 ) {}
+        e1( _expression1 ), e2( _expression2 ) {}
 
     ~ExpressionBracks() {
-        delete expression1;
-        delete expression2;
+        delete e1;
+        delete e2;
     }
 
     void accept( IVisitor* visitor ) {
         visitor->visit( this );
     }
 
-    IExpression* expression1, expression2;
+    IExpression* e1, e2;
 };
 
 class ExpressionLength : public IExpression {
 public:
     ExpressionLength( IExpression* _expression ):
-        expression( _expression ) {}
+        e1( _expression ) {}
 
     ~ExpressionLength() {
-        delete expression;
+        delete e1;
     }
 
     void accept( IVisitor* visitor ) {
         visitor->visit( this );
     }
 
-    IExpression* expression;
+    IExpression* e1;
 };
 
 class ExpressionMethod : public IExpression {
 public:
-    ExpressionMethod( IExpression* _expression1, IExpression* _expression2, ICommaExpressionStar* _commaExpressionStar ):
-        expression1( _expression1 ), expression2( _expression2 ), commaExpressionStar( _commaExpressionStar ) {}
+    ExpressionMethod( IExpression* _expression1, IType* _type; IExpression* _expression2, ICommaExpressionStar* _commaExpressionStar ):
+        e1( _expression1 ), e2( _type ), e3( _expression2 ), e4( _commaExpressionStar ) {}
 
     ~ExpressionMethod() {
-        delete expression1;
-        delete expression2;
-        delete commaExpressionStar;
+        delete e1;
+        delete e2;
+        delete e3;
+        delete e4; 
     }
 
     void accept( IVisitor* visitor ) {
         visitor->visit( this );
     }
 
-    IExpression* expression1, expression2;
-    ICommaExpressionStar* commaExpressionStar;
+    IExpression* e1, e3;
+    IType* e2;
+    ICommaExpressionStar* e4;
 };
 
 class ExpressionEmptyMethod : public IExpression {
 public:
-    ExpressionEmptyMethod( IExpression* _expression ):
-        expression( _expression ) {}
+    ExpressionEmptyMethod( IExpression* _expression, IType* _type ):
+        e1( _expression ), e2( _type ) {}
 
     ~ExpressionEmptyMethod() {
-        delete expression;
+        delete e1;
+        delete e2;
     }
 
     void accept( IVisitor* visitor ) {
         visitor->visit( this );
     }
 
-    IExpression* expression;
+    IExpression* e1;
+    IType *e2;
 };
 
 class ExpressionNum : public IExpression {
 public:
-    ExpressionNum() {}
+    ExpressionNum(int value):
+     e1(value) {}
 
     ~ExpressionNum() {}
 
     void accept( IVisitor* visitor ) {
         visitor->visit( this );
     }
+
+    int e1;
 };
 
 class ExpressionTrue : public IExpression {
@@ -654,13 +686,16 @@ public:
 
 class ExpressionId : public IExpression {
 public:
-    ExpressionId() {}
+    ExpressionId(string value):
+        e1(value) {}
 
     ~ExpressionId() {}
 
     void accept( IVisitor* visitor ) {
         visitor->visit( this );
     }
+
+    string e1;
 };
 
 class ExpressionThis : public IExpression {
@@ -676,61 +711,68 @@ public:
 
 class ExpressionNew : public IExpression {
 public:
-    ExpressionNew( IExpression* _expression ):
-        expression( _expression ) {}
+    ExpressionNew( IType* _type, IExpression* _expression ):
+        e1( _type ), e2( _expression ) {}
 
     ~ExpressionNew() {
-        delete expression;
+        delete e1;
+        delete e2;
     }
 
     void accept( IVisitor* visitor ) {
         visitor->visit( this );
     }
 
-    IExpression* expression;
+    IType* e1;
+    IExpression* e2;
 };
 
 class ExpressionEmptyNew : public IExpression {
 public:
-    ExpressionEmptyNew() {}
+    ExpressionEmptyNew( IType* _type ):
+        e1( _type ) {}
 
-    ~ExpressionEmptyNew() {}
+    ~ExpressionEmptyNew() {
+        delete e1;
+    }
 
     void accept( IVisitor* visitor ) {
         visitor->visit( this );
     }
+
+    IType* e1;
 };
 
 class ExpressionNot : public IExpression {
 public:
     ExpressionNot( IExpression* _expression ):
-        expression( _expression ) {}
+        e1( _expression ) {}
 
     ~ExpressionNot() {
-        delete expression;
+        delete e1;
     }
 
     void accept( IVisitor* visitor ) {
         visitor->visit( this );
     }
 
-    IExpression* expression;
+    IExpression* e1;
 };
 
 class ExpressionParens : public IExpression {
 public:
     ExpressionParens( IExpression* _expression ):
-        expression( _expression ) {}
+        e1( _expression ) {}
 
     ~ExpressionParens() {
-        delete expression;
+        delete e1;
     }
 
     void accept( IVisitor* visitor ) {
         visitor->visit( this );
     }
 
-    IExpression* expression;
+    IExpression* e1;
 };
 
 //-----------------------------------------------------
@@ -749,17 +791,17 @@ public:
 class CommaExpressionStar2 : public ICommaExpressionStar {
 public:
     CommaExpressionStar2( IExpression* _expression, ICommaExpressionStar* _commaExpressionStar ):
-        expression( _expression ), commaExpressionStar( _commaExpressionStar ) {}
+        e1( _expression ), e2( _commaExpressionStar ) {}
 
     ~CommaExpressionStar2() {
-        delete expression;
-        delete commaExpressionStar;
+        delete e1;
+        delete e2;
     }
 
     void accept( IVisitor* visitor ) {
         visitor->visit( this );
     }
 
-    IExpression* expression;
-    ICommaExpressionStar* commaExpressionStar;
+    IExpression* e1;
+    ICommaExpressionStar* e2;
 };
