@@ -231,6 +231,7 @@ public:
 };
 
 class MethodDeclarationStar2 : public IMethodDeclarationStar {
+public:
 	MethodDeclarationStar2( IMethodDeclaration* _methodDeclaration, IMethodDeclarationStar* _methodDeclarationStar ):
 		methodDeclaration( _methodDeclaration ), methodDeclarationStar( _methodDeclarationStar ) {}
 
@@ -261,6 +262,7 @@ public:
 };
 
 class CommaTypeIdentifierStar2 : public ICommaTypeIdentifierStar {
+public:
 	CommaTypeIdentifierStar2( IType* _type, ICommaTypeIdentifierStar* _commaTypeIdentifierStar ):
 		type( _type ), commaTypeIdentifierStar( _commaTypeIdentifierStar ) {}
 
@@ -614,6 +616,7 @@ public:
 };
 
 class ExpressionInt : public IExpression {
+public:
     ExpressionInt() {}
 
     ~ExpressionInt() {}
@@ -624,6 +627,7 @@ class ExpressionInt : public IExpression {
 };
 
 class ExpressionTrue : public IExpression {
+public:
     ExpressionTrue() {}
 
     ~ExpressionTrue() {}
@@ -634,6 +638,7 @@ class ExpressionTrue : public IExpression {
 };
 
 class ExpressionFalse : public IExpression {
+public:
     ExpressionFalse() {}
 
     ~ExpressionFalse() {}
@@ -644,6 +649,7 @@ class ExpressionFalse : public IExpression {
 };
 
 class ExpressionId : public IExpression {
+public:
     ExpressionId() {}
 
     ~ExpressionId() {}
@@ -654,6 +660,7 @@ class ExpressionId : public IExpression {
 };
 
 class ExpressionThis : public IExpression {
+public:
     ExpressionThis() {}
 
     ~ExpressionThis() {}
@@ -680,6 +687,7 @@ public:
 };
 
 class ExpressionEmptyNew : public IExpression {
+public:
     ExpressionEmptyNew() {}
 
     ~ExpressionEmptyNew() {}
@@ -724,6 +732,7 @@ public:
 //-----------------------------------------------------
 
 class CommaExpressionStar1 : public ICommaExpressionStar {
+public:
     CommaExpressionStar1() {}
 
     ~CommaExpressionStar1() {}
