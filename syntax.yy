@@ -7,6 +7,7 @@
 %}
 
 %union{
+    char* str;
     IAbstract* node;
 }
 
@@ -59,9 +60,9 @@
 %token T_STRING
 %token T_VOID
 %token T_NULL
-%token T_ID
+%token <str> T_ID
 %token T_PRINT
-%token T_NUM
+%token <str> T_NUM
 
 %left T_COMMA
 %left T_DOT
@@ -131,7 +132,7 @@ Type
     : T_INT T_LBRACK T_RBRACK { $$ = new TypeIntArray();     }
     | T_BOOLEAN               { $$ = new TypeBoolean();      }
     | T_INT                   { $$ = new TypeInt();          }
-    | T_ID                    { $$ = new TypeIdentifier($4); }
+    | T_ID                    { $$ = new TypeIdentifier($1); }
     ;
 
 Statement
@@ -157,7 +158,7 @@ Expression
     | Expression T_LBRACK Expression T_RBRACK                                { $$ = new ExpressionBracks($1, $3);         }
     | Expression T_DOT T_LENGTH                                              { $$ = new ExpressionLength($1);             }
     | Expression T_DOT T_ID T_LPAREN Expression CommaExpressionStar T_RPAREN { $$ = new ExpressionMethod($1, $3, $5, $6); }
-    | Expression T_DOT T_ID T_LPAREN T_RPAREN                                { $$ = new ExpressionEmptyMethod($1, $3);        }
+    | Expression T_DOT T_ID T_LPAREN T_RPAREN                                { $$ = new ExpressionEmptyMethod($1, $3);    }
     | T_NUM                                                                  { $$ = new ExpressionNum($1);                }
     | T_TRUE                                                                 { $$ = new ExpressionTrue();                 }
     | T_FALSE                                                                { $$ = new ExpressionFalse();                }
