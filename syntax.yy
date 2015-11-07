@@ -170,7 +170,7 @@ Expression
 
 CommaExpressionStar
     : %empty                                    { $$ = new CommaExpressionStar1();       }
-    | T_COMMA Expression CommaExpressionStar    { $$ = new CommaExpressionStar2($1, $2); }
+    | T_COMMA Expression CommaExpressionStar    { $$ = new CommaExpressionStar2($2, $3); }
     ;
 
 %%
