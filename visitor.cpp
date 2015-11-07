@@ -336,9 +336,9 @@ class Interpreter : public IVisitor {
 	void visit(const ExpressionNew* n, int tabsCount){
 		printTabs(tabsCount); 	printf("%s\n", "ExpressionNew");
 		printTabs(tabsCount+1); printf("new\n");
-		n->e1->accept(this, tabsCount + 1); //TypeInt
+		printTabs(tabsCount+1); printf("int\n");
 		printTabs(tabsCount+1); printf("[\n");
-		n->e2->accept(this, tabsCount + 1); //Expression
+		n->e1->accept(this, tabsCount + 1); //Expression
 		printTabs(tabsCount+1); printf("]\n");
 	}
 
