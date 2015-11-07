@@ -5,7 +5,7 @@ void printTabs(int tabsCount) {
 		printf("\t");
 }
 
-class Interpreter : public Visitor {
+class Interpreter : public IVisitor {
 	void visit(const Goal* n, int tabsCount) {
 		printTabs(tabsCount); 	printf("%s\n", "Goal");
 		n->e1->accept(this, tabsCount + 1); //MainClass
