@@ -14,7 +14,7 @@ class Interpreter : public IVisitor {
 	void visit(const MainClass* n, int tabsCount){
 		printTabs(tabsCount); 	printf("%s\n", "MainClass");
 		printTabs(tabsCount+1);	printf("CLASS\n");
-		n->e1->accept(this, tabsCount + 1); //TypeIdentifier
+		printTabs(tabsCount+1); printf("ID(%s)\n", n->e1); //valueString
 		printTabs(tabsCount+1);	printf("{\n");
 		printTabs(tabsCount+1); printf("PUBLIC\n");
 		printTabs(tabsCount+1); printf("STATIC\n");
@@ -22,7 +22,7 @@ class Interpreter : public IVisitor {
 		printTabs(tabsCount+1); printf("MAIN\n");
 		printTabs(tabsCount+1); printf("(\n");
 		printTabs(tabsCount+1); printf("STRING[]\n");
-		n->e2->accept(this, tabsCount + 1); //TypeIdentifier 
+		printTabs(tabsCount+1); printf("ID(%s)\n", n->e2); //valueString
 		printTabs(tabsCount+1); printf(")\n"); 
 		printTabs(tabsCount+1); printf("{\n");
 		n->e3->accept(this, tabsCount + 1); //Statement
@@ -33,9 +33,9 @@ class Interpreter : public IVisitor {
 	void visit(const ClassDeclaration1* n, int tabsCount){
 		printTabs(tabsCount); 	printf("%s\n", "ClassDeclaration1");
 		printTabs(tabsCount+1); printf("CLASS\n");
-		n->e1->accept(this, tabsCount + 1); //TypeIdentifier
+		printTabs(tabsCount+1); printf("ID(%s)\n", n->e1); //valueString
 		printTabs(tabsCount+1); printf("EXTENDS\n");
-		n->e2->accept(this, tabsCount + 1); //TypeIdentifier
+		printTabs(tabsCount+1); printf("ID(%s)\n", n->e2); //valueString
 		printTabs(tabsCount+1); printf("{\n");
 		n->e3->accept(this, tabsCount + 1); //VarDeclarationStar
 		n->e4->accept(this, tabsCount + 1); //MethodDeclarationStar
@@ -45,7 +45,7 @@ class Interpreter : public IVisitor {
 	void visit(const ClassDeclaration2* n, int tabsCount){
 		printTabs(tabsCount); 	printf("%s\n", "ClassDeclaration2");
 		printTabs(tabsCount+1); printf("CLASS\n", );
-		n->e1->accept(this, tabsCount + 1); //TypeIdentifier
+		printTabs(tabsCount+1); printf("ID(%s)\n", n->e1); //valueString
 		printTabs(tabsCount+1); printf("{\n");
 		n->e2->accept(this, tabsCount + 1); //VarDeclarationStar
 		n->e3->accept(this, tabsCount + 1); //MethodDeclarationStar
@@ -66,7 +66,7 @@ class Interpreter : public IVisitor {
 	void visit(const VarDeclaration* n, int tabsCount){
 		printTabs(tabsCount); 	printf("%s\n", "VarDeclaration");
 		n->e1->accept(this, tabsCount + 1); //Type
-		n->e2->accept(this, tabsCount + 1); //TypeIdentifier
+		printTabs(tabsCount+1); printf("ID(%s)\n", n->e1); //valueString
 		printTabs(tabsCount+1); printf(";\n");
 	}
 
@@ -96,10 +96,10 @@ class Interpreter : public IVisitor {
 		printTabs(tabsCount); 	printf("%s\n", "MethodDeclaration1");
 		printTabs(tabsCount+1); printf("PUBLIC\n");
 		n->e1->accept(this, tabsCount + 1); //Type
-		n->e2->accept(this, tabsCount + 1); //TypeIdentifier
+		printTabs(tabsCount+1); printf("ID(%s)\n", n->e2); //valueString
 		printTabs(tabsCount+1); printf("(\n");
 		n->e3->accept(this, tabsCount + 1); //Type
-		n->e4->accept(this, tabsCount + 1); //TypeIdentifier
+		printTabs(tabsCount+1); printf("ID(%s)\n", n->e4); //valueString
 		n->e5->accept(this, tabsCount + 1); //CommaTypeIdentifierStar
 		printTabs(tabsCount+1); printf(")\n");
 		printTabs(tabsCount+1); printf("{\n");
@@ -115,7 +115,7 @@ class Interpreter : public IVisitor {
 		printTabs(tabsCount); 	printf("%s\n", "MethodDeclaration2");
 		printTabs(tabsCount+1); printf("PUBLIC\n");
 		n->e1->accept(this, tabsCount + 1); //Type
-		n->e2->accept(this, tabsCount + 1); //TypeIdentifier
+		printTabs(tabsCount+1); printf("ID(%s)\n", n->e2); //valueString
 		printTabs(tabsCount+1); printf("(\n");
 		printTabs(tabsCount+1); printf(")\n");
 		printTabs(tabsCount+1); printf("{\n");
@@ -147,7 +147,7 @@ class Interpreter : public IVisitor {
 		printTabs(tabsCount); 	printf("%s\n", "CommaTypeIdentifierStar2");
 		printTabs(tabsCount+1); printf(",\n");
 		n->e1->accept(this, tabsCount + 1); //Type
-		n->e2->accept(this, tabsCount + 1); //TypeIdentifier
+		printTabs(tabsCount+1); printf("ID(%s)\n", n->e2); //valueString
 		n->e3->accept(this, tabsCount + 1); //CommaTypeIdentifierStar
 	}
 
@@ -210,7 +210,7 @@ class Interpreter : public IVisitor {
 
 	void visit(const StatementIdentifier1* n, int tabsCount){
 		printTabs(tabsCount); 	printf("%s\n", "StatementIdentifier1");
-		n->e1->accept(this, tabsCount + 1); //TypeIdentifier
+		printTabs(tabsCount+1); printf("ID(%s)\n", n->e1); //valueString
 		printTabs(tabsCount+1); printf("=\n");
 		n->e2->accept(this, tabsCount + 1); //Expression
 		printTabs(tabsCount+1); printf(";\n");
@@ -218,7 +218,7 @@ class Interpreter : public IVisitor {
 
 	void visit(const StatementIdentifier2* n, int tabsCount){
 		printTabs(tabsCount); 	printf("%s\n", "StatementIdentifier2");
-		n->e1->accept(this, tabsCount + 1); //TypeIdentifier
+		printTabs(tabsCount+1); printf("ID(%s)\n", n->e1); //valueString
 		printTabs(tabsCount+1); printf("[\n");
 		n->e2->accept(this, tabsCount + 1); //Expression
 		printTabs(tabsCount+1); printf("]\n");
@@ -292,7 +292,7 @@ class Interpreter : public IVisitor {
 		printTabs(tabsCount); 	printf("%s\n", "ExpressionMethod");
 		n->e1->accept(this, tabsCount + 1); //Expression
 		printTabs(tabsCount+1); printf(".\n");
-		n->e2->accept(this, tabsCount + 1); //TypeIdentifier
+		printTabs(tabsCount+1); printf("ID(%s)\n", n->e2); //valueString
 		printTabs(tabsCount+1); printf("(\n");
 		n->e3->accept(this, tabsCount + 1); //Expression
 		n->e4->accept(this, tabsCount + 1); //CommaExpressionStar
@@ -303,14 +303,14 @@ class Interpreter : public IVisitor {
 		printTabs(tabsCount); 	printf("%s\n", "ExpressionEmptyMethod");
 		n->e1->accept(this, tabsCount + 1); //Expression
 		printTabs(tabsCount+1); printf(".\n");
-		n->e2->accept(this, tabsCount + 1); //TypeIdentifier
+		printTabs(tabsCount+1); printf("ID(%s)\n", n->e2); //valueString
 		printTabs(tabsCount+1); printf("(\n");
 		printTabs(tabsCount+1); printf(")\n");
 	}
 
 	void visit(const ExpressionNum* n, int tabsCount){
 		printTabs(tabsCount); 	printf("%s\n", "ExpressionNum");
-		printTabs(tabsCount+1); printf("INT(%s)\n", n->e1); //value
+		printTabs(tabsCount+1); printf("INT(%s)\n", n->e1); //valueString
 	}
 
 	void visit(const ExpressionTrue* n, int tabsCount){
@@ -345,7 +345,7 @@ class Interpreter : public IVisitor {
 	void visit(const ExpressionEmptyNew* n, int tabsCount){
 		printTabs(tabsCount); 	printf("%s\n", "ExpressionEmptyNew");
 		printTabs(tabsCount+1); printf("new\n");
-		n->e1->accept(this, tabsCount + 1); //TypeIdentifier
+		printTabs(tabsCount+1); printf("ID(%s)\n", n->e1); //valueString
 		printTabs(tabsCount+1); printf("(\n");
 		printTabs(tabsCount+1); printf(")\n");
 	}
