@@ -2,6 +2,7 @@
     int yylex(void);
     void yyerror(const char *);
     #include <stdio.h>
+    #incldue <interfaces.hpp>
 // need to include classes.h file or smth like that
 %}
 

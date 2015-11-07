@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
+#include <interfaces.hpp>
 
 
 extern FILE* yyin;

@@ -10,7 +10,7 @@ syntax.tab.cc syntax.tab.hh: syntax.yy
 lex.yy.c: lex.l
 	$(FLEX) $<
 
-mini_java_compiler: lex.yy.c syntax.tab.cc main.cpp
+mini_java_compiler: lex.yy.c syntax.tab.cc main.cpp visitor.cpp
 	$(CXX) -std=c++11 $^ -o $@
 
 	rm -f syntax.tab.cc syntax.tab.hh lex.yy.c syntax.output
