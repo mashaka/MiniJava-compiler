@@ -1,3 +1,5 @@
+#pragma once
+
 #include "visitor.hpp"
 
 #define interface struct
