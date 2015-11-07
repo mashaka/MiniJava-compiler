@@ -541,7 +541,7 @@ public:
         visitor->visit( this, tabsCount );
     }
 
-    IExpression* e1, e2;
+    IExpression* e1, *e2;
 };
 
 class ExpressionMinus : public IExpression {
@@ -558,7 +558,7 @@ public:
         visitor->visit( this, tabsCount );
     }
 
-    IExpression* e1, e2;
+    IExpression* e1, *e2;
 };
 
 class ExpressionMult : public IExpression {
@@ -575,7 +575,7 @@ public:
         visitor->visit( this, tabsCount );
     }
 
-    IExpression* e1, e2;
+    IExpression* e1, *e2;
 };
 
 class ExpressionBracks : public IExpression {
@@ -592,7 +592,7 @@ public:
         visitor->visit( this, tabsCount );
     }
 
-    IExpression* e1, e2;
+    IExpression* e1, *e2;
 };
 
 class ExpressionLength : public IExpression {
