@@ -87,92 +87,92 @@
 %%
 
 Goal
-    : MainClass ClassDeclarationStar { $$ = new Goal($1, $2); }
+    : MainClass ClassDeclarationStar { $$ = new Goal(dynamic_cast<>($1), dynamic_cast<>($2)); }
     ;
 
 MainClass
-    : T_CLASS T_ID T_LBRACE T_PUBLIC T_STATIC T_VOID T_MAIN T_LPAREN T_STRING T_LBRACK T_RBRACK T_ID T_RPAREN T_LBRACE Statement T_RBRACE T_RBRACE { $$ = new MainClass($2, $12, $15); }
+    : T_CLASS T_ID T_LBRACE T_PUBLIC T_STATIC T_VOID T_MAIN T_LPAREN T_STRING T_LBRACK T_RBRACK T_ID T_RPAREN T_LBRACE Statement T_RBRACE T_RBRACE { $$ = new MainClass(dynamic_cast<>($2), dynamic_cast<>($12), dynamic_cast<>($15)); }
     ;
 
 ClassDeclaration
-    : T_CLASS T_ID T_EXTENDS T_ID T_LBRACE VarDeclarationStar MethodDeclarationStar T_RBRACE { $$ = new ClassDeclaration1($2, $4, $6, $7); }
-    | T_CLASS T_ID T_LBRACE VarDeclarationStar MethodDeclarationStar T_RBRACE                { $$ = new ClassDeclaration2($2, $4, $5);     }
+    : T_CLASS T_ID T_EXTENDS T_ID T_LBRACE VarDeclarationStar MethodDeclarationStar T_RBRACE { $$ = new ClassDeclaration1(dynamic_cast<>($2), dynamic_cast<>($4), dynamic_cast<>($6), dynamic_cast<>($7)); }
+    | T_CLASS T_ID T_LBRACE VarDeclarationStar MethodDeclarationStar T_RBRACE                { $$ = new ClassDeclaration2(dynamic_cast<>($2), dynamic_cast<>($4), dynamic_cast<>($5));     }
     ;
 
 ClassDeclarationStar
     : %empty                                { $$ = new ClassDeclarationStar1();       }
-    | ClassDeclaration ClassDeclarationStar { $$ = new ClassDeclarationStar2($1, $2); }
+    | ClassDeclaration ClassDeclarationStar { $$ = new ClassDeclarationStar2(dynamic_cast<>($1), dynamic_cast<>($2)); }
     ;
 
 VarDeclaration
-    : Type T_ID T_SEMICOLON { $$ = new VarDeclaration($1, $2); }
+    : Type T_ID T_SEMICOLON { $$ = new VarDeclaration(dynamic_cast<>($1), dynamic_cast<>($2)); }
     ;
 
 VarDeclarationStar
     : %empty                            { $$ = new VarDeclarationStar1();       }
-    | VarDeclarationStar VarDeclaration { $$ = new VarDeclarationStar2($1, $2); }
+    | VarDeclarationStar VarDeclaration { $$ = new VarDeclarationStar2(dynamic_cast<>($1), dynamic_cast<>($2)); }
     ;
 
 MethodDeclaration
-    : T_PUBLIC Type T_ID T_LPAREN Type T_ID CommaTypeIdentifierStar T_RPAREN T_LBRACE VarDeclarationStar StatementStar T_RETURN Expression T_SEMICOLON T_RBRACE { $$ = new MethodDeclaration1($2, $3, $5, $6, $7, $10, $11, $13); }
-    | T_PUBLIC Type T_ID T_LPAREN T_RPAREN T_LBRACE VarDeclarationStar StatementStar T_RETURN Expression T_SEMICOLON T_RBRACE                                   { $$ = new MethodDeclaration2($2, $3, $7, $8, $10);               }
+    : T_PUBLIC Type T_ID T_LPAREN Type T_ID CommaTypeIdentifierStar T_RPAREN T_LBRACE VarDeclarationStar StatementStar T_RETURN Expression T_SEMICOLON T_RBRACE { $$ = new MethodDeclaration1(dynamic_cast<>($2), dynamic_cast<>($3), dynamic_cast<>($5), dynamic_cast<>($6), dynamic_cast<>($7), dynamic_cast<>($10), dynamic_cast<>($11), dynamic_cast<>($13)); }
+    | T_PUBLIC Type T_ID T_LPAREN T_RPAREN T_LBRACE VarDeclarationStar StatementStar T_RETURN Expression T_SEMICOLON T_RBRACE                                   { $$ = new MethodDeclaration2(dynamic_cast<>($2), dynamic_cast<>($3), dynamic_cast<>($7), dynamic_cast<>($8), dynamic_cast<>($10));               }
     ;
 
 MethodDeclarationStar
     : %empty                                    { $$ = new MethodDeclarationStar1();       }
-    | MethodDeclaration MethodDeclarationStar   { $$ = new MethodDeclarationStar2($1, $2); }
+    | MethodDeclaration MethodDeclarationStar   { $$ = new MethodDeclarationStar2(dynamic_cast<>($1), dynamic_cast<>($2)); }
     ;
 
 CommaTypeIdentifierStar
     : %empty                                      { $$ = new CommaTypeIdentifierStar1();           }
-    | T_COMMA Type T_ID CommaTypeIdentifierStar   { $$ = new CommaTypeIdentifierStar2($2, $3, $4); }
+    | T_COMMA Type T_ID CommaTypeIdentifierStar   { $$ = new CommaTypeIdentifierStar2(dynamic_cast<>($2), dynamic_cast<>($3), dynamic_cast<>($4)); }
     ;
 
 Type
     : T_INT T_LBRACK T_RBRACK { $$ = new TypeIntArray();     }
     | T_BOOLEAN               { $$ = new TypeBoolean();      }
     | T_INT                   { $$ = new TypeInt();          }
-    | T_ID                    { $$ = new TypeIdentifier($1); }
+    | T_ID                    { $$ = new TypeIdentifier(dynamic_cast<>($1)); }
     ;
 
 Statement
-    : T_LBRACE StatementStar T_RBRACE                               { $$ = new StatementStarBraced($2);          }
-    | T_IF T_LPAREN Expression T_RPAREN Statement T_ELSE Statement  { $$ = new StatementIf($3, $5, $7);          }
-    | T_WHILE T_LPAREN Expression T_RPAREN Statement                { $$ = new StatementWhile($3, $5);           }
-    | T_PRINT T_LPAREN Expression T_RPAREN T_SEMICOLON              { $$ = new StatementPrint($3);               }
-    | T_ID T_EQ Expression T_SEMICOLON                              { $$ = new StatementIdentifier1($1, $3);     }
-    | T_ID T_LBRACK Expression T_RBRACK T_EQ Expression T_SEMICOLON { $$ = new StatementIdentifier2($1, $3, $6); }
+    : T_LBRACE StatementStar T_RBRACE                               { $$ = new StatementStarBraced(dynamic_cast<>($2));          }
+    | T_IF T_LPAREN Expression T_RPAREN Statement T_ELSE Statement  { $$ = new StatementIf(dynamic_cast<>($3), dynamic_cast<>($5), dynamic_cast<>($7));          }
+    | T_WHILE T_LPAREN Expression T_RPAREN Statement                { $$ = new StatementWhile(dynamic_cast<>($3), dynamic_cast<>($5));           }
+    | T_PRINT T_LPAREN Expression T_RPAREN T_SEMICOLON              { $$ = new StatementPrint(dynamic_cast<>($3));               }
+    | T_ID T_EQ Expression T_SEMICOLON                              { $$ = new StatementIdentifier1(dynamic_cast<>($1), dynamic_cast<>($3));     }
+    | T_ID T_LBRACK Expression T_RBRACK T_EQ Expression T_SEMICOLON { $$ = new StatementIdentifier2(dynamic_cast<>($1), dynamic_cast<>($3), dynamic_cast<>($6)); }
     ;
 
 StatementStar
     : %empty                    { $$ = new StatementStar1();       }
-    | Statement StatementStar   { $$ = new StatementStar2($1, $2); }
+    | Statement StatementStar   { $$ = new StatementStar2(dynamic_cast<>($1), dynamic_cast<>($2)); }
     ;
 
 Expression
-    : Expression T_ANDAND Expression                                         { $$ = new ExpressionAndAnd($1, $3);         }
-    | Expression T_LT Expression                                             { $$ = new ExpressionLessThen($1, $3);       }
-    | Expression T_PLUS Expression                                           { $$ = new ExpressionPlus($1, $3);           }
-    | Expression T_MINUS Expression                                          { $$ = new ExpressionMinus($1, $3);          }
-    | Expression T_MULT Expression                                           { $$ = new ExpressionMult($1, $3);           }
-    | Expression T_LBRACK Expression T_RBRACK                                { $$ = new ExpressionBracks($1, $3);         }
-    | Expression T_DOT T_LENGTH                                              { $$ = new ExpressionLength($1);             }
-    | Expression T_DOT T_ID T_LPAREN Expression CommaExpressionStar T_RPAREN { $$ = new ExpressionMethod($1, $3, $5, $6); }
-    | Expression T_DOT T_ID T_LPAREN T_RPAREN                                { $$ = new ExpressionEmptyMethod($1, $3);    }
-    | T_NUM                                                                  { $$ = new ExpressionNum($1);                }
+    : Expression T_ANDAND Expression                                         { $$ = new ExpressionAndAnd(dynamic_cast<>($1), dynamic_cast<>($3));         }
+    | Expression T_LT Expression                                             { $$ = new ExpressionLessThen(dynamic_cast<>($1), dynamic_cast<>($3));       }
+    | Expression T_PLUS Expression                                           { $$ = new ExpressionPlus(dynamic_cast<>($1), dynamic_cast<>($3));           }
+    | Expression T_MINUS Expression                                          { $$ = new ExpressionMinus(dynamic_cast<>($1), dynamic_cast<>($3));          }
+    | Expression T_MULT Expression                                           { $$ = new ExpressionMult(dynamic_cast<>($1), dynamic_cast<>($3));           }
+    | Expression T_LBRACK Expression T_RBRACK                                { $$ = new ExpressionBracks(dynamic_cast<>($1), dynamic_cast<>($3));         }
+    | Expression T_DOT T_LENGTH                                              { $$ = new ExpressionLength(dynamic_cast<>($1));             }
+    | Expression T_DOT T_ID T_LPAREN Expression CommaExpressionStar T_RPAREN { $$ = new ExpressionMethod(dynamic_cast<>($1), dynamic_cast<>($3), dynamic_cast<>($5), dynamic_cast<>($6)); }
+    | Expression T_DOT T_ID T_LPAREN T_RPAREN                                { $$ = new ExpressionEmptyMethod(dynamic_cast<>($1), dynamic_cast<>($3));    }
+    | T_NUM                                                                  { $$ = new ExpressionNum(dynamic_cast<>($1));                }
     | T_TRUE                                                                 { $$ = new ExpressionTrue();                 }
     | T_FALSE                                                                { $$ = new ExpressionFalse();                }
-    | T_ID                                                                   { $$ = new ExpressionId($1);                 }
+    | T_ID                                                                   { $$ = new ExpressionId(dynamic_cast<>($1));                 }
     | T_THIS                                                                 { $$ = new ExpressionThis();                 }
-    | T_NEW T_INT T_LBRACK Expression T_RBRACK                               { $$ = new ExpressionNew($4);                }
-    | T_NEW T_ID T_LPAREN T_RPAREN                                           { $$ = new ExpressionEmptyNew($2);           }
-    | T_NOT Expression                                                       { $$ = new ExpressionNot($2);                }
-    | T_LPAREN Expression T_RPAREN                                           { $$ = new ExpressionParens($2);             }
+    | T_NEW T_INT T_LBRACK Expression T_RBRACK                               { $$ = new ExpressionNew(dynamic_cast<>($4));                }
+    | T_NEW T_ID T_LPAREN T_RPAREN                                           { $$ = new ExpressionEmptyNew(dynamic_cast<>($2));           }
+    | T_NOT Expression                                                       { $$ = new ExpressionNot(dynamic_cast<>($2));                }
+    | T_LPAREN Expression T_RPAREN                                           { $$ = new ExpressionParens(dynamic_cast<>($2));             }
     ;
 
 CommaExpressionStar
     : %empty                                    { $$ = new CommaExpressionStar1();       }
-    | T_COMMA Expression CommaExpressionStar    { $$ = new CommaExpressionStar2($2, $3); }
+    | T_COMMA Expression CommaExpressionStar    { $$ = new CommaExpressionStar2(dynamic_cast<>($2), dynamic_cast<>($3)); }
     ;
 
 %%
