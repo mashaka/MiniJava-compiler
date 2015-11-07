@@ -7,7 +7,7 @@
 %}
 
 %union{
-    // need to create buffers or vars for temp data
+    IAbstract* node;
 }
 
 %token T_BOOLEAN
@@ -80,6 +80,8 @@
 %nonassoc T_LBRACK T_RBRACK
 %nonassoc T_IF T_ELSE
 %nonassoc T_LBRACE T_RBRACE
+
+%type <node> Goal, MainClass, ClassDeclaration, ClassDeclarationStar, VarDeclaration, VarDeclarationStar, MethodDeclaration, MethodDeclarationStar, CommaTypeIdentifierStar, Type, Statement, StatementStar, Expression, CommaExpressionStar
 
 %%
 
@@ -169,7 +171,7 @@ Expression
 
 CommaExpressionStar
     : %empty                                    { $$ = new CommaExpressionStar1();       }
-    | T_COMMA Expression CommaExpressionStar    { $$ = new CommaExpressionStar2($1, $2); }
+    | T_COMMA Expression CommaExpressionStar    { $$ = new CommaExpressionStar2($2, $3); }
     ;
 
 %%
