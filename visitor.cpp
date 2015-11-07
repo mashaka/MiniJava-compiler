@@ -81,17 +81,6 @@ class Interpreter : public IVisitor {
 		n->e2->accept(this, tabsCount + 1); //VarDeclaration
 	}
 
-	void visit(const MethodDeclarationStar1* n, int tabsCount){
-		printTabs(tabsCount); 	printf("%s\n", "MethodDeclarationStar1");
-		printTabs(tabsCount+1); printf("empty\n");
-	}
-
-	void visit(const MethodDeclarationStar2* n, int tabsCount){
-		printTabs(tabsCount); 	printf("%s\n", "MethodDeclarationStar2");
-		n->e1->accept(this, tabsCount + 1); //MethodDeclaration
-		n->e2->accept(this, tabsCount + 1); //MethodDeclarationStar
-	}
-
 	void visit(const MethodDeclaration1* n, int tabsCount){
 		printTabs(tabsCount); 	printf("%s\n", "MethodDeclaration1");
 		printTabs(tabsCount+1); printf("PUBLIC\n");

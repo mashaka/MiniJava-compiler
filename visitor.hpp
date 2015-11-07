@@ -66,9 +66,6 @@ public:
 	virtual void visit(const ClassDeclarationStar1* n, int tabsCount) = 0;
 	virtual void visit(const ClassDeclarationStar2* n, int tabsCount) = 0;
 
-	virtual void visit(const MethodDeclarationStar1* n, int tabsCount) = 0;
-	virtual void visit(const MethodDeclarationStar2* n, int tabsCount) = 0;
-
 	virtual void visit(const VarDeclaration* n, int tabsCount) = 0;
 
 	virtual void visit(const VarDeclarationStar1* n, int tabsCount) = 0;
