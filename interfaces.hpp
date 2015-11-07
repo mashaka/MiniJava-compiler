@@ -125,7 +125,7 @@ public:
 class ClassDeclarationStar2 : public IClassDeclarationStar {
 public:
 	ClassDeclarationStar2( IClassDeclaration* _classDeclaration, IClassDeclarationStar* _classDeclarationStar ):
-		e1( _classDeclaration ), e2( classDeclarationStar ) {}
+		e1( _classDeclaration ), e2( _classDeclarationStar ) {}
 
 	~ClassDeclarationStar2() {
 		delete e1;
