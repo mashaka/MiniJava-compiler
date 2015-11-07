@@ -1,9 +1,59 @@
 #pragma once
 
 #include <stdio.h>
-
-
 #include "interfaces.hpp"
+
+
+class Goal;
+class MainClass;
+class ClassDeclaration1;
+class ClassDeclaration2;
+class ClassDeclarationStar1;
+class ClassDeclarationStar2;
+class MethodDeclarationStar1;
+class MethodDeclarationStar2;
+class VarDeclaration;
+class VarDeclarationStar1;
+class VarDeclarationStar2;
+class MethodDeclaration1;
+class MethodDeclaration2;
+class MethodDeclarationStar1;
+class MethodDeclarationStar2;
+class CommaTypeIdentifierStar1;
+class CommaTypeIdentifierStar2;
+class TypeIntArray;
+class TypeBoolean;
+class TypeInt;
+class TypeIdentifier;
+class StatementStarBraced;
+class StatementIf;
+class StatementWhile;
+class StatementPrint;
+class StatementIdentifier1;
+class StatementIdentifier2;
+class StatementStar1;
+class StatementStar2;
+class ExpressionAndAnd;
+class ExpressionLessThen;
+class ExpressionPlus;
+class ExpressionMinus;
+class ExpressionMult;
+class ExpressionBracks;
+class ExpressionLength;
+class ExpressionMethod;
+class ExpressionEmptyMethod;
+class ExpressionNum;
+class ExpressionTrue;
+class ExpressionFalse;
+class ExpressionId;
+class ExpressionThis;
+class ExpressionNew;
+class ExpressionEmptyNew;
+class ExpressionNot;
+class ExpressionParens;
+class CommaExpressionStar1;
+class CommaExpressionStar2;
+
 
 class IVisitor {
 public:
@@ -32,7 +82,7 @@ public:
 
 	virtual void visit(const CommaTypeIdentifierStar1* n, int tabsCount);
 	virtual void visit(const CommaTypeIdentifierStar2* n, int tabsCount);
-	
+
 	virtual void visit(const TypeIntArray* n,   int tabsCount);
 	virtual void visit(const TypeBoolean* n,    int tabsCount);
 	virtual void visit(const TypeInt* n,        int tabsCount);
