@@ -613,7 +613,7 @@ public:
 
 class ExpressionMethod : public IExpression {
 public:
-    ExpressionMethod( IExpression* _expression1, char* _type; IExpression* _expression2, ICommaExpressionStar* _commaExpressionStar ):
+    ExpressionMethod( IExpression* _expression1, char* _type, IExpression* _expression2, ICommaExpressionStar* _commaExpressionStar ):
         e1( _expression1 ), e2( _type ), e3( _expression2 ), e4( _commaExpressionStar ) {}
 
     ~ExpressionMethod() {

@@ -82,7 +82,7 @@
 %nonassoc T_IF T_ELSE
 %nonassoc T_LBRACE T_RBRACE
 
-%type <node> Goal, MainClass, ClassDeclaration, ClassDeclarationStar, VarDeclaration, VarDeclarationStar, MethodDeclaration, MethodDeclarationStar, CommaTypeIdentifierStar, Type, Statement, StatementStar, Expression, CommaExpressionStar
+%type <node> Goal MainClass ClassDeclaration ClassDeclarationStar VarDeclaration VarDeclarationStar MethodDeclaration MethodDeclarationStar CommaTypeIdentifierStar Type Statement StatementStar Expression CommaExpressionStar
 
 %%
 
