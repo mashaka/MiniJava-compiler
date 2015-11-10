@@ -8,7 +8,20 @@
 
 %union{
     char* str;
-    IAbstract* node;
+    IGoal* iGoal;
+    IMainClass* iMainClass;
+    IClassDeclaration* iClassDeclaration;
+    IClassDeclarationStar* iClassDeclarationStar;
+    IVarDeclaration* iVarDeclaration;
+    IVarDeclarationStar* iVarDeclarationStar;
+    IMethodDeclaration* iMethodDeclaration;
+    IMethodDeclarationStar* iMethodDeclarationStar;
+    IType* iType;
+    ICommaTypeIdentifierStar* iCommaTypeIdentifierStar;
+    IStatement* iStatement;
+    IStatementStar* iStatementStar;
+    IExpression* iExpression;
+    ICommaExpressionStar* iCommaExpressionStar;
 }
 
 %token T_BOOLEAN
@@ -82,7 +95,20 @@
 %nonassoc T_IF T_ELSE
 %nonassoc T_LBRACE T_RBRACE
 
-%type <node> Goal MainClass ClassDeclaration ClassDeclarationStar VarDeclaration VarDeclarationStar MethodDeclaration MethodDeclarationStar CommaTypeIdentifierStar Type Statement StatementStar Expression CommaExpressionStar
+%type <iGoal> Goal
+%type <iMainClass> MainClass
+%type <iClassDeclaration> ClassDeclaration
+%type <iClassDeclarationStar> ClassDeclarationStar
+%type <iVarDeclaration> VarDeclaration
+%type <iVarDeclarationStar> VarDeclarationStar
+%type <iMethodDeclaration> MethodDeclaration
+%type <iMethodDeclarationStar> MethodDeclarationStar
+%type <iType> Type
+%type <iCommaTypeIdentifierStar> CommaTypeIdentifierStar
+%type <iStatement> Statement
+%type <iStatementStar> StatementStar
+%type <iExpression> Expression
+%type <iCommaExpressionStar> CommaExpressionStar
 
 %%
 
@@ -150,18 +176,18 @@ StatementStar
     ;
 
 Expression
-    : Expression T_ANDAND Expression                                         { $$ = new ExpressionAndAnd($1, $3);         }
-    | Expression T_LT Expression                                             { $$ = new ExpressionLessThen($1, $3);       }
-    | Expression T_PLUS Expression                                           { $$ = new ExpressionPlus($1, $3);           }
-    | Expression T_MINUS Expression                                          { $$ = new ExpressionMinus($1, $3);          }
-    | Expression T_MULT Expression                                           { $$ = new ExpressionMult($1, $3);           }
+    : Expression T_ANDAND Expression                                         { $$ = new ExpressionBinOp($1, B_ANDAND, $3); }
+    | Expression T_LT Expression                                             { $$ = new ExpressionBinOp($1, B_LT,     $3); }
+    | Expression T_PLUS Expression                                           { $$ = new ExpressionAriOp($1, A_PLUS,   $3); }
+    | Expression T_MINUS Expression                                          { $$ = new ExpressionAriOp($1, A_MINUS,  $3); }
+    | Expression T_MULT Expression                                           { $$ = new ExpressionAriOp($1, A_MULT,   $3); }
     | Expression T_LBRACK Expression T_RBRACK                                { $$ = new ExpressionBracks($1, $3);         }
     | Expression T_DOT T_LENGTH                                              { $$ = new ExpressionLength($1);             }
     | Expression T_DOT T_ID T_LPAREN Expression CommaExpressionStar T_RPAREN { $$ = new ExpressionMethod($1, $3, $5, $6); }
     | Expression T_DOT T_ID T_LPAREN T_RPAREN                                { $$ = new ExpressionEmptyMethod($1, $3);    }
     | T_NUM                                                                  { $$ = new ExpressionNum($1);                }
-    | T_TRUE                                                                 { $$ = new ExpressionTrue();                 }
-    | T_FALSE                                                                { $$ = new ExpressionFalse();                }
+    | T_TRUE                                                                 { $$ = new ExpressionLogical(L_TRUE);        }
+    | T_FALSE                                                                { $$ = new ExpressionLogical(L_FALSE);       }
     | T_ID                                                                   { $$ = new ExpressionId($1);                 }
     | T_THIS                                                                 { $$ = new ExpressionThis();                 }
     | T_NEW T_INT T_LBRACK Expression T_RBRACK                               { $$ = new ExpressionNew($4);                }
