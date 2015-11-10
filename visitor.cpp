@@ -14,7 +14,7 @@ class Interpreter : public IVisitor {
 		tabsCount++;
 		printTabs(tabsCount); 	printf("%s\n", "Goal");
 		n->e1->accept(this); //MainClass
-		n->e2->accept(this); //ClassDeclarationStar
+		n->e2->accept(this); //ClassDeclarationList
 		tabsCount--;
 	}
 
@@ -47,8 +47,8 @@ class Interpreter : public IVisitor {
 		printTabs(tabsCount+1); printf("EXTENDS\n");
 		printTabs(tabsCount+1); printf("ID(%s)\n", n->e2); //valueString
 		printTabs(tabsCount+1); printf("{\n");
-		n->e3->accept(this); //VarDeclarationStar
-		n->e4->accept(this); //MethodDeclarationStar
+		n->e3->accept(this); //VarDeclarationList
+		n->e4->accept(this); //MethodDeclarationList
 		printTabs(tabsCount+1); printf("}\n");
 		tabsCount--;
 	}
@@ -59,24 +59,17 @@ class Interpreter : public IVisitor {
 		printTabs(tabsCount+1); printf("CLASS\n", );
 		printTabs(tabsCount+1); printf("ID(%s)\n", n->e1); //valueString
 		printTabs(tabsCount+1); printf("{\n");
-		n->e2->accept(this); //VarDeclarationStar
-		n->e3->accept(this); //MethodDeclarationStar
+		n->e2->accept(this); //VarDeclarationList
+		n->e3->accept(this); //MethodDeclarationList
 		printTabs(tabsCount+1); printf("}\n");
 		tabsCount--;
 	}
 
-	void visit(const ClassDeclarationStar1* n){
+	void visit(const ClassDeclarationList* n){
 		tabsCount++;
-		printTabs(tabsCount); 	printf("%s\n", "ClassDeclarationStar1");
-		printTabs(tabsCount+1); printf("empty\n");
-		tabsCount--;
-	}
-
-	void visit(const ClassDeclarationStar2* n){
-		tabsCount++;
-		printTabs(tabsCount); 	printf("%s\n", "ClassDeclarationStar2");
+		printTabs(tabsCount); 	printf("%s\n", "ClassDeclarationList");
 		n->e1->accept(this); //ClassDeclaration
-		n->e2->accept(this); //ClassDeclarationStar
+		n->e2->accept(this); //ClassDeclarationList
 		tabsCount--;
 	}
 
@@ -89,17 +82,10 @@ class Interpreter : public IVisitor {
 		tabsCount--;
 	}
 
-	void visit(const VarDeclarationStar1* n){
+	void visit(const VarDeclarationList* n){
 		tabsCount++;
-		printTabs(tabsCount); 	printf("%s\n", "VarDeclarationStar1");
-		printTabs(tabsCount+1); printf("empty\n");
-		tabsCount--;
-	}
-
-	void visit(const VarDeclarationStar2* n){
-		tabsCount++;
-		printTabs(tabsCount); 	printf("%s\n", "VarDeclarationStar2");
-		n->e1->accept(this); //VarDeclarationStar
+		printTabs(tabsCount); 	printf("%s\n", "VarDeclarationList");
+		n->e1->accept(this); //VarDeclarationList
 		n->e2->accept(this); //VarDeclaration
 		tabsCount--;
 	}
@@ -113,11 +99,11 @@ class Interpreter : public IVisitor {
 		printTabs(tabsCount+1); printf("(\n");
 		n->e3->accept(this); //Type
 		printTabs(tabsCount+1); printf("ID(%s)\n", n->e4); //valueString
-		n->e5->accept(this); //CommaTypeIdentifierStar
+		n->e5->accept(this); //CommaTypeIdentifierList
 		printTabs(tabsCount+1); printf(")\n");
 		printTabs(tabsCount+1); printf("{\n");
-		n->e6->accept(this); //VarDeclarationStar
-		n->e7->accept(this); //StatementStar
+		n->e6->accept(this); //VarDeclarationList
+		n->e7->accept(this); //StatementList
 		printTabs(tabsCount+1); printf("RETURN\n");
 		n->e8->accept(this); //Expression
 		printTabs(tabsCount+1); printf(";\n");
@@ -134,8 +120,8 @@ class Interpreter : public IVisitor {
 		printTabs(tabsCount+1); printf("(\n");
 		printTabs(tabsCount+1); printf(")\n");
 		printTabs(tabsCount+1); printf("{\n");
-		n->e3->accept(this); //VarDeclarationStar
-		n->e4->accept(this); //StatementStar
+		n->e3->accept(this); //VarDeclarationList
+		n->e4->accept(this); //StatementList
 		printTabs(tabsCount+1); printf("RETURN\n");
 		n->e5->accept(this); //Expression
 		printTabs(tabsCount+1); printf(";\n");
@@ -143,35 +129,21 @@ class Interpreter : public IVisitor {
 		tabsCount--;
 	}
 
-	void visit(const MethodDeclarationStar1* n){
+	void visit(const MethodDeclarationList* n){
 		tabsCount++;
-		printTabs(tabsCount); 	printf("%s\n", "MethodDeclarationStar1");
-		printTabs(tabsCount+1); printf("empty\n");
-		tabsCount--;
-	}
-
-	void visit(const MethodDeclarationStar2* n){
-		tabsCount++;
-		printTabs(tabsCount); 	printf("%s\n", "MethodDeclarationStar2");
+		printTabs(tabsCount); 	printf("%s\n", "MethodDeclarationList");
 		n->e1->accept(this); //MethodDeclaration
-		n->e2->accept(this); //MethodDeclarationStar
+		n->e2->accept(this); //MethodDeclarationList
 		tabsCount--;
 	}
 
-	void visit(const CommaTypeIdentifierStar1* n){
+	void visit(const CommaTypeIdentifierList* n){
 		tabsCount++;
-		printTabs(tabsCount); 	printf("%s\n", "CommaTypeIdentifierStar1");
-		printTabs(tabsCount+1); printf("empty\n");
-		tabsCount--;
-	}
-
-	void visit(const CommaTypeIdentifierStar2* n){
-		tabsCount++;
-		printTabs(tabsCount); 	printf("%s\n", "CommaTypeIdentifierStar2");
+		printTabs(tabsCount); 	printf("%s\n", "CommaTypeIdentifierList");
 		printTabs(tabsCount+1); printf(",\n");
 		n->e1->accept(this); //Type
 		printTabs(tabsCount+1); printf("ID(%s)\n", n->e2); //valueString
-		n->e3->accept(this); //CommaTypeIdentifierStar
+		n->e3->accept(this); //CommaTypeIdentifierList
 		tabsCount--;
 	}
 
@@ -204,11 +176,11 @@ class Interpreter : public IVisitor {
 		tabsCount--;
 	}
 
-	void visit(const StatementStarBraced* n){
+	void visit(const StatementListBraced* n){
 		tabsCount++;
-		printTabs(tabsCount); 	printf("%s\n", "StatementStarBraced");
+		printTabs(tabsCount); 	printf("%s\n", "StatementListBraced");
 		printTabs(tabsCount+1); printf("{\n");
-		n->e1->accept(this); //StatementStar
+		n->e1->accept(this); //StatementList
 		printTabs(tabsCount+1); printf("}\n");
 		tabsCount--;
 	}
@@ -271,62 +243,28 @@ class Interpreter : public IVisitor {
 		tabsCount--;
 	}
 
-	void visit(const StatementStar1* n){
+	void visit(const StatementList* n){
 		tabsCount++;
-		printTabs(tabsCount); 	printf("%s\n", "StatementStar1");
-		printTabs(tabsCount+1); printf("empty\n");
-		tabsCount--;
-	}
-
-	void visit(const StatementStar2* n){
-		tabsCount++;
-		printTabs(tabsCount); 	printf("%s\n", "StatementStar2");
+		printTabs(tabsCount); 	printf("%s\n", "StatementList");
 		n->e1->accept(this); //Statement
-		n->e2->accept(this); //StatementStar
+		n->e2->accept(this); //StatementList
 		tabsCount--;
 	}
 
-	void visit(const ExpressionAndAnd* n){
+	void visit(const ExpressionBinOp* n){
 		tabsCount++;
-		printTabs(tabsCount); 	printf("%s\n", "ExpressionAndAnd");
+		printTabs(tabsCount); 	printf("%s\n", "ExpressionBinOp");
 		n->e1->accept(this); //Expression
 		printTabs(tabsCount+1); printf("&&\n");
 		n->e2->accept(this); //Expression
 		tabsCount--;
 	}
 
-	void visit(const ExpressionLessThen* n){
+	void visit(const ExpressionAriOp* n){
 		tabsCount++;
-		printTabs(tabsCount); 	printf("%s\n", "ExpressionLessThen");
-		n->e1->accept(this); //Expression
-		printTabs(tabsCount+1); printf("<\n");
-		n->e2->accept(this); //Expression
-		tabsCount--;
-	}
-
-	void visit(const ExpressionPlus* n){
-		tabsCount++;
-		printTabs(tabsCount); 	printf("%s\n", "ExpressionPlus");
+		printTabs(tabsCount); 	printf("%s\n", "ExpressionAriOp");
 		n->e1->accept(this); //Expression
 		printTabs(tabsCount+1); printf("+\n");
-		n->e2->accept(this); //Expression
-		tabsCount--;
-	}
-
-	void visit(const ExpressionMinus* n){
-		tabsCount++;
-		printTabs(tabsCount); 	printf("%s\n", "ExpressionMinus");
-		n->e1->accept(this); //Expression
-		printTabs(tabsCount+1); printf("-\n");
-		n->e2->accept(this); //Expression
-		tabsCount--;
-	}
-
-	void visit(const ExpressionMult* n){
-		tabsCount++;
-		printTabs(tabsCount); 	printf("%s\n", "ExpressionMult");
-		n->e1->accept(this); //Expression
-		printTabs(tabsCount+1); printf("*\n");
 		n->e2->accept(this); //Expression
 		tabsCount--;
 	}
@@ -358,7 +296,7 @@ class Interpreter : public IVisitor {
 		printTabs(tabsCount+1); printf("ID(%s)\n", n->e2); //valueString
 		printTabs(tabsCount+1); printf("(\n");
 		n->e3->accept(this); //Expression
-		n->e4->accept(this); //CommaExpressionStar
+		n->e4->accept(this); //CommaExpressionList
 		printTabs(tabsCount+1); printf(")\n");
 		tabsCount--;
 	}
@@ -381,17 +319,10 @@ class Interpreter : public IVisitor {
 		tabsCount--;
 	}
 
-	void visit(const ExpressionTrue* n){
+	void visit(const ExpressionLogOp* n){
 		tabsCount++;
-		printTabs(tabsCount); 	printf("%s\n", "ExpressionTrue");
+		printTabs(tabsCount); 	printf("%s\n", "ExpressionLogOp");
 		printTabs(tabsCount+1); printf("true\n");
-		tabsCount--;
-	}
-
-	void visit(const ExpressionFalse* n){
-		tabsCount++;
-		printTabs(tabsCount); 	printf("%s\n", "ExpressionFalse");
-		printTabs(tabsCount+1); printf("false\n");
 		tabsCount--;
 	}
 
@@ -447,19 +378,12 @@ class Interpreter : public IVisitor {
 		tabsCount--;
 	}
 
-	void visit(const CommaExpressionStar1* n){
+	void visit(const CommaExpressionList* n){
 		tabsCount++;
-		printTabs(tabsCount); 	printf("%s\n", "CommaExpressionStar1");
-		printTabs(tabsCount+1); printf("empty\n");
-		tabsCount--;
-	}
-
-	void visit(const CommaExpressionStar2* n){
-		tabsCount++;
-		printTabs(tabsCount); 	printf("%s\n", "CommaExpressionStar2");
+		printTabs(tabsCount); 	printf("%s\n", "CommaExpressionList");
 		printTabs(tabsCount+1); printf(",\n");
 		n->e1->accept(this); //Expression
-		n->e2->accept(this); //CommaExpressionStar
+		n->e2->accept(this); //CommaExpressionList
 		tabsCount--;
 	}
 };

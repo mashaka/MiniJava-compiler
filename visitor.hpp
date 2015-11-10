@@ -8,51 +8,39 @@ class Goal;
 class MainClass;
 class ClassDeclaration1;
 class ClassDeclaration2;
-class ClassDeclarationStar1;
-class ClassDeclarationStar2;
-class MethodDeclarationStar1;
-class MethodDeclarationStar2;
+class ClassDeclarationList;
 class VarDeclaration;
-class VarDeclarationStar1;
-class VarDeclarationStar2;
+class VarDeclarationList;
 class MethodDeclaration1;
 class MethodDeclaration2;
-class MethodDeclarationStar1;
-class MethodDeclarationStar2;
-class CommaTypeIdentifierStar1;
-class CommaTypeIdentifierStar2;
+class MethodDeclarationList;
+class CommaTypeIdentifierList;
 class TypeIntArray;
 class TypeBoolean;
 class TypeInt;
 class TypeIdentifier;
-class StatementStarBraced;
+class StatementListBraced;
 class StatementIf;
 class StatementWhile;
 class StatementPrint;
 class StatementIdentifier1;
 class StatementIdentifier2;
-class StatementStar1;
-class StatementStar2;
-class ExpressionAndAnd;
-class ExpressionLessThen;
-class ExpressionPlus;
-class ExpressionMinus;
-class ExpressionMult;
+class StatementList;
+class ExpressionBinOp;
+class ExpressionAriOp;
 class ExpressionBracks;
 class ExpressionLength;
 class ExpressionMethod;
 class ExpressionEmptyMethod;
 class ExpressionNum;
-class ExpressionTrue;
-class ExpressionFalse;
+class ExpressionLogOp;
 class ExpressionId;
 class ExpressionThis;
 class ExpressionNew;
 class ExpressionEmptyNew;
 class ExpressionNot;
 class ExpressionParens;
-class CommaExpressionStar1;
-class CommaExpressionStar2;
+class CommaExpressionList;
 
 
 class IVisitor {
@@ -63,50 +51,41 @@ public:
 	virtual void visit(const ClassDeclaration1* n, int tabsCount) = 0;
 	virtual void visit(const ClassDeclaration2* n, int tabsCount) = 0;
 
-	virtual void visit(const ClassDeclarationStar1* n, int tabsCount) = 0;
-	virtual void visit(const ClassDeclarationStar2* n, int tabsCount) = 0;
+	virtual void visit(const ClassDeclarationList* n, int tabsCount) = 0;
 
 	virtual void visit(const VarDeclaration* n, int tabsCount) = 0;
 
-	virtual void visit(const VarDeclarationStar1* n, int tabsCount) = 0;
-	virtual void visit(const VarDeclarationStar2* n, int tabsCount) = 0;
+	virtual void visit(const VarDeclarationList* n, int tabsCount) = 0;
 
 	virtual void visit(const MethodDeclaration1* n, int tabsCount) = 0;
 	virtual void visit(const MethodDeclaration2* n, int tabsCount) = 0;
 
-	virtual void visit(const MethodDeclarationStar1* n, int tabsCount) = 0;
-	virtual void visit(const MethodDeclarationStar2* n, int tabsCount) = 0;
+	virtual void visit(const MethodDeclarationList* n, int tabsCount) = 0;
 
-	virtual void visit(const CommaTypeIdentifierStar1* n, int tabsCount) = 0;
-	virtual void visit(const CommaTypeIdentifierStar2* n, int tabsCount) = 0;
+	virtual void visit(const CommaTypeIdentifierList* n, int tabsCount) = 0;
 
 	virtual void visit(const TypeIntArray* n,   int tabsCount) = 0;
 	virtual void visit(const TypeBoolean* n,    int tabsCount) = 0;
 	virtual void visit(const TypeInt* n,        int tabsCount) = 0;
 	virtual void visit(const TypeIdentifier* n, int tabsCount) = 0;
 
-	virtual void visit(const StatementStarBraced* n,  int tabsCount) = 0;
+	virtual void visit(const StatementListBraced* n,  int tabsCount) = 0;
 	virtual void visit(const StatementIf* n,          int tabsCount) = 0;
 	virtual void visit(const StatementWhile* n,       int tabsCount) = 0;
 	virtual void visit(const StatementPrint* n,       int tabsCount) = 0;
 	virtual void visit(const StatementIdentifier1* n, int tabsCount) = 0;
 	virtual void visit(const StatementIdentifier2* n, int tabsCount) = 0;
 
-	virtual void visit(const StatementStar1* n, int tabsCount) = 0;
-	virtual void visit(const StatementStar2* n, int tabsCount) = 0;
+	virtual void visit(const StatementList* n, int tabsCount) = 0;
 
-	virtual void visit(const ExpressionAndAnd* n,      int tabsCount) = 0;
-	virtual void visit(const ExpressionLessThen* n,    int tabsCount) = 0;
-	virtual void visit(const ExpressionPlus* n,        int tabsCount) = 0;
-	virtual void visit(const ExpressionMinus* n,       int tabsCount) = 0;
-	virtual void visit(const ExpressionMult* n,        int tabsCount) = 0;
+	virtual void visit(const ExpressionBinOp* n,       int tabsCount) = 0;
+	virtual void visit(const ExpressionAriOp* n,       int tabsCount) = 0;
 	virtual void visit(const ExpressionBracks* n, 	   int tabsCount) = 0;
 	virtual void visit(const ExpressionLength* n, 	   int tabsCount) = 0;
 	virtual void visit(const ExpressionMethod* n, 	   int tabsCount) = 0;
 	virtual void visit(const ExpressionEmptyMethod* n, int tabsCount) = 0;
 	virtual void visit(const ExpressionNum* n,         int tabsCount) = 0;
-	virtual void visit(const ExpressionTrue* n,        int tabsCount) = 0;
-	virtual void visit(const ExpressionFalse* n,       int tabsCount) = 0;
+	virtual void visit(const ExpressionLogOp* n,       int tabsCount) = 0;
 	virtual void visit(const ExpressionId* n,          int tabsCount) = 0;
 	virtual void visit(const ExpressionThis* n,        int tabsCount) = 0;
 	virtual void visit(const ExpressionNew* n,         int tabsCount) = 0;
@@ -114,6 +93,5 @@ public:
 	virtual void visit(const ExpressionNot* n,         int tabsCount) = 0;
 	virtual void visit(const ExpressionParens* n,      int tabsCount) = 0;
 
-	virtual void visit(const CommaExpressionStar1* n, int tabsCount) = 0;
-	virtual void visit(const CommaExpressionStar2* n, int tabsCount) = 0;
+	virtual void visit(const CommaExpressionList* n, int tabsCount) = 0;
 };

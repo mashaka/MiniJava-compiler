@@ -11,71 +11,22 @@
     IGoal* iGoal;
     IMainClass* iMainClass;
     IClassDeclaration* iClassDeclaration;
-    IClassDeclarationStar* iClassDeclarationStar;
+    IClassDeclarationList* iClassDeclarationList;
     IVarDeclaration* iVarDeclaration;
-    IVarDeclarationStar* iVarDeclarationStar;
+    IVarDeclarationList* iVarDeclarationList;
     IMethodDeclaration* iMethodDeclaration;
-    IMethodDeclarationStar* iMethodDeclarationStar;
+    IMethodDeclarationList* iMethodDeclarationList;
     IType* iType;
-    ICommaTypeIdentifierStar* iCommaTypeIdentifierStar;
+    ICommaTypeIdentifierList* iCommaTypeIdentifierList;
     IStatement* iStatement;
-    IStatementStar* iStatementStar;
+    IStatementList* iStatementList;
     IExpression* iExpression;
-    ICommaExpressionStar* iCommaExpressionStar;
+    ICommaExpressionList* iCommaExpressionList;
 }
 
-%token T_BOOLEAN
-%token T_BREAK
-%token T_CASE
-%token T_CLASS
-%token T_CONTINUE
-%token T_ELSE
-%token T_EXTENDS
-%token T_DEFAULT
-%token T_INT
-%token T_NEW
-%token T_IF
-%token T_PUBLIC
-%token T_SWITCH
-%token T_RETURN
-%token T_STATIC
-%token T_WHILE
-%token T_THIS
-%token T_NULL_LITERAL
-%token T_LENGTH
-%token T_TRUE
-%token T_FALSE
-%token T_MAIN
-%token T_LPAREN
-%token T_RPAREN
-%token T_LBRACE
-%token T_RBRACE
-%token T_LBRACK
-%token T_RBRACK
-%token T_SEMICOLON
-%token T_COMMA
-%token T_DOT
-%token T_EQ
-%token T_LT
-%token T_GT
-%token T_LET
-%token T_GET
-%token T_NOT
-%token T_COLON
-%token T_ANDAND
-%token T_OROR
-%token T_PLUS
-%token T_MINUS
-%token T_MULT
-%token T_DIV
-%token T_AND
-%token T_OR
-%token T_STRING
-%token T_VOID
-%token T_NULL
-%token <str> T_ID
-%token T_PRINT
-%token <str> T_NUM
+%token T_BOOLEAN T_BREAK T_CASE T_CLASS T_CONTINUE T_ELSE T_EXTENDS T_DEFAULT T_INT T_NEW T_IF T_PUBLIC T_SWITCH T_RETURN T_STATIC T_WHILE T_THIS T_NULL_LITERAL T_LENGTH T_TRUE T_FALSE T_MAIN T_LPAREN T_RPAREN T_LBRACE T_RBRACE T_LBRACK T_RBRACK T_SEMICOLON T_COMMA T_DOT T_EQ T_LT T_GT T_LET T_GET T_NOT T_COLON T_ANDAND T_OROR T_PLUS T_MINUS T_MULT T_DIV T_AND T_OR T_STRING T_VOID T_NULL T_PRINT
+%token <str> T_ID T_NUM
+
 
 %left T_COMMA
 %left T_DOT
@@ -98,22 +49,22 @@
 %type <iGoal> Goal
 %type <iMainClass> MainClass
 %type <iClassDeclaration> ClassDeclaration
-%type <iClassDeclarationStar> ClassDeclarationStar
+%type <iClassDeclarationList> ClassDeclarationList
 %type <iVarDeclaration> VarDeclaration
-%type <iVarDeclarationStar> VarDeclarationStar
+%type <iVarDeclarationList> VarDeclarationList
 %type <iMethodDeclaration> MethodDeclaration
-%type <iMethodDeclarationStar> MethodDeclarationStar
+%type <iMethodDeclarationList> MethodDeclarationList
 %type <iType> Type
-%type <iCommaTypeIdentifierStar> CommaTypeIdentifierStar
+%type <iCommaTypeIdentifierList> CommaTypeIdentifierList
 %type <iStatement> Statement
-%type <iStatementStar> StatementStar
+%type <iStatementList> StatementList
 %type <iExpression> Expression
-%type <iCommaExpressionStar> CommaExpressionStar
+%type <iCommaExpressionList> CommaExpressionList
 
 %%
 
 Goal
-    : MainClass ClassDeclarationStar { $$ = new Goal($1, $2); }
+    : MainClass ClassDeclarationList { $$ = new Goal($1, $2); }
     ;
 
 MainClass
@@ -121,37 +72,37 @@ MainClass
     ;
 
 ClassDeclaration
-    : T_CLASS T_ID T_EXTENDS T_ID T_LBRACE VarDeclarationStar MethodDeclarationStar T_RBRACE { $$ = new ClassDeclaration1($2, $4, $6, $7); }
-    | T_CLASS T_ID T_LBRACE VarDeclarationStar MethodDeclarationStar T_RBRACE                { $$ = new ClassDeclaration2($2, $4, $5);     }
+    : T_CLASS T_ID T_EXTENDS T_ID T_LBRACE VarDeclarationList MethodDeclarationList T_RBRACE { $$ = new ClassDeclaration1($2, $4, $6, $7); }
+    | T_CLASS T_ID T_LBRACE VarDeclarationList MethodDeclarationList T_RBRACE                { $$ = new ClassDeclaration2($2, $4, $5);     }
     ;
 
-ClassDeclarationStar
-    : %empty                                { $$ = new ClassDeclarationStar1();       }
-    | ClassDeclaration ClassDeclarationStar { $$ = new ClassDeclarationStar2($1, $2); }
+ClassDeclarationList
+    : %empty                                { $$ = 0;                                }
+    | ClassDeclaration ClassDeclarationList { $$ = new ClassDeclarationList($1, $2); }
     ;
 
 VarDeclaration
     : Type T_ID T_SEMICOLON { $$ = new VarDeclaration($1, $2); }
     ;
 
-VarDeclarationStar
-    : %empty                            { $$ = new VarDeclarationStar1();       }
-    | VarDeclarationStar VarDeclaration { $$ = new VarDeclarationStar2($1, $2); }
+VarDeclarationList
+    : %empty                            { $$ = 0;                              }
+    | VarDeclarationList VarDeclaration { $$ = new VarDeclarationList($1, $2); }
     ;
 
 MethodDeclaration
-    : T_PUBLIC Type T_ID T_LPAREN Type T_ID CommaTypeIdentifierStar T_RPAREN T_LBRACE VarDeclarationStar StatementStar T_RETURN Expression T_SEMICOLON T_RBRACE { $$ = new MethodDeclaration1($2, $3, $5, $6, $7, $10, $11, $13); }
-    | T_PUBLIC Type T_ID T_LPAREN T_RPAREN T_LBRACE VarDeclarationStar StatementStar T_RETURN Expression T_SEMICOLON T_RBRACE                                   { $$ = new MethodDeclaration2($2, $3, $7, $8, $10);               }
+    : T_PUBLIC Type T_ID T_LPAREN Type T_ID CommaTypeIdentifierList T_RPAREN T_LBRACE VarDeclarationList StatementList T_RETURN Expression T_SEMICOLON T_RBRACE { $$ = new MethodDeclaration1($2, $3, $5, $6, $7, $10, $11, $13); }
+    | T_PUBLIC Type T_ID T_LPAREN T_RPAREN T_LBRACE VarDeclarationList StatementList T_RETURN Expression T_SEMICOLON T_RBRACE                                   { $$ = new MethodDeclaration2($2, $3, $7, $8, $10);               }
     ;
 
-MethodDeclarationStar
-    : %empty                                    { $$ = new MethodDeclarationStar1();       }
-    | MethodDeclaration MethodDeclarationStar   { $$ = new MethodDeclarationStar2($1, $2); }
+MethodDeclarationList
+    : %empty                                    { $$ = 0;                                 }
+    | MethodDeclaration MethodDeclarationList   { $$ = new MethodDeclarationList($1, $2); }
     ;
 
-CommaTypeIdentifierStar
-    : %empty                                      { $$ = new CommaTypeIdentifierStar1();           }
-    | T_COMMA Type T_ID CommaTypeIdentifierStar   { $$ = new CommaTypeIdentifierStar2($2, $3, $4); }
+CommaTypeIdentifierList
+    : %empty                                      { $$ = 0;                                       }
+    | T_COMMA Type T_ID CommaTypeIdentifierList   { $$ = new CommaTypeIdentifierList($2, $3, $4); }
     ;
 
 Type
@@ -162,7 +113,7 @@ Type
     ;
 
 Statement
-    : T_LBRACE StatementStar T_RBRACE                               { $$ = new StatementStarBraced($2);          }
+    : T_LBRACE StatementList T_RBRACE                               { $$ = new StatementListBraced($2);          }
     | T_IF T_LPAREN Expression T_RPAREN Statement T_ELSE Statement  { $$ = new StatementIf($3, $5, $7);          }
     | T_WHILE T_LPAREN Expression T_RPAREN Statement                { $$ = new StatementWhile($3, $5);           }
     | T_PRINT T_LPAREN Expression T_RPAREN T_SEMICOLON              { $$ = new StatementPrint($3);               }
@@ -170,9 +121,9 @@ Statement
     | T_ID T_LBRACK Expression T_RBRACK T_EQ Expression T_SEMICOLON { $$ = new StatementIdentifier2($1, $3, $6); }
     ;
 
-StatementStar
-    : %empty                    { $$ = new StatementStar1();       }
-    | Statement StatementStar   { $$ = new StatementStar2($1, $2); }
+StatementList
+    : %empty                    { $$ = new 0;       }
+    | Statement StatementList   { $$ = new StatementList($1, $2); }
     ;
 
 Expression
@@ -181,24 +132,24 @@ Expression
     | Expression T_PLUS Expression                                           { $$ = new ExpressionAriOp($1, A_PLUS,   $3); }
     | Expression T_MINUS Expression                                          { $$ = new ExpressionAriOp($1, A_MINUS,  $3); }
     | Expression T_MULT Expression                                           { $$ = new ExpressionAriOp($1, A_MULT,   $3); }
-    | Expression T_LBRACK Expression T_RBRACK                                { $$ = new ExpressionBracks($1, $3);         }
-    | Expression T_DOT T_LENGTH                                              { $$ = new ExpressionLength($1);             }
-    | Expression T_DOT T_ID T_LPAREN Expression CommaExpressionStar T_RPAREN { $$ = new ExpressionMethod($1, $3, $5, $6); }
-    | Expression T_DOT T_ID T_LPAREN T_RPAREN                                { $$ = new ExpressionEmptyMethod($1, $3);    }
-    | T_NUM                                                                  { $$ = new ExpressionNum($1);                }
-    | T_TRUE                                                                 { $$ = new ExpressionLogical(L_TRUE);        }
-    | T_FALSE                                                                { $$ = new ExpressionLogical(L_FALSE);       }
-    | T_ID                                                                   { $$ = new ExpressionId($1);                 }
-    | T_THIS                                                                 { $$ = new ExpressionThis();                 }
-    | T_NEW T_INT T_LBRACK Expression T_RBRACK                               { $$ = new ExpressionNew($4);                }
-    | T_NEW T_ID T_LPAREN T_RPAREN                                           { $$ = new ExpressionEmptyNew($2);           }
-    | T_NOT Expression                                                       { $$ = new ExpressionNot($2);                }
-    | T_LPAREN Expression T_RPAREN                                           { $$ = new ExpressionParens($2);             }
+    | Expression T_LBRACK Expression T_RBRACK                                { $$ = new ExpressionBracks($1, $3);          }
+    | Expression T_DOT T_LENGTH                                              { $$ = new ExpressionLength($1);              }
+    | Expression T_DOT T_ID T_LPAREN Expression CommaExpressionList T_RPAREN { $$ = new ExpressionMethod($1, $3, $5, $6);  }
+    | Expression T_DOT T_ID T_LPAREN T_RPAREN                                { $$ = new ExpressionEmptyMethod($1, $3);     }
+    | T_NUM                                                                  { $$ = new ExpressionNum($1);                 }
+    | T_TRUE                                                                 { $$ = new ExpressionLogOp(L_TRUE);           }
+    | T_FALSE                                                                { $$ = new ExpressionLogOp(L_FALSE);          }
+    | T_ID                                                                   { $$ = new ExpressionId($1);                  }
+    | T_THIS                                                                 { $$ = new ExpressionThis();                  }
+    | T_NEW T_INT T_LBRACK Expression T_RBRACK                               { $$ = new ExpressionNew($4);                 }
+    | T_NEW T_ID T_LPAREN T_RPAREN                                           { $$ = new ExpressionEmptyNew($2);            }
+    | T_NOT Expression                                                       { $$ = new ExpressionNot($2);                 }
+    | T_LPAREN Expression T_RPAREN                                           { $$ = new ExpressionParens($2);              }
     ;
 
-CommaExpressionStar
-    : %empty                                    { $$ = new CommaExpressionStar1();       }
-    | T_COMMA Expression CommaExpressionStar    { $$ = new CommaExpressionStar2($2, $3); }
+CommaExpressionList
+    : %empty                                    { $$ = 0;                               }
+    | T_COMMA Expression CommaExpressionList    { $$ = new CommaExpressionList($2, $3); }
     ;
 
 %%

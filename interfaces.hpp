@@ -15,17 +15,17 @@ public:
 interface IGoal
 interface IMainClass
 interface IClassDeclaration
-interface IClassDeclarationStar
+interface IClassDeclarationList
 interface IVarDeclaration
-interface IVarDeclarationStar
+interface IVarDeclarationList
 interface IMethodDeclaration
-interface IMethodDeclarationStar
+interface IMethodDeclarationList
 interface IType
-interface ICommaTypeIdentifierStar
+interface ICommaTypeIdentifierList
 interface IStatement
-interface IStatementStar
+interface IStatementList
 interface IExpression
-interface ICommaExpressionStar
+interface ICommaExpressionList
 
 enum ArithmeticOperator { A_PLUS, A_MINUS, A_MULT }
 enum BinaryOperator { B_ANDAND, B_LT }
@@ -35,8 +35,8 @@ enum LogicalOperator { L_TRUE, L_FALSE }
 
 class Goal : public CAcceptsVisitor<Goal, IVisitor, IGoal> {
 public:
-	Goal( IMainClass* _mainClass, IClassDeclarationStar* _classDeclarationStar ):
-		e1(_mainClass), e2(_classDeclarationStar) {}
+	Goal( IMainClass* _mainClass, IClassDeclarationList* _classDeclarationList ):
+		e1(_mainClass), e2(_classDeclarationList) {}
 
 	~Goal() {
 		delete e1;
@@ -44,7 +44,7 @@ public:
 	}
 
 	IMainClass* e1;
-	IClassDeclarationStar* e2;
+	IClassDeclarationList* e2;
 };
 
 //-----------------------------------------------------
@@ -69,8 +69,8 @@ public:
 
 class ClassDeclaration1 : public CAcceptsVisitor<ClassDeclaration1, IVisitor, IClassDeclaration> {
 public:
-	ClassDeclaration1( char* _type1, char* _type2, IVarDeclarationStar* _varDeclarationStar, IMethodDeclarationStar* _methodDeclarationStar ):
-		e1(_type1), e2(_type2), e3( _varDeclarationStar ), e4(_methodDeclarationStar) {}
+	ClassDeclaration1( char* _type1, char* _type2, IVarDeclarationList* _varDeclarationList, IMethodDeclarationList* _methodDeclarationList ):
+		e1(_type1), e2(_type2), e3( _varDeclarationList ), e4(_methodDeclarationList) {}
 
 	~ClassDeclaration1() {
 		delete e1;
@@ -80,14 +80,14 @@ public:
 	}
 
     char* e1, *e2;
-	IVarDeclarationStar* e3;
-	IMethodDeclarationStar* e4;
+	IVarDeclarationList* e3;
+	IMethodDeclarationList* e4;
 };
 
 class ClassDeclaration2 : public CAcceptsVisitor<ClassDeclaration2, IVisitor, IClassDeclaration> {
 public:
-	ClassDeclaration2( char* _type, IVarDeclarationStar* _varDeclarationStar, IMethodDeclarationStar* _methodDeclarationStar ):
-		e1(_type), e2( _varDeclarationStar ), e3(_methodDeclarationStar) {}
+	ClassDeclaration2( char* _type, IVarDeclarationList* _varDeclarationList, IMethodDeclarationList* _methodDeclarationList ):
+		e1(_type), e2( _varDeclarationList ), e3(_methodDeclarationList) {}
 
 	~ClassDeclaration2() {
 		delete e1;
@@ -96,30 +96,24 @@ public:
 	}
 
     char* e1;
-	IVarDeclarationStar* e2;
-	IMethodDeclarationStar* e3;
+	IVarDeclarationList* e2;
+	IMethodDeclarationList* e3;
 };
 
 //-----------------------------------------------------
 
-class ClassDeclarationStar1 : public CAcceptsVisitor<ClassDeclarationStar1, IVisitor, IClassDeclarationStar> {
+class ClassDeclarationList : public CAcceptsVisitor<ClassDeclarationList, IVisitor, IClassDeclarationList> {
 public:
-	ClassDeclarationStar1() {}
-	~ClassDeclarationStar1() {}
-};
+	ClassDeclarationList( IClassDeclaration* _classDeclaration, IClassDeclarationList* _classDeclarationList ):
+		e1( _classDeclaration ), e2( _classDeclarationList ) {}
 
-class ClassDeclarationStar2 : public CAcceptsVisitor<ClassDeclarationStar2, IVisitor, IClassDeclarationStar> {
-public:
-	ClassDeclarationStar2( IClassDeclaration* _classDeclaration, IClassDeclarationStar* _classDeclarationStar ):
-		e1( _classDeclaration ), e2( _classDeclarationStar ) {}
-
-	~ClassDeclarationStar2() {
+	~ClassDeclarationList() {
 		delete e1;
 		delete e2;
 	}
 
 	IClassDeclaration* e1;
-	IClassDeclarationStar* e2;
+	IClassDeclarationList* e2;
 };
 
 //-----------------------------------------------------
@@ -140,23 +134,17 @@ public:
 
 //-----------------------------------------------------
 
-class VarDeclarationStar1 : public CAcceptsVisitor<VarDeclarationStar1, IVisitor, IVarDeclarationStar> {
+class VarDeclarationList : public CAcceptsVisitor<VarDeclarationList, IVisitor, IVarDeclarationList> {
 public:
-	VarDeclarationStar1() {}
-	~VarDeclarationStar1() {}
-};
+	VarDeclarationList( IVarDeclarationList* _varDeclarationList, IVarDeclaration* _varDeclaration ):
+		e1( _varDeclarationList ), e2( _varDeclaration ) {}
 
-class VarDeclarationStar2 : public CAcceptsVisitor<VarDeclarationStar2, IVisitor, IVarDeclarationStar> {
-public:
-	VarDeclarationStar2( IVarDeclarationStar* _varDeclarationStar, IVarDeclaration* _varDeclaration ):
-		e1( _varDeclarationStar ), e2( _varDeclaration ) {}
-
-	~VarDeclarationStar2() {
+	~VarDeclarationList() {
 		delete e1;
 		delete e2;
 	}
 
-	IVarDeclarationStar* e1;
+	IVarDeclarationList* e1;
 	IVarDeclaration* e2;
 };
 
@@ -164,8 +152,8 @@ public:
 
 class MethodDeclaration1 : public CAcceptsVisitor<MethodDeclaration1, IVisitor, IMethodDeclaration> {
 public:
-	MethodDeclaration1( IType* _type1, char* _type2, IType* _type3, char* _type4, ICommaTypeIdentifierStar* _commaType, IVarDeclarationStar* _varDeclarationStar, IStatementStar* _statementStar, IExpression* _expression ):
-		e1( _type1 ), e2( _type2 ), e3( _type1 ), e4( _type2 ), e5( _commaType ), e6( _varDeclarationStar ), e7( _statementStar ), e8( _expression ) {}
+	MethodDeclaration1( IType* _type1, char* _type2, IType* _type3, char* _type4, ICommaTypeIdentifierList* _commaType, IVarDeclarationList* _varDeclarationList, IStatementList* _statementList, IExpression* _expression ):
+		e1( _type1 ), e2( _type2 ), e3( _type1 ), e4( _type2 ), e5( _commaType ), e6( _varDeclarationList ), e7( _statementList ), e8( _expression ) {}
 
 	~MethodDeclaration1() {
 		delete e1;
@@ -180,16 +168,16 @@ public:
 
 	IType* e1, *e3;
     char* e2, *e4;
-	ICommaTypeIdentifierStar* e5;
-	IVarDeclarationStar* e6;
-	IStatementStar* e7;
+	ICommaTypeIdentifierList* e5;
+	IVarDeclarationList* e6;
+	IStatementList* e7;
 	IExpression* e8;
 };
 
 class MethodDeclaration2 : public CAcceptsVisitor<MethodDeclaration2, IVisitor, IMethodDeclaration> {
 public:
-	MethodDeclaration2( IType* _type1, char* _type2, IVarDeclarationStar* _varDeclarationStar, IStatementStar* _statementStar, IExpression* _expression ):
-		e1( _type1 ), e2( _type2 ), e3( _varDeclarationStar ), e4( _statementStar ), e5( _expression ) {}
+	MethodDeclaration2( IType* _type1, char* _type2, IVarDeclarationList* _varDeclarationList, IStatementList* _statementList, IExpression* _expression ):
+		e1( _type1 ), e2( _type2 ), e3( _varDeclarationList ), e4( _statementList ), e5( _expression ) {}
 
 	~MethodDeclaration2() {
 		delete e1;
@@ -201,47 +189,35 @@ public:
 
 	IType* e1;
     char* e2;
-	IVarDeclarationStar* e3;
-	IStatementStar* e4;
+	IVarDeclarationList* e3;
+	IStatementList* e4;
 	IExpression* e5;
 };
 
 //-----------------------------------------------------
 
-class MethodDeclarationStar1 : public CAcceptsVisitor<MethodDeclarationStar1, IVisitor, IMethodDeclarationStar> {
+class MethodDeclarationList : public CAcceptsVisitor<MethodDeclarationList, IVisitor, IMethodDeclarationList> {
 public:
-    MethodDeclarationStar1() {}
-    ~MethodDeclarationStar1() {}
-};
+	MethodDeclarationList( IMethodDeclaration* _methodDeclaration, IMethodDeclarationList* _methodDeclarationList ):
+		e1( _methodDeclaration ), e2( _methodDeclarationList ) {}
 
-class MethodDeclarationStar2 : public CAcceptsVisitor<MethodDeclarationStar2, IVisitor, IMethodDeclarationStar> {
-public:
-	MethodDeclarationStar2( IMethodDeclaration* _methodDeclaration, IMethodDeclarationStar* _methodDeclarationStar ):
-		e1( _methodDeclaration ), e2( _methodDeclarationStar ) {}
-
-	~MethodDeclarationStar2() {
+	~MethodDeclarationList() {
 		delete e1;
 		delete e2;
 	}
 
 	IMethodDeclaration* e1;
-	IMethodDeclarationStar* e2;
+	IMethodDeclarationList* e2;
 };
 
 //-----------------------------------------------------
 
-class CommaTypeIdentifierStar1 : public CAcceptsVisitor<CommaTypeIdentifierStar1, IVisitor, ICommaTypeIdentifierStar> {
+class CommaTypeIdentifierList : public CAcceptsVisitor<CommaTypeIdentifierList, IVisitor, ICommaTypeIdentifierList> {
 public:
-    CommaTypeIdentifierStar1() {}
-    ~CommaTypeIdentifierStar1() {
-};
+	CommaTypeIdentifierList( IType* _type1, char* _type2, ICommaTypeIdentifierList* _commaTypeIdentifierList ):
+		e1( _type1 ), e2( _type2 ), e3( _commaTypeIdentifierList ) {}
 
-class CommaTypeIdentifierStar2 : public CAcceptsVisitor<CommaTypeIdentifierStar2, IVisitor, ICommaTypeIdentifierStar> {
-public:
-	CommaTypeIdentifierStar2( IType* _type1, char* _type2, ICommaTypeIdentifierStar* _commaTypeIdentifierStar ):
-		e1( _type1 ), e2( _type2 ), e3( _commaTypeIdentifierStar ) {}
-
-	~CommaTypeIdentifierStar2() {
+	~CommaTypeIdentifierList() {
 		delete e1;
 		delete e2;
         delete e3;
@@ -249,7 +225,7 @@ public:
 
 	IType* e1;
     char* e2;
-	ICommaTypeIdentifierStar* e3;
+	ICommaTypeIdentifierList* e3;
 };
 
 //-----------------------------------------------------
@@ -286,16 +262,16 @@ public:
 
 //-----------------------------------------------------
 
-class StatementStarBraced : public CAcceptsVisitor<StatementStarBraced, IVisitor, IStatement> {
+class StatementListBraced : public CAcceptsVisitor<StatementListBraced, IVisitor, IStatement> {
 public:
-    StatementStarBraced( IStatementStar* _statementStar ):
-        e1( _statementStar ) {}
+    StatementListBraced( IStatementList* _statementList ):
+        e1( _statementList ) {}
 
-    ~StatementStarBraced() {
+    ~StatementListBraced() {
         delete e1;
     }
 
-    IStatementStar* e1;
+    IStatementList* e1;
 };
 
 class StatementIf : public CAcceptsVisitor<StatementIf, IVisitor, IStatement> {
@@ -370,34 +346,28 @@ public:
 
 //-----------------------------------------------------
 
-class StatementStar1 : public CAcceptsVisitor<StatementStar1, IVisitor, IStatementStar> {
+class StatementList : public CAcceptsVisitor<StatementList, IVisitor, IStatementList> {
 public:
-    StatementStar1() {}
-    ~StatementStar1() {}
-};
+    StatementList( IStatement* _statement, IStatementList* _statementList ):
+        e1( _statement ), e2( _statementList ) {}
 
-class StatementStar2 : public CAcceptsVisitor<StatementStar2, IVisitor, IStatementStar> {
-public:
-    StatementStar2( IStatement* _statement, IStatementStar* _statementStar ):
-        e1( _statement ), e2( _statementStar ) {}
-
-    ~StatementStar2() {
+    ~StatementList() {
         delete e1;
         delete e2;
     }
 
     IStatement* e1;
-    IStatementStar* e2;
+    IStatementList* e2;
 };
 
 //-----------------------------------------------------
 
-class ExpressionAndAnd : public CAcceptsVisitor<ExpressionAndAnd, IVisitor, IExpression> {
+class ExpressionBinOp : public CAcceptsVisitor<ExpressionBinOp, IVisitor, IExpression> {
 public:
-    ExpressionAndAnd( IExpression* _expression1, IExpression* _expression2 ):
+    ExpressionBinOp( IExpression* _expression1, IExpression* _expression2 ):
         e1( _expression1 ), e2( _expression2 ) {}
 
-    ~ExpressionAndAnd() {
+    ~ExpressionBinOp() {
         delete e1;
         delete e2;
     }
@@ -405,51 +375,12 @@ public:
     IExpression* e1, e2;
 };
 
-class ExpressionLessThen : public CAcceptsVisitor<ExpressionLessThen, IVisitor, IExpression> {
+class ExpressionAriOp : public CAcceptsVisitor<ExpressionAriOp, IVisitor, IExpression> {
 public:
-    ExpressionLessThen( IExpression* _expression1, IExpression* _expression2 ):
+    ExpressionAriOp( IExpression* _expression1, IExpression* _expression2 ):
         e1( _expression1 ), e2( _expression2 ) {}
 
-    ~ExpressionLessThen() {
-        delete e1;
-        delete e2;
-    }
-
-    IExpression* e1, e2;
-};
-
-class ExpressionPlus : public CAcceptsVisitor<ExpressionPlus, IVisitor, IExpression> {
-public:
-    ExpressionPlus( IExpression* _expression1, IExpression* _expression2 ):
-        e1( _expression1 ), e2( _expression2 ) {}
-
-    ~ExpressionPlus() {
-        delete e1;
-        delete e2;
-    }
-
-    IExpression* e1, *e2;
-};
-
-class ExpressionMinus : public CAcceptsVisitor<ExpressionMinus, IVisitor, IExpression> {
-public:
-    ExpressionMinus( IExpression* _expression1, IExpression* _expression2 ):
-        e1( _expression1 ), e2( _expression2 ) {}
-
-    ~ExpressionMinus() {
-        delete e1;
-        delete e2;
-    }
-
-    IExpression* e1, *e2;
-};
-
-class ExpressionMult : public CAcceptsVisitor<ExpressionMult, IVisitor, IExpression> {
-public:
-    ExpressionMult( IExpression* _expression1, IExpression* _expression2 ):
-        e1( _expression1 ), e2( _expression2 ) {}
-
-    ~ExpressionMult() {
+    ~ExpressionAriOp() {
         delete e1;
         delete e2;
     }
@@ -484,8 +415,8 @@ public:
 
 class ExpressionMethod : public CAcceptsVisitor<ExpressionMethod, IVisitor, IExpression> {
 public:
-    ExpressionMethod( IExpression* _expression1, char* _type, IExpression* _expression2, ICommaExpressionStar* _commaExpressionStar ):
-        e1( _expression1 ), e2( _type ), e3( _expression2 ), e4( _commaExpressionStar ) {}
+    ExpressionMethod( IExpression* _expression1, char* _type, IExpression* _expression2, ICommaExpressionList* _commaExpressionList ):
+        e1( _expression1 ), e2( _type ), e3( _expression2 ), e4( _commaExpressionList ) {}
 
     ~ExpressionMethod() {
         delete e1;
@@ -496,7 +427,7 @@ public:
 
     IExpression* e1, *e3;
     char* e2;
-    ICommaExpressionStar* e4;
+    ICommaExpressionList* e4;
 };
 
 class ExpressionEmptyMethod : public CAcceptsVisitor<ExpressionEmptyMethod, IVisitor, IExpression> {
@@ -525,16 +456,10 @@ public:
     char* e1;
 };
 
-class ExpressionTrue : public CAcceptsVisitor<ExpressionTrue, IVisitor, IExpression> {
+class ExpressionLogOp : public CAcceptsVisitor<ExpressionLogOp, IVisitor, IExpression> {
 public:
-    ExpressionTrue() {}
-    ~ExpressionTrue() {}
-};
-
-class ExpressionFalse : public CAcceptsVisitor<ExpressionFalse, IVisitor, IExpression> {
-public:
-    ExpressionFalse() {}
-    ~ExpressionFalse() {}
+    ExpressionLogOp() {}
+    ~ExpressionLogOp() {}
 };
 
 class ExpressionId : public CAcceptsVisitor<ExpressionId, IVisitor, IExpression> {
@@ -604,22 +529,16 @@ public:
 
 //-----------------------------------------------------
 
-class CommaExpressionStar1 : public CAcceptsVisitor<CommaExpressionStar1, IVisitor, ICommaExpressionStar> {
+class CommaExpressionList : public CAcceptsVisitor<CommaExpressionList, IVisitor, ICommaExpressionList> {
 public:
-    CommaExpressionStar1() {}
-    ~CommaExpressionStar1() {}
-};
+    CommaExpressionList( IExpression* _expression, ICommaExpressionList* _commaExpressionList ):
+        e1( _expression ), e2( _commaExpressionList ) {}
 
-class CommaExpressionStar2 : public CAcceptsVisitor<CommaExpressionStar2, IVisitor, ICommaExpressionStar> {
-public:
-    CommaExpressionStar2( IExpression* _expression, ICommaExpressionStar* _commaExpressionStar ):
-        e1( _expression ), e2( _commaExpressionStar ) {}
-
-    ~CommaExpressionStar2() {
+    ~CommaExpressionList() {
         delete e1;
         delete e2;
     }
 
     IExpression* e1;
-    ICommaExpressionStar* e2;
+    ICommaExpressionList* e2;
 };
