@@ -5,7 +5,7 @@
 #define interface struct
 
 template<class TARGET, class VISITOR, class INTERFACE>
-class CAcceptsVisitor : public  INTERFACE {
+class CAcceptsVisitor : public INTERFACE {
 public:
     virtual void accept(IVisitor* visit) {
         visitor->visit( static_cast<TARGET*> (this) );
