@@ -12,24 +12,24 @@ public:
     }
 };
 
-interface IGoal
-interface IMainClass
-interface IClassDeclaration
-interface IClassDeclarationList
-interface IVarDeclaration
-interface IVarDeclarationList
-interface IMethodDeclaration
-interface IMethodDeclarationList
-interface IType
-interface ICommaTypeIdentifierList
-interface IStatement
-interface IStatementList
-interface IExpression
-interface ICommaExpressionList
+interface IGoal;
+interface IMainClass;
+interface IClassDeclaration;
+interface IClassDeclarationList;
+interface IVarDeclaration;
+interface IVarDeclarationList;
+interface IMethodDeclaration;
+interface IMethodDeclarationList;
+interface IType;
+interface ICommaTypeIdentifierList;
+interface IStatement;
+interface IStatementList;
+interface IExpression;
+interface ICommaExpressionList;
 
-enum ArithmeticOperator { A_PLUS, A_MINUS, A_MULT }
-enum BinaryOperator { B_ANDAND, B_LT }
-enum LogicalOperator { L_TRUE, L_FALSE }
+enum ArithmeticOperator { A_PLUS, A_MINUS, A_MULT };
+enum BinaryOperator { B_ANDAND, B_LT };
+enum LogicalOperator { L_TRUE, L_FALSE };
 
 //-----------------------------------------------------
 
