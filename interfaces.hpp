@@ -4,25 +4,28 @@
 
 #define interface struct
 
-interface IAbstract {
+template<class TARGET, class VISITOR, class INTERFACE>
+class CAcceptsVisitor : public INTERFACE {
 public:
-	virtual void accept(IVisitor*, int) const = 0;
+    virtual void accept(IVisitor* visit) {
+        visitor->visit( static_cast<TARGET*> (this) );
+    }
 };
 
-interface IGoal : public IAbstract {};
-interface IMainClass : public IAbstract {};
-interface IClassDeclaration : public IAbstract {};
-interface IClassDeclarationStar : public IAbstract {};
-interface IVarDeclaration : public IAbstract {};
-interface IVarDeclarationStar : public IAbstract {};
-interface IMethodDeclaration : public IAbstract {};
-interface IMethodDeclarationStar : public IAbstract {};
-interface IType : public IAbstract {};
-interface ICommaTypeIdentifierStar : public IAbstract {};
-interface IStatement : public IAbstract {};
-interface IStatementStar : public IAbstract {};
-interface IExpression : public IAbstract {};
-interface ICommaExpressionStar : public IAbstract {};
+interface IGoal
+interface IMainClass
+interface IClassDeclaration
+interface IClassDeclarationStar
+interface IVarDeclaration
+interface IVarDeclarationStar
+interface IMethodDeclaration
+interface IMethodDeclarationStar
+interface IType
+interface ICommaTypeIdentifierStar
+interface IStatement
+interface IStatementStar
+interface IExpression
+interface ICommaExpressionStar
 
 //-----------------------------------------------------
 
@@ -34,10 +37,6 @@ public:
 	~Goal() {
 		delete e1;
 		delete e2;
-	}
-
-	void accept( IVisitor* visitor, int tabsCount ) {
-		visitor->visit( this, tabsCount );
 	}
 
 	IMainClass* e1;
@@ -55,10 +54,6 @@ public:
 		delete e1;
         delete e2;
         delete e3;
-	}
-
-	void accept( IVisitor* visitor, int tabsCount ) {
-		visitor->visit( this, tabsCount );
 	}
 
     char* e1;
@@ -80,10 +75,6 @@ public:
         delete e4;
 	}
 
-	void accept( IVisitor* visitor, int tabsCount ) {
-		visitor->visit( this, tabsCount );
-	}	
-
     char* e1, *e2;
 	IVarDeclarationStar* e3;
 	IMethodDeclarationStar* e4;
@@ -100,10 +91,6 @@ public:
         delete e3;
 	}
 
-	void accept( IVisitor* visitor, int tabsCount ) {
-		visitor->visit( this, tabsCount );
-	}
-
     char* e1;
 	IVarDeclarationStar* e2;
 	IMethodDeclarationStar* e3;
@@ -114,12 +101,7 @@ public:
 class ClassDeclarationStar1 : public IClassDeclarationStar {
 public:
 	ClassDeclarationStar1() {}
-
 	~ClassDeclarationStar1() {}
-
-	void accept( IVisitor* visitor, int tabsCount ) {
-		visitor->visit( this, tabsCount );
-	}
 };
 
 class ClassDeclarationStar2 : public IClassDeclarationStar {
@@ -130,10 +112,6 @@ public:
 	~ClassDeclarationStar2() {
 		delete e1;
 		delete e2;
-	}
-
-	void accept( IVisitor* visitor, int tabsCount ) {
-		visitor->visit( this, tabsCount );
 	}
 
 	IClassDeclaration* e1;
@@ -152,10 +130,6 @@ public:
         delete e2;
 	}
 
-	void accept( IVisitor* visitor, int tabsCount ) {
-		visitor->visit( this, tabsCount );
-	}
-
 	IType* e1;
     char* e2;
 };
@@ -165,12 +139,7 @@ public:
 class VarDeclarationStar1 : public IVarDeclarationStar {
 public:
 	VarDeclarationStar1() {}
-
 	~VarDeclarationStar1() {}
-
-	void accept( IVisitor* visitor, int tabsCount ) {
-		visitor->visit( this, tabsCount );
-	}
 };
 
 class VarDeclarationStar2 : public IVarDeclarationStar {
@@ -181,10 +150,6 @@ public:
 	~VarDeclarationStar2() {
 		delete e1;
 		delete e2;
-	}
-
-	void accept( IVisitor* visitor, int tabsCount ) {
-		visitor->visit( this, tabsCount );
 	}
 
 	IVarDeclarationStar* e1;
@@ -242,12 +207,7 @@ public:
 class MethodDeclarationStar1 : public IMethodDeclarationStar {
 public:
     MethodDeclarationStar1() {}
-
     ~MethodDeclarationStar1() {}
-
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
-    }
 };
 
 class MethodDeclarationStar2 : public IMethodDeclarationStar {
@@ -260,10 +220,6 @@ public:
 		delete e2;
 	}
 
-	void accept( IVisitor* visitor, int tabsCount ) {
-		visitor->visit( this, tabsCount );
-	}
-
 	IMethodDeclaration* e1;
 	IMethodDeclarationStar* e2;
 };
@@ -273,12 +229,7 @@ public:
 class CommaTypeIdentifierStar1 : public ICommaTypeIdentifierStar {
 public:
     CommaTypeIdentifierStar1() {}
-
     ~CommaTypeIdentifierStar1() {}
-
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
-    }
 };
 
 class CommaTypeIdentifierStar2 : public ICommaTypeIdentifierStar {
@@ -292,10 +243,6 @@ public:
         delete e3;
 	}
 
-	void accept( IVisitor* visitor, int tabsCount ) {
-		visitor->visit( this, tabsCount );
-	}
-
 	IType* e1;
     char* e2;
 	ICommaTypeIdentifierStar* e3;
@@ -306,34 +253,19 @@ public:
 class TypeIntArray : public IType {
 public:
     TypeIntArray() {}
-
     ~TypeIntArray() {}
-
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
-    }
 };
 
 class TypeBoolean : public IType {
 public:
     TypeBoolean() {}
-
     ~TypeBoolean() {}
-
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
-    }
 };
 
 class TypeInt : public IType {
 public:
     TypeInt() {}
-
     ~TypeInt() {}
-
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
-    }
 };
 
 class TypeIdentifier : public IType {
@@ -343,10 +275,6 @@ public:
 
     ~TypeIdentifier() {
         delete e1;
-    }
-
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
     }
 
     char* e1;
@@ -363,10 +291,6 @@ public:
         delete e1;
     }
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
-    }
-
     IStatementStar* e1;
 };
 
@@ -379,10 +303,6 @@ public:
         delete e1;
         delete e2;
         delete e3;
-    }
-
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
     }
 
     IExpression* e1;
@@ -399,10 +319,6 @@ public:
         delete e2;
     }
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
-    }
-
     IExpression* e1;
     IStatement* e2;
 };
@@ -416,10 +332,6 @@ public:
         delete e1;
     }
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
-    }
-
     IExpression* e1;
 };
 
@@ -431,10 +343,6 @@ public:
     ~StatementIdentifier1() {
         delete e1;
         delete e2;
-    }
-
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
     }
 
     char* e1;
@@ -452,10 +360,6 @@ public:
         delete e3;
     }
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
-    }
-
     char* e1;
     IExpression* e2, e3;
 };
@@ -465,12 +369,7 @@ public:
 class StatementStar1 : public IStatementStar {
 public:
     StatementStar1() {}
-
     ~StatementStar1() {}
-
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
-    }
 };
 
 class StatementStar2 : public IStatementStar {
@@ -481,10 +380,6 @@ public:
     ~StatementStar2() {
         delete e1;
         delete e2;
-    }
-
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
     }
 
     IStatement* e1;
@@ -503,10 +398,6 @@ public:
         delete e2;
     }
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
-    }
-
     IExpression* e1, e2;
 };
 
@@ -518,10 +409,6 @@ public:
     ~ExpressionLessThen() {
         delete e1;
         delete e2;
-    }
-
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
     }
 
     IExpression* e1, e2;
@@ -537,10 +424,6 @@ public:
         delete e2;
     }
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
-    }
-
     IExpression* e1, *e2;
 };
 
@@ -552,10 +435,6 @@ public:
     ~ExpressionMinus() {
         delete e1;
         delete e2;
-    }
-
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
     }
 
     IExpression* e1, *e2;
@@ -571,10 +450,6 @@ public:
         delete e2;
     }
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
-    }
-
     IExpression* e1, *e2;
 };
 
@@ -588,10 +463,6 @@ public:
         delete e2;
     }
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
-    }
-
     IExpression* e1, *e2;
 };
 
@@ -602,10 +473,6 @@ public:
 
     ~ExpressionLength() {
         delete e1;
-    }
-
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
     }
 
     IExpression* e1;
@@ -623,10 +490,6 @@ public:
         delete e4; 
     }
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
-    }
-
     IExpression* e1, *e3;
     char* e2;
     ICommaExpressionStar* e4;
@@ -642,10 +505,6 @@ public:
         delete e2;
     }
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
-    }
-
     IExpression* e1;
     char *e2;
 };
@@ -657,33 +516,19 @@ public:
 
     ~ExpressionNum() {}
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
-    }
-
     char* e1;
 };
 
 class ExpressionTrue : public IExpression {
 public:
     ExpressionTrue() {}
-
     ~ExpressionTrue() {}
-
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
-    }
 };
 
 class ExpressionFalse : public IExpression {
 public:
     ExpressionFalse() {}
-
     ~ExpressionFalse() {}
-
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
-    }
 };
 
 class ExpressionId : public IExpression {
@@ -692,10 +537,6 @@ public:
         e1(value) {}
 
     ~ExpressionId() {}
-
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
-    }
 
     char* e1;
 };
@@ -706,9 +547,9 @@ public:
 
     ~ExpressionThis() {}
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
-    }
+    
+
+
 };
 
 class ExpressionNew : public IExpression {
@@ -718,10 +559,6 @@ public:
 
     ~ExpressionNew() {
         delete e1;
-    }
-
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
     }
 
     IExpression* e1;
@@ -736,10 +573,6 @@ public:
         delete e1;
     }
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
-    }
-
     char* e1;
 };
 
@@ -750,10 +583,6 @@ public:
 
     ~ExpressionNot() {
         delete e1;
-    }
-
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
     }
 
     IExpression* e1;
@@ -768,10 +597,6 @@ public:
         delete e1;
     }
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
-    }
-
     IExpression* e1;
 };
 
@@ -780,12 +605,7 @@ public:
 class CommaExpressionStar1 : public ICommaExpressionStar {
 public:
     CommaExpressionStar1() {}
-
     ~CommaExpressionStar1() {}
-
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
-    }
 };
 
 class CommaExpressionStar2 : public ICommaExpressionStar {
@@ -796,10 +616,6 @@ public:
     ~CommaExpressionStar2() {
         delete e1;
         delete e2;
-    }
-
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
     }
 
     IExpression* e1;
