@@ -229,7 +229,7 @@ public:
 class CommaTypeIdentifierStar1 : public ICommaTypeIdentifierStar {
 public:
     CommaTypeIdentifierStar1() {}
-    ~CommaTypeIdentifierStar1() {}
+    ~CommaTypeIdentifierStar1() {
 };
 
 class CommaTypeIdentifierStar2 : public ICommaTypeIdentifierStar {
@@ -253,19 +253,19 @@ public:
 class TypeIntArray : public IType {
 public:
     TypeIntArray() {}
-    ~TypeIntArray() {}
+    ~TypeIntArray() {
 };
 
 class TypeBoolean : public IType {
 public:
     TypeBoolean() {}
-    ~TypeBoolean() {}
+    ~TypeBoolean() {
 };
 
 class TypeInt : public IType {
 public:
     TypeInt() {}
-    ~TypeInt() {}
+    ~TypeInt() {
 };
 
 class TypeIdentifier : public IType {
@@ -514,7 +514,9 @@ public:
     ExpressionNum(char* value):
      e1(value) {}
 
-    ~ExpressionNum() {}
+    ~ExpressionNum() {
+        delete e1;
+    }
 
     char* e1;
 };
@@ -546,10 +548,6 @@ public:
     ExpressionThis() {}
 
     ~ExpressionThis() {}
-
-    
-
-
 };
 
 class ExpressionNew : public IExpression {
