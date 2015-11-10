@@ -6,7 +6,7 @@
 
 interface IAbstract {
 public:
-	virtual void accept(IVisitor*, int) const = 0;
+	virtual void accept( IVisitor* ) const = 0;
 };
 
 interface IGoal : public IAbstract {};
@@ -36,8 +36,8 @@ public:
 		delete e2;
 	}
 
-	void accept( IVisitor* visitor, int tabsCount ) {
-		visitor->visit( this, tabsCount );
+	void accept( IVisitor* visitor ) {
+		visitor->visit( this );
 	}
 
 	IMainClass* e1;
@@ -57,8 +57,8 @@ public:
         delete e3;
 	}
 
-	void accept( IVisitor* visitor, int tabsCount ) {
-		visitor->visit( this, tabsCount );
+	void accept( IVisitor* visitor ) {
+		visitor->visit( this );
 	}
 
     char* e1;
@@ -80,8 +80,8 @@ public:
         delete e4;
 	}
 
-	void accept( IVisitor* visitor, int tabsCount ) {
-		visitor->visit( this, tabsCount );
+	void accept( IVisitor* visitor ) {
+		visitor->visit( this );
 	}	
 
     char* e1, *e2;
@@ -100,8 +100,8 @@ public:
         delete e3;
 	}
 
-	void accept( IVisitor* visitor, int tabsCount ) {
-		visitor->visit( this, tabsCount );
+	void accept( IVisitor* visitor ) {
+		visitor->visit( this );
 	}
 
     char* e1;
@@ -117,8 +117,8 @@ public:
 
 	~ClassDeclarationStar1() {}
 
-	void accept( IVisitor* visitor, int tabsCount ) {
-		visitor->visit( this, tabsCount );
+	void accept( IVisitor* visitor ) {
+		visitor->visit( this );
 	}
 };
 
@@ -132,8 +132,8 @@ public:
 		delete e2;
 	}
 
-	void accept( IVisitor* visitor, int tabsCount ) {
-		visitor->visit( this, tabsCount );
+	void accept( IVisitor* visitor ) {
+		visitor->visit( this );
 	}
 
 	IClassDeclaration* e1;
@@ -152,8 +152,8 @@ public:
         delete e2;
 	}
 
-	void accept( IVisitor* visitor, int tabsCount ) {
-		visitor->visit( this, tabsCount );
+	void accept( IVisitor* visitor ) {
+		visitor->visit( this );
 	}
 
 	IType* e1;
@@ -168,8 +168,8 @@ public:
 
 	~VarDeclarationStar1() {}
 
-	void accept( IVisitor* visitor, int tabsCount ) {
-		visitor->visit( this, tabsCount );
+	void accept( IVisitor* visitor ) {
+		visitor->visit( this );
 	}
 };
 
@@ -183,8 +183,8 @@ public:
 		delete e2;
 	}
 
-	void accept( IVisitor* visitor, int tabsCount ) {
-		visitor->visit( this, tabsCount );
+	void accept( IVisitor* visitor ) {
+		visitor->visit( this );
 	}
 
 	IVarDeclarationStar* e1;
@@ -245,8 +245,8 @@ public:
 
     ~MethodDeclarationStar1() {}
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
     }
 };
 
@@ -260,8 +260,8 @@ public:
 		delete e2;
 	}
 
-	void accept( IVisitor* visitor, int tabsCount ) {
-		visitor->visit( this, tabsCount );
+	void accept( IVisitor* visitor ) {
+		visitor->visit( this );
 	}
 
 	IMethodDeclaration* e1;
@@ -276,8 +276,8 @@ public:
 
     ~CommaTypeIdentifierStar1() {}
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
     }
 };
 
@@ -292,8 +292,8 @@ public:
         delete e3;
 	}
 
-	void accept( IVisitor* visitor, int tabsCount ) {
-		visitor->visit( this, tabsCount );
+	void accept( IVisitor* visitor ) {
+		visitor->visit( this );
 	}
 
 	IType* e1;
@@ -309,8 +309,8 @@ public:
 
     ~TypeIntArray() {}
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
     }
 };
 
@@ -320,8 +320,8 @@ public:
 
     ~TypeBoolean() {}
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
     }
 };
 
@@ -331,8 +331,8 @@ public:
 
     ~TypeInt() {}
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
     }
 };
 
@@ -345,8 +345,8 @@ public:
         delete e1;
     }
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
     }
 
     char* e1;
@@ -363,8 +363,8 @@ public:
         delete e1;
     }
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
     }
 
     IStatementStar* e1;
@@ -381,8 +381,8 @@ public:
         delete e3;
     }
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
     }
 
     IExpression* e1;
@@ -399,8 +399,8 @@ public:
         delete e2;
     }
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
     }
 
     IExpression* e1;
@@ -416,8 +416,8 @@ public:
         delete e1;
     }
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
     }
 
     IExpression* e1;
@@ -433,8 +433,8 @@ public:
         delete e2;
     }
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
     }
 
     char* e1;
@@ -452,8 +452,8 @@ public:
         delete e3;
     }
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
     }
 
     char* e1;
@@ -468,8 +468,8 @@ public:
 
     ~StatementStar1() {}
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
     }
 };
 
@@ -483,8 +483,8 @@ public:
         delete e2;
     }
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
     }
 
     IStatement* e1;
@@ -503,8 +503,8 @@ public:
         delete e2;
     }
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
     }
 
     IExpression* e1, e2;
@@ -520,8 +520,8 @@ public:
         delete e2;
     }
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
     }
 
     IExpression* e1, e2;
@@ -537,8 +537,8 @@ public:
         delete e2;
     }
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
     }
 
     IExpression* e1, e2;
@@ -554,8 +554,8 @@ public:
         delete e2;
     }
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
     }
 
     IExpression* e1, e2;
@@ -571,8 +571,8 @@ public:
         delete e2;
     }
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
     }
 
     IExpression* e1, e2;
@@ -588,8 +588,8 @@ public:
         delete e2;
     }
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
     }
 
     IExpression* e1, e2;
@@ -604,8 +604,8 @@ public:
         delete e1;
     }
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
     }
 
     IExpression* e1;
@@ -623,8 +623,8 @@ public:
         delete e4; 
     }
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
     }
 
     IExpression* e1, *e3;
@@ -642,8 +642,8 @@ public:
         delete e2;
     }
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
     }
 
     IExpression* e1;
@@ -657,8 +657,8 @@ public:
 
     ~ExpressionNum() {}
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
     }
 
     char* e1;
@@ -670,8 +670,8 @@ public:
 
     ~ExpressionTrue() {}
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
     }
 };
 
@@ -681,8 +681,8 @@ public:
 
     ~ExpressionFalse() {}
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
     }
 };
 
@@ -693,8 +693,8 @@ public:
 
     ~ExpressionId() {}
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
     }
 
     char* e1;
@@ -706,8 +706,8 @@ public:
 
     ~ExpressionThis() {}
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
     }
 };
 
@@ -720,8 +720,8 @@ public:
         delete e1;
     }
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
     }
 
     IExpression* e1;
@@ -736,8 +736,8 @@ public:
         delete e1;
     }
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
     }
 
     char* e1;
@@ -752,8 +752,8 @@ public:
         delete e1;
     }
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
     }
 
     IExpression* e1;
@@ -768,8 +768,8 @@ public:
         delete e1;
     }
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
     }
 
     IExpression* e1;
@@ -783,8 +783,8 @@ public:
 
     ~CommaExpressionStar1() {}
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
     }
 };
 
@@ -798,8 +798,8 @@ public:
         delete e2;
     }
 
-    void accept( IVisitor* visitor, int tabsCount ) {
-        visitor->visit( this, tabsCount );
+    void accept( IVisitor* visitor ) {
+        visitor->visit( this );
     }
 
     IExpression* e1;
