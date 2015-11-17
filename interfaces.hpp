@@ -286,7 +286,7 @@ public:
     }
 
     IExpression* e1;
-    IStatement* e2, e3;
+    IStatement* e2, *e3;
 };
 
 class StatementWhile : public CAcceptsVisitor<StatementWhile, IVisitor, IStatement> {
@@ -341,7 +341,7 @@ public:
     }
 
     char* e1;
-    IExpression* e2, e3;
+    IExpression* e2, *e3;
 };
 
 //-----------------------------------------------------
@@ -372,7 +372,7 @@ public:
         delete e2;
     }
 
-    IExpression* e1, e2;
+    IExpression* e1, *e2;
 };
 
 class ExpressionAriOp : public CAcceptsVisitor<ExpressionAriOp, IVisitor, IExpression> {
