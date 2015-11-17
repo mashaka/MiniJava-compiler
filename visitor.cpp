@@ -6,6 +6,7 @@ void printTabs(int tabsCount) {
 }
 
 class Interpreter : public IVisitor {
+public:
 	int tabsCount;
 
 	Interpreter() : tabsCount(0) {}
@@ -56,7 +57,7 @@ class Interpreter : public IVisitor {
 	void visit(const ClassDeclaration2* n){
 		tabsCount++;
 		printTabs(tabsCount); 	printf("%s\n", "ClassDeclaration2");
-		printTabs(tabsCount+1); printf("CLASS\n", );
+		printTabs(tabsCount+1); printf("CLASS\n");
 		printTabs(tabsCount+1); printf("ID(%s)\n", n->e1); //valueString
 		printTabs(tabsCount+1); printf("{\n");
 		n->e2->accept(this); //VarDeclarationList
@@ -77,7 +78,7 @@ class Interpreter : public IVisitor {
 		tabsCount++;
 		printTabs(tabsCount); 	printf("%s\n", "VarDeclaration");
 		n->e1->accept(this); //Type
-		printTabs(tabsCount+1); printf("ID(%s)\n", n->e1); //valueString
+		printTabs(tabsCount+1); printf("ID(%s)\n", n->e2); //valueString
 		printTabs(tabsCount+1); printf(";\n");
 		tabsCount--;
 	}
@@ -256,16 +257,16 @@ class Interpreter : public IVisitor {
 		printTabs(tabsCount); 	printf("%s\n", "ExpressionBinOp");
 		n->e1->accept(this); //Expression
 		printTabs(tabsCount+1); printf("&&\n");
-		n->e2->accept(this); //Expression
+		n->e3->accept(this); //Expression
 		tabsCount--;
 	}
-
+	// TODO add e2
 	void visit(const ExpressionAriOp* n){
 		tabsCount++;
 		printTabs(tabsCount); 	printf("%s\n", "ExpressionAriOp");
 		n->e1->accept(this); //Expression
 		printTabs(tabsCount+1); printf("+\n");
-		n->e2->accept(this); //Expression
+		n->e3->accept(this); //Expression
 		tabsCount--;
 	}
 

@@ -4,6 +4,10 @@
 
 #define interface struct
 
+struct IGlobal{
+	virtual void accept(IVisitor* visitor) = 0;	
+};
+
 template<class TARGET, class VISITOR, class INTERFACE>
 class CAcceptsVisitor : public INTERFACE {
 public:
@@ -12,20 +16,20 @@ public:
     }
 };
 
-interface IGoal{};
-interface IMainClass{};
-interface IClassDeclaration{};
-interface IClassDeclarationList{};
-interface IVarDeclaration{};
-interface IVarDeclarationList{};
-interface IMethodDeclaration{};
-interface IMethodDeclarationList{};
-interface IType{};
-interface ICommaTypeIdentifierList{};
-interface IStatement{};
-interface IStatementList{};
-interface IExpression{};
-interface ICommaExpressionList{};
+interface IGoal : public IGlobal {};
+interface IMainClass : public IGlobal {};
+interface IClassDeclaration : public IGlobal {};
+interface IClassDeclarationList : public IGlobal {};
+interface IVarDeclaration : public IGlobal {};
+interface IVarDeclarationList : public IGlobal {};
+interface IMethodDeclaration : public IGlobal {};
+interface IMethodDeclarationList : public IGlobal {};
+interface IType : public IGlobal {};
+interface ICommaTypeIdentifierList : public IGlobal {};
+interface IStatement : public IGlobal {};
+interface IStatementList : public IGlobal {};
+interface IExpression : public IGlobal {};
+interface ICommaExpressionList : public IGlobal {};
 
 enum ArithmeticOperator { A_PLUS, A_MINUS, A_MULT };
 enum BinaryOperator { B_ANDAND, B_LT };

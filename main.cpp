@@ -3,9 +3,10 @@
 #include <string>
 #include <iostream>
 #include "interfaces.hpp"
-
+#include "visitor.cpp"
 
 extern FILE* yyin;
+extern Goal* root;
 
 // extern int yyparse(void);
 // extern "C" int yyparse (void);
@@ -40,6 +41,9 @@ int main(int argc, char **argv)
     // yylex();
     
     yyparse();
+
+    Interpreter print_visitor;
+    root->accept(&print_visitor);
 }
 
 // void yyerror(string s)
