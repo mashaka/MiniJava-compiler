@@ -16,7 +16,7 @@
     }
 
     void update_location(int len) {
-    	printf("%d:%d-%d ", line_count, pos_in_line, pos_in_line+len-1);
+    	// printf("%d:%d-%d ", line_count, pos_in_line, pos_in_line+len-1);
     	pos_in_line += len;
     }
 %}
@@ -28,265 +28,267 @@
 \/\*.*\*\/     			/* comment */
 [ ]						{ 	
 							pos_in_line++;
-							printf(" "); }
+							// printf(" ");
+						}
 [\t]                 	{ 	
 							pos_in_line++;
-							printf("\t"); }
+							// printf("\t");
+						}
 [\n]					{ 
 							change_line();
-							printf("\n");
+							// printf("\n");
 							change_line();
 						}
 
 "boolean"				{
 							update_location(yyleng);
-							printf("BOOLEAN");
+							// printf("BOOLEAN");
 							return T_BOOLEAN;
 						}
 "break"					{
 							update_location(yyleng);
-							printf("BREAK");
+							// printf("BREAK");
 							return T_BREAK;
 						}
 "case"					{
 							update_location(yyleng);
-							printf("CASE");
+							// printf("CASE");
 							return T_CASE;
 						}
 "class"					{
 							update_location(yyleng);
-							printf("CLASS");
+							// printf("CLASS");
 							return T_CLASS;
 						}
 "continue"				{
 							update_location(yyleng);
-							printf("CONTINUE");
+							// printf("CONTINUE");
 							return T_CONTINUE;
 						}
 "else"					{
 							update_location(yyleng);
-							printf("ELSE");
+							// printf("ELSE");
 							return T_ELSE;
 						}
 "extends"				{
 							update_location(yyleng);
-							printf("EXTENDS");
+							// printf("EXTENDS");
 							return T_EXTENDS;
 						}
 "default"				{
 							update_location(yyleng);
-							printf("DEFAULT");
+							// printf("DEFAULT");
 							return T_DEFAULT;
 						}
 "int"					{
 							update_location(yyleng);
-							printf("INT");
+							// printf("INT");
 							return T_INT;
 						}
 "new"					{
 							update_location(yyleng);
-							printf("NEW");
+							// printf("NEW");
 							return T_NEW;
 						}
 "if"					{
 							update_location(yyleng);
-							printf("IF");
+							// printf("IF");
 							return T_IF;
 						}
 "public"				{
 							update_location(yyleng);
-							printf("PUBLIC");
+							// printf("PUBLIC");
 							return T_PUBLIC;
 						}
 "switch"				{
 							update_location(yyleng);
-							printf("SWITCH");
+							// printf("SWITCH");
 							return T_SWITCH;
 						}
 "return"				{
 							update_location(yyleng);
-							printf("RETURN");
+							// printf("RETURN");
 							return T_RETURN;
 						}
 "static"				{
 							update_location(yyleng);
-							printf("STATIC");
+							// printf("STATIC");
 							return T_STATIC;
 						}
 "while"					{
 							update_location(yyleng);
-							printf("WHILE");
+							// printf("WHILE");
 							return T_WHILE;
 						}
 "void"					{
 							update_location(yyleng);
-							printf("VOID");
+							// printf("VOID");
 							return T_VOID;
 						}
 "this"					{
 							update_location(yyleng);
-							printf("THIS");
+							// printf("THIS");
 							return T_THIS;
 						}
 "null"					{
 							update_location(yyleng);
-							printf("NULL LITERAL");
+							// printf("NULL LITERAL");
 							return T_NULL;
 						}
 "length"				{
 							update_location(yyleng);
-							printf("LENGTH");
+							// printf("LENGTH");
 							return T_LENGTH;
 						}
 "true"					{
 							update_location(yyleng);
-							printf("TRUE");
+							// printf("TRUE");
 							return T_TRUE;
 						}
 "false"					{
 							update_location(yyleng);
-							printf("FALSE");
+							// printf("FALSE");
 							return T_FALSE;
 						}
 "main"					{
 							update_location(yyleng);
-							printf("MAIN");
+							// printf("MAIN");
 							return T_MAIN;
 						}
 "("						{
 							update_location(yyleng);
-							printf("LPAREN");
+							// printf("LPAREN");
 							return T_LPAREN;
 						}
 ")"						{
 							update_location(yyleng);
-							printf("RPAREN");
+							// printf("RPAREN");
 							return T_RPAREN;
 						}
 "{"						{
 							update_location(yyleng);
-							printf("LBRACE");
+							// printf("LBRACE");
 							return T_LBRACE;
 						}
 "}"						{
 							update_location(yyleng);
-							printf("RBRACE");
+							// printf("RBRACE");
 							return T_RBRACE;
 						}
 "["						{
 							update_location(yyleng);
-							printf("LBRACK");
+							// printf("LBRACK");
 							return T_LBRACK;
 						}
 "]"						{
 							update_location(yyleng);
-							printf("RBRACK");
+							// printf("RBRACK");
 							return T_RBRACK;
 						}
 ";"						{
 							update_location(yyleng);
-							printf("SEMICOLON");
+							// printf("SEMICOLON");
 							return T_SEMICOLON;
 						}
 ","						{
 							update_location(yyleng);
-							printf("COMMA");
+							// printf("COMMA");
 							return T_COMMA;
 						}
 "."						{
 							update_location(yyleng);
-							printf("DOT");
+							// printf("DOT");
 							return T_DOT;
 						}
 "="						{
 							update_location(yyleng);
-							printf("EQ");
+							// printf("EQ");
 							return T_EQ;
 						}
 "<"						{
 							update_location(yyleng);
-							printf("LT");
+							// printf("LT");
 							return T_LT;
 						}
 ">"						{
 							update_location(yyleng);
-							printf("GT");
+							// printf("GT");
 							return T_GT;
 						}
 "<="					{
 							update_location(yyleng);
-							printf("LET");
+							// printf("LET");
 							return T_LET;
 						}
 ">="					{
 							update_location(yyleng);
-							printf("GET");
+							// printf("GET");
 							return T_GET;
 						}
 "!"						{
 							update_location(yyleng);
-							printf("NOT");
+							// printf("NOT");
 							return T_NOT;
 						}
 ":"						{
 							update_location(yyleng);
-							printf("COLON");
+							// printf("COLON");
 							return T_COLON;
 						}
 "&&"					{
 							update_location(yyleng);
-							printf("ANDAND");
+							// printf("ANDAND");
 							return T_ANDAND;
 						}
 "||"					{
 							update_location(yyleng);
-							printf("OROR");
+							// printf("OROR");
 							return T_OROR;
 						}
 "+"						{
 							update_location(yyleng);
-							printf("PLUS");
+							// printf("PLUS");
 							return T_PLUS;
 						}
 "-"						{
 							update_location(yyleng);
-							printf("MINUS");
+							// printf("MINUS");
 							return T_MINUS;
 						}
 "*"						{
 							update_location(yyleng);
-							printf("MULT");
+							// printf("MULT");
 							return T_MULT;
 						}
 "/"						{
 							update_location(yyleng);
-							printf("DIV");
+							// printf("DIV");
 							return T_DIV;
 						}
 "&"						{
 							update_location(yyleng);
-							printf("AND");
+							// printf("AND");
 							return T_AND;
 						}
 "|"						{
 							update_location(yyleng);
-							printf("OR");
+							// printf("OR");
 							return T_OR;
 						}
 "System.out.println"	{
 							update_location(yyleng);
-							printf("PRINT");
+							// printf("PRINT");
 							return T_PRINT;
 						}
 
 [_a-zA-Z]+[_a-zA-Z0-9]* {
 							update_location(yyleng);
-							printf("ID(%s)", yytext);
+							// printf("ID(%s)", yytext);
 							return T_ID;
 						}
 [1-9]+[0-9]*			{
 							update_location(yyleng);
-							printf("NUM(%s)", yytext); 
+							// printf("NUM(%s)", yytext); 
 							return T_NUM;
 						}
 .                       { 	fprintf(stderr, "Unknown token: %s\n", yytext); exit(EXIT_FAILURE); }
