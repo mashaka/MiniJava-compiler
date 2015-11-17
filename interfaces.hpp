@@ -233,19 +233,19 @@ public:
 class TypeIntArray : public CAcceptsVisitor<TypeIntArray, IVisitor, IType> {
 public:
     TypeIntArray() {}
-    ~TypeIntArray() {
+    ~TypeIntArray() {}
 };
 
 class TypeBoolean : public CAcceptsVisitor<TypeBoolean, IVisitor, IType> {
 public:
     TypeBoolean() {}
-    ~TypeBoolean() {
+    ~TypeBoolean() {}
 };
 
 class TypeInt : public CAcceptsVisitor<TypeInt, IVisitor, IType> {
 public:
     TypeInt() {}
-    ~TypeInt() {
+    ~TypeInt() {}
 };
 
 class TypeIdentifier : public CAcceptsVisitor<TypeIdentifier, IVisitor, IType> {
