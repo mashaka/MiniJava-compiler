@@ -7,7 +7,7 @@
 template<class TARGET, class VISITOR, class INTERFACE>
 class CAcceptsVisitor : public INTERFACE {
 public:
-    virtual void accept(IVisitor* visit) {
+    virtual void accept(IVisitor* visitor) {
         visitor->visit( static_cast<TARGET*> (this) );
     }
 };

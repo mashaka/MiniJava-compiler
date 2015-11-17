@@ -8,20 +8,20 @@
 
 %union{
     char* str;
-    IGoal* iGoal;
-    IMainClass* iMainClass;
-    IClassDeclaration* iClassDeclaration;
-    IClassDeclarationList* iClassDeclarationList;
-    IVarDeclaration* iVarDeclaration;
-    IVarDeclarationList* iVarDeclarationList;
-    IMethodDeclaration* iMethodDeclaration;
-    IMethodDeclarationList* iMethodDeclarationList;
-    IType* iType;
-    ICommaTypeIdentifierList* iCommaTypeIdentifierList;
-    IStatement* iStatement;
-    IStatementList* iStatementList;
-    IExpression* iExpression;
-    ICommaExpressionList* iCommaExpressionList;
+    struct IGoal* iGoal;
+    struct IMainClass* iMainClass;
+    struct IClassDeclaration* iClassDeclaration;
+    struct IClassDeclarationList* iClassDeclarationList;
+    struct IVarDeclaration* iVarDeclaration;
+    struct IVarDeclarationList* iVarDeclarationList;
+    struct IMethodDeclaration* iMethodDeclaration;
+    struct IMethodDeclarationList* iMethodDeclarationList;
+    struct IType* iType;
+    struct ICommaTypeIdentifierList* iCommaTypeIdentifierList;
+    struct IStatement* iStatement;
+    struct IStatementList* iStatementList;
+    struct IExpression* iExpression;
+    struct ICommaExpressionList* iCommaExpressionList;
 }
 
 %token T_BOOLEAN T_BREAK T_CASE T_CLASS T_CONTINUE T_ELSE T_EXTENDS T_DEFAULT T_INT T_NEW T_IF T_PUBLIC T_SWITCH T_RETURN T_STATIC T_WHILE T_THIS T_NULL_LITERAL T_LENGTH T_TRUE T_FALSE T_MAIN T_LPAREN T_RPAREN T_LBRACE T_RBRACE T_LBRACK T_RBRACK T_SEMICOLON T_COMMA T_DOT T_EQ T_LT T_GT T_LET T_GET T_NOT T_COLON T_ANDAND T_OROR T_PLUS T_MINUS T_MULT T_DIV T_AND T_OR T_STRING T_VOID T_NULL T_PRINT
