@@ -122,7 +122,7 @@ Statement
     ;
 
 StatementList
-    : %empty                    { $$ = new 0;       }
+    : %empty                    { $$ = 0;     }
     | Statement StatementList   { $$ = new StatementList($1, $2); }
     ;
 
