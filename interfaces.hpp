@@ -364,28 +364,30 @@ public:
 
 class ExpressionBinOp : public CAcceptsVisitor<ExpressionBinOp, IVisitor, IExpression> {
 public:
-    ExpressionBinOp( IExpression* _expression1, IExpression* _expression2 ):
-        e1( _expression1 ), e2( _expression2 ) {}
+    ExpressionBinOp( IExpression* _expression1, BinaryOperator _binaryOperator, IExpression* _expression2 ):
+        e1( _expression1 ), e2( _binaryOperator ), e3( _expression2 ) {}
 
     ~ExpressionBinOp() {
         delete e1;
-        delete e2;
+        delete e3;
     }
 
-    IExpression* e1, *e2;
+    IExpression* e1, *e3;
+    BinaryOperator e2;
 };
 
 class ExpressionAriOp : public CAcceptsVisitor<ExpressionAriOp, IVisitor, IExpression> {
 public:
-    ExpressionAriOp( IExpression* _expression1, IExpression* _expression2 ):
-        e1( _expression1 ), e2( _expression2 ) {}
+    ExpressionAriOp( IExpression* _expression1, ArithmeticOperator _arithmeticOperator, IExpression* _expression2 ):
+        e1( _expression1 ), e2( _arithmeticOperator ), e3( _expression2 ) {}
 
     ~ExpressionAriOp() {
         delete e1;
-        delete e2;
+        delete e3;
     }
 
-    IExpression* e1, *e2;
+    IExpression* e1, *e3;
+    ArithmeticOperator e2;
 };
 
 class ExpressionBracks : public CAcceptsVisitor<ExpressionBracks, IVisitor, IExpression> {
@@ -446,8 +448,8 @@ public:
 
 class ExpressionNum : public CAcceptsVisitor<ExpressionNum, IVisitor, IExpression> {
 public:
-    ExpressionNum(char* value):
-     e1(value) {}
+    ExpressionNum( char* value ):
+        e1( value ) {}
 
     ~ExpressionNum() {
         delete e1;
@@ -458,14 +460,18 @@ public:
 
 class ExpressionLogOp : public CAcceptsVisitor<ExpressionLogOp, IVisitor, IExpression> {
 public:
-    ExpressionLogOp() {}
+    ExpressionLogOp( LogicalOperator _logicalOperator ):
+        e1(_logicalOperator) {}
+
     ~ExpressionLogOp() {}
+
+    LogicalOperator e1;
 };
 
 class ExpressionId : public CAcceptsVisitor<ExpressionId, IVisitor, IExpression> {
 public:
-    ExpressionId(char* value):
-        e1(value) {}
+    ExpressionId( char* value ):
+        e1( value ) {}
 
     ~ExpressionId() {}
 
