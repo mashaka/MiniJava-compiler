@@ -2,6 +2,7 @@
 
 	#include "syntax.tab.hh"
     #include <stdio.h>
+    #include <iostream>
 
 	void yyerror (char const *s) {
 		fprintf (stderr, "%s\n", s);
@@ -22,6 +23,9 @@
 %}
 
 %option noyywrap
+
+IDENT [_a-zA-Z]+[_a-zA-Z0-9]*
+
 
 %%
 
@@ -281,16 +285,14 @@
 							return T_PRINT;
 						}
 
-[_a-zA-Z]+[_a-zA-Z0-9]* {
+{IDENT} {
 							update_location(yyleng);
 							strcpy(yylval.str, yytext);
-							// printf("ID(%s)", yytext);
 							return T_ID;
 						}
 [1-9]+[0-9]*			{
 							update_location(yyleng);
 							strcpy(yylval.str, yytext);
-							// printf("NUM(%s)", yytext); 
 							return T_NUM;
 						}
 .                       { 	fprintf(stderr, "Unknown token: %s\n", yytext); exit(EXIT_FAILURE); }

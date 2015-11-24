@@ -7,7 +7,7 @@
 %}
 
 %union{
-    char* str;
+    char str[4096];
     struct IGoal* iGoal;
     struct IMainClass* iMainClass;
     struct IClassDeclaration* iClassDeclaration;
