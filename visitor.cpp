@@ -23,7 +23,7 @@ public:
 		tabsCount++;
 		printTabs(tabsCount); 	printf("%s\n", "MainClass");
 		printTabs(tabsCount+1);	printf("CLASS\n");
-		printTabs(tabsCount+1); printf("ID(%s)\n", n->e1); //valueString
+		printTabs(tabsCount+1); printf("ID(%s)\n", (n->e1).c_str()); //valueString
 		printTabs(tabsCount+1);	printf("{\n");
 		printTabs(tabsCount+1); printf("PUBLIC\n");
 		printTabs(tabsCount+1); printf("STATIC\n");
@@ -31,7 +31,7 @@ public:
 		printTabs(tabsCount+1); printf("MAIN\n");
 		printTabs(tabsCount+1); printf("(\n");
 		printTabs(tabsCount+1); printf("STRING[]\n");
-		printTabs(tabsCount+1); printf("ID(%s)\n", n->e2); //valueString
+		printTabs(tabsCount+1); printf("ID(%s)\n", (n->e2).c_str()); //valueString
 		printTabs(tabsCount+1); printf(")\n"); 
 		printTabs(tabsCount+1); printf("{\n");
 		n->e3->accept(this); //Statement
@@ -44,9 +44,9 @@ public:
 		tabsCount++;
 		printTabs(tabsCount); 	printf("%s\n", "ClassDeclaration1");
 		printTabs(tabsCount+1); printf("CLASS\n");
-		printTabs(tabsCount+1); printf("ID(%s)\n", n->e1); //valueString
+		printTabs(tabsCount+1); printf("ID(%s)\n", (n->e1).c_str()); //valueString
 		printTabs(tabsCount+1); printf("EXTENDS\n");
-		printTabs(tabsCount+1); printf("ID(%s)\n", n->e2); //valueString
+		printTabs(tabsCount+1); printf("ID(%s)\n", (n->e2).c_str()); //valueString
 		printTabs(tabsCount+1); printf("{\n");
 		n->e3->accept(this); //VarDeclarationList
 		n->e4->accept(this); //MethodDeclarationList
@@ -58,7 +58,7 @@ public:
 		tabsCount++;
 		printTabs(tabsCount); 	printf("%s\n", "ClassDeclaration2");
 		printTabs(tabsCount+1); printf("CLASS\n");
-		printTabs(tabsCount+1); printf("ID(%s)\n", n->e1); //valueString
+		printTabs(tabsCount+1); printf("ID(%s)\n", (n->e1).c_str()); //valueString
 		printTabs(tabsCount+1); printf("{\n");
 		n->e2->accept(this); //VarDeclarationList
 		n->e3->accept(this); //MethodDeclarationList
@@ -78,7 +78,7 @@ public:
 		tabsCount++;
 		printTabs(tabsCount); 	printf("%s\n", "VarDeclaration");
 		n->e1->accept(this); //Type
-		printTabs(tabsCount+1); printf("ID(%s)\n", n->e2); //valueString
+		printTabs(tabsCount+1); printf("ID(%s)\n", (n->e2).c_str()); //valueString
 		printTabs(tabsCount+1); printf(";\n");
 		tabsCount--;
 	}
@@ -96,10 +96,10 @@ public:
 		printTabs(tabsCount); 	printf("%s\n", "MethodDeclaration1");
 		printTabs(tabsCount+1); printf("PUBLIC\n");
 		n->e1->accept(this); //Type
-		printTabs(tabsCount+1); printf("ID(%s)\n", n->e2); //valueString
+		printTabs(tabsCount+1); printf("ID(%s)\n", (n->e2).c_str()); //valueString
 		printTabs(tabsCount+1); printf("(\n");
 		n->e3->accept(this); //Type
-		printTabs(tabsCount+1); printf("ID(%s)\n", n->e4); //valueString
+		printTabs(tabsCount+1); printf("ID(%s)\n", (n->e4).c_str()); //valueString
 		n->e5->accept(this); //CommaTypeIdentifierList
 		printTabs(tabsCount+1); printf(")\n");
 		printTabs(tabsCount+1); printf("{\n");
@@ -117,7 +117,7 @@ public:
 		printTabs(tabsCount); 	printf("%s\n", "MethodDeclaration2");
 		printTabs(tabsCount+1); printf("PUBLIC\n");
 		n->e1->accept(this); //Type
-		printTabs(tabsCount+1); printf("ID(%s)\n", n->e2); //valueString
+		printTabs(tabsCount+1); printf("ID(%s)\n", (n->e2).c_str()); //valueString
 		printTabs(tabsCount+1); printf("(\n");
 		printTabs(tabsCount+1); printf(")\n");
 		printTabs(tabsCount+1); printf("{\n");
@@ -143,7 +143,7 @@ public:
 		printTabs(tabsCount); 	printf("%s\n", "CommaTypeIdentifierList");
 		printTabs(tabsCount+1); printf(",\n");
 		n->e1->accept(this); //Type
-		printTabs(tabsCount+1); printf("ID(%s)\n", n->e2); //valueString
+		printTabs(tabsCount+1); printf("ID(%s)\n", (n->e2).c_str()); //valueString
 		n->e3->accept(this); //CommaTypeIdentifierList
 		tabsCount--;
 	}
@@ -173,7 +173,7 @@ public:
 	void visit(const TypeIdentifier* n){
 		tabsCount++;
 		printTabs(tabsCount); 	printf("%s\n", "TypeIdentifier");
-		printTabs(tabsCount+1); printf("ID(%s)\n", n->e1); //value
+		printTabs(tabsCount+1); printf("ID(%s)\n", (n->e1).c_str()); //value
 		tabsCount--;
 	}
 
@@ -224,7 +224,7 @@ public:
 	void visit(const StatementIdentifier1* n){
 		tabsCount++;
 		printTabs(tabsCount); 	printf("%s\n", "StatementIdentifier1");
-		printTabs(tabsCount+1); printf("ID(%s)\n", n->e1); //valueString
+		printTabs(tabsCount+1); printf("ID(%s)\n", (n->e1).c_str()); //valueString
 		printTabs(tabsCount+1); printf("=\n");
 		n->e2->accept(this); //Expression
 		printTabs(tabsCount+1); printf(";\n");
@@ -234,7 +234,7 @@ public:
 	void visit(const StatementIdentifier2* n){
 		tabsCount++;
 		printTabs(tabsCount); 	printf("%s\n", "StatementIdentifier2");
-		printTabs(tabsCount+1); printf("ID(%s)\n", n->e1); //valueString
+		printTabs(tabsCount+1); printf("ID(%s)\n", (n->e1).c_str()); //valueString
 		printTabs(tabsCount+1); printf("[\n");
 		n->e2->accept(this); //Expression
 		printTabs(tabsCount+1); printf("]\n");
@@ -294,7 +294,7 @@ public:
 		printTabs(tabsCount); 	printf("%s\n", "ExpressionMethod");
 		n->e1->accept(this); //Expression
 		printTabs(tabsCount+1); printf(".\n");
-		printTabs(tabsCount+1); printf("ID(%s)\n", n->e2); //valueString
+		printTabs(tabsCount+1); printf("ID(%s)\n", (n->e2).c_str()); //valueString
 		printTabs(tabsCount+1); printf("(\n");
 		n->e3->accept(this); //Expression
 		n->e4->accept(this); //CommaExpressionList
@@ -307,7 +307,7 @@ public:
 		printTabs(tabsCount); 	printf("%s\n", "ExpressionEmptyMethod");
 		n->e1->accept(this); //Expression
 		printTabs(tabsCount+1); printf(".\n");
-		printTabs(tabsCount+1); printf("ID(%s)\n", n->e2); //valueString
+		printTabs(tabsCount+1); printf("ID(%s)\n", (n->e2).c_str()); //valueString
 		printTabs(tabsCount+1); printf("(\n");
 		printTabs(tabsCount+1); printf(")\n");
 		tabsCount--;
@@ -316,7 +316,7 @@ public:
 	void visit(const ExpressionNum* n){
 		tabsCount++;
 		printTabs(tabsCount); 	printf("%s\n", "ExpressionNum");
-		printTabs(tabsCount+1); printf("INT(%s)\n", n->e1); //valueString
+		printTabs(tabsCount+1); printf("INT(%s)\n", (n->e1).c_str()); //valueString
 		tabsCount--;
 	}
 
@@ -330,7 +330,7 @@ public:
 	void visit(const ExpressionId* n){
 		tabsCount++;
 		printTabs(tabsCount); 	printf("%s\n", "ExpressionId");
-		printTabs(tabsCount+1); printf("ID(%s)\n", n->e1); //value
+		printTabs(tabsCount+1); printf("ID(%s)\n", (n->e1).c_str()); //value
 		tabsCount--;
 	}
 
@@ -356,7 +356,7 @@ public:
 		tabsCount++;
 		printTabs(tabsCount); 	printf("%s\n", "ExpressionEmptyNew");
 		printTabs(tabsCount+1); printf("new\n");
-		printTabs(tabsCount+1); printf("ID(%s)\n", n->e1); //valueString
+		printTabs(tabsCount+1); printf("ID(%s)\n", (n->e1).c_str()); //valueString
 		printTabs(tabsCount+1); printf("(\n");
 		printTabs(tabsCount+1); printf(")\n");
 		tabsCount--;

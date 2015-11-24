@@ -283,11 +283,13 @@
 
 [_a-zA-Z]+[_a-zA-Z0-9]* {
 							update_location(yyleng);
+							strcpy(yylval.str, yytext);
 							// printf("ID(%s)", yytext);
 							return T_ID;
 						}
 [1-9]+[0-9]*			{
 							update_location(yyleng);
+							strcpy(yylval.str, yytext);
 							// printf("NUM(%s)", yytext); 
 							return T_NUM;
 						}

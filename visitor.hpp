@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include "interfaces.hpp"
+#include <iostream>
 
 
 class Goal;

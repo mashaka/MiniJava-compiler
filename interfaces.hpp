@@ -1,6 +1,7 @@
 #pragma once
 
 #include "visitor.hpp"
+#include <string>
 
 #define interface struct
 
@@ -59,13 +60,11 @@ public:
 		e1(_type1), e2(_type2), e3(_statement) {}
 
 	~MainClass() {
-		delete e1;
-        delete e2;
         delete e3;
 	}
 
-    char* e1;
-    char* e2;
+    std::string e1;
+    std::string e2;
 	IStatement* e3;
 };
 
@@ -77,13 +76,11 @@ public:
 		e1(_type1), e2(_type2), e3( _varDeclarationList ), e4(_methodDeclarationList) {}
 
 	~ClassDeclaration1() {
-		delete e1;
-		delete e2;
         delete e3;
         delete e4;
 	}
 
-    char* e1, *e2;
+    std::string e1, e2;
 	IVarDeclarationList* e3;
 	IMethodDeclarationList* e4;
 };
@@ -94,12 +91,11 @@ public:
 		e1(_type), e2( _varDeclarationList ), e3(_methodDeclarationList) {}
 
 	~ClassDeclaration2() {
-		delete e1;
 		delete e2;
         delete e3;
 	}
 
-    char* e1;
+    std::string e1;
 	IVarDeclarationList* e2;
 	IMethodDeclarationList* e3;
 };
@@ -129,11 +125,10 @@ public:
 
 	~VarDeclaration() {
 		delete e1;
-        delete e2;
 	}
 
 	IType* e1;
-    char* e2;
+    std::string e2;
 };
 
 //-----------------------------------------------------
@@ -161,9 +156,7 @@ public:
 
 	~MethodDeclaration1() {
 		delete e1;
-		delete e2;
         delete e3;
-        delete e4;
 		delete e5;
 		delete e6;
 		delete e7;
@@ -171,7 +164,7 @@ public:
 	}
 
 	IType* e1, *e3;
-    char* e2, *e4;
+    std::string e2, e4;
 	ICommaTypeIdentifierList* e5;
 	IVarDeclarationList* e6;
 	IStatementList* e7;
@@ -185,14 +178,13 @@ public:
 
 	~MethodDeclaration2() {
 		delete e1;
-		delete e2;
 		delete e3;
 		delete e4;
         delete e5;
 	}
 
 	IType* e1;
-    char* e2;
+    std::string e2;
 	IVarDeclarationList* e3;
 	IStatementList* e4;
 	IExpression* e5;
@@ -223,12 +215,11 @@ public:
 
 	~CommaTypeIdentifierList() {
 		delete e1;
-		delete e2;
         delete e3;
 	}
 
 	IType* e1;
-    char* e2;
+    std::string e2;
 	ICommaTypeIdentifierList* e3;
 };
 
@@ -258,10 +249,9 @@ public:
         e1(_type) {}
 
     ~TypeIdentifier() {
-        delete e1;
     }
 
-    char* e1;
+    std::string e1;
 };
 
 //-----------------------------------------------------
@@ -325,11 +315,10 @@ public:
         e1( _type ), e2( _expression ) {}
 
     ~StatementIdentifier1() {
-        delete e1;
         delete e2;
     }
 
-    char* e1;
+    std::string e1;
     IExpression* e2;
 };
 
@@ -339,12 +328,11 @@ public:
         e1( _type ), e2( _expression1 ), e3( _expression2 ) {}
 
     ~StatementIdentifier2() {
-        delete e1;
         delete e2;
         delete e3;
     }
 
-    char* e1;
+    std::string e1;
     IExpression* e2, *e3;
 };
 
@@ -426,13 +414,12 @@ public:
 
     ~ExpressionMethod() {
         delete e1;
-        delete e2;
         delete e3;
         delete e4; 
     }
 
     IExpression* e1, *e3;
-    char* e2;
+    std::string e2;
     ICommaExpressionList* e4;
 };
 
@@ -443,11 +430,10 @@ public:
 
     ~ExpressionEmptyMethod() {
         delete e1;
-        delete e2;
     }
 
     IExpression* e1;
-    char *e2;
+    std::string e2;
 };
 
 class ExpressionNum : public CAcceptsVisitor<ExpressionNum, IVisitor, IExpression> {
@@ -456,10 +442,9 @@ public:
         e1( value ) {}
 
     ~ExpressionNum() {
-        delete e1;
     }
 
-    char* e1;
+    std::string e1;
 };
 
 class ExpressionLogOp : public CAcceptsVisitor<ExpressionLogOp, IVisitor, IExpression> {
@@ -479,7 +464,7 @@ public:
 
     ~ExpressionId() {}
 
-    char* e1;
+    std::string e1;
 };
 
 class ExpressionThis : public CAcceptsVisitor<ExpressionThis, IVisitor, IExpression> {
@@ -507,10 +492,9 @@ public:
         e1( _type ) {}
 
     ~ExpressionEmptyNew() {
-        delete e1;
     }
 
-    char* e1;
+    std::string e1;
 };
 
 class ExpressionNot : public CAcceptsVisitor<ExpressionNot, IVisitor, IExpression> {
