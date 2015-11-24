@@ -15,7 +15,9 @@ public:
 		tabsCount++;
 		printTabs(tabsCount); 	printf("%s\n", "Goal");
 		n->e1->accept(this); //MainClass
-		n->e2->accept(this); //ClassDeclarationList
+		if(n->e2 != 0) {
+			n->e2->accept(this); //ClassDeclarationList
+		}
 		tabsCount--;
 	}
 
@@ -48,7 +50,9 @@ public:
 		printTabs(tabsCount+1); printf("EXTENDS\n");
 		printTabs(tabsCount+1); printf("ID(%s)\n", (n->e2).c_str()); //valueString
 		printTabs(tabsCount+1); printf("{\n");
-		n->e3->accept(this); //VarDeclarationList
+		if(n->e3 != 0){
+			n->e3->accept(this); //VarDeclarationList
+		}
 		n->e4->accept(this); //MethodDeclarationList
 		printTabs(tabsCount+1); printf("}\n");
 		tabsCount--;
@@ -60,7 +64,9 @@ public:
 		printTabs(tabsCount+1); printf("CLASS\n");
 		printTabs(tabsCount+1); printf("ID(%s)\n", (n->e1).c_str()); //valueString
 		printTabs(tabsCount+1); printf("{\n");
-		n->e2->accept(this); //VarDeclarationList
+		if(n->e2 != 0){
+			n->e2->accept(this); //VarDeclarationList
+		}
 		n->e3->accept(this); //MethodDeclarationList
 		printTabs(tabsCount+1); printf("}\n");
 		tabsCount--;
@@ -70,7 +76,9 @@ public:
 		tabsCount++;
 		printTabs(tabsCount); 	printf("%s\n", "ClassDeclarationList");
 		n->e1->accept(this); //ClassDeclaration
-		n->e2->accept(this); //ClassDeclarationList
+		if(n->e2 != 0) {
+			n->e2->accept(this); //ClassDeclarationList
+		}
 		tabsCount--;
 	}
 
@@ -86,7 +94,9 @@ public:
 	void visit(const VarDeclarationList* n){
 		tabsCount++;
 		printTabs(tabsCount); 	printf("%s\n", "VarDeclarationList");
-		n->e1->accept(this); //VarDeclarationList
+		if(n->e1 != 0) {
+			n->e1->accept(this); //VarDeclarationList
+		}
 		n->e2->accept(this); //VarDeclaration
 		tabsCount--;
 	}
@@ -100,11 +110,17 @@ public:
 		printTabs(tabsCount+1); printf("(\n");
 		n->e3->accept(this); //Type
 		printTabs(tabsCount+1); printf("ID(%s)\n", (n->e4).c_str()); //valueString
-		n->e5->accept(this); //CommaTypeIdentifierList
+		if(n->e5 != 0) {
+			n->e5->accept(this); //CommaTypeIdentifierList
+		}
 		printTabs(tabsCount+1); printf(")\n");
 		printTabs(tabsCount+1); printf("{\n");
-		n->e6->accept(this); //VarDeclarationList
-		n->e7->accept(this); //StatementList
+		if(n->e6 != 0){
+			n->e6->accept(this); //VarDeclarationList
+		}
+		if(n->e7 != 0) {
+			n->e7->accept(this); //StatementList
+		}
 		printTabs(tabsCount+1); printf("RETURN\n");
 		n->e8->accept(this); //Expression
 		printTabs(tabsCount+1); printf(";\n");
@@ -121,8 +137,12 @@ public:
 		printTabs(tabsCount+1); printf("(\n");
 		printTabs(tabsCount+1); printf(")\n");
 		printTabs(tabsCount+1); printf("{\n");
-		n->e3->accept(this); //VarDeclarationList
-		n->e4->accept(this); //StatementList
+		if(n->e3 != 0){
+			n->e3->accept(this); //VarDeclarationList
+		}
+		if(n->e4 != 0) {
+			n->e4->accept(this); //StatementList
+		}
 		printTabs(tabsCount+1); printf("RETURN\n");
 		n->e5->accept(this); //Expression
 		printTabs(tabsCount+1); printf(";\n");
@@ -144,7 +164,9 @@ public:
 		printTabs(tabsCount+1); printf(",\n");
 		n->e1->accept(this); //Type
 		printTabs(tabsCount+1); printf("ID(%s)\n", (n->e2).c_str()); //valueString
-		n->e3->accept(this); //CommaTypeIdentifierList
+		if(n->e3 != 0) {
+			n->e3->accept(this); //CommaTypeIdentifierList
+		}
 		tabsCount--;
 	}
 
@@ -181,7 +203,9 @@ public:
 		tabsCount++;
 		printTabs(tabsCount); 	printf("%s\n", "StatementListBraced");
 		printTabs(tabsCount+1); printf("{\n");
-		n->e1->accept(this); //StatementList
+		if(n->e1 != 0) {
+			n->e1->accept(this); //StatementList
+		}
 		printTabs(tabsCount+1); printf("}\n");
 		tabsCount--;
 	}
@@ -248,7 +272,9 @@ public:
 		tabsCount++;
 		printTabs(tabsCount); 	printf("%s\n", "StatementList");
 		n->e1->accept(this); //Statement
-		n->e2->accept(this); //StatementList
+		if(n->e2 != 0) {
+			n->e2->accept(this); //StatementList
+		}
 		tabsCount--;
 	}
 
@@ -297,7 +323,9 @@ public:
 		printTabs(tabsCount+1); printf("ID(%s)\n", (n->e2).c_str()); //valueString
 		printTabs(tabsCount+1); printf("(\n");
 		n->e3->accept(this); //Expression
-		n->e4->accept(this); //CommaExpressionList
+		if(n->e4 != 0) {
+			n->e4->accept(this); //CommaExpressionList
+		}
 		printTabs(tabsCount+1); printf(")\n");
 		tabsCount--;
 	}
@@ -384,7 +412,9 @@ public:
 		printTabs(tabsCount); 	printf("%s\n", "CommaExpressionList");
 		printTabs(tabsCount+1); printf(",\n");
 		n->e1->accept(this); //Expression
-		n->e2->accept(this); //CommaExpressionList
+		if(n->e2 != 0) {
+			n->e2->accept(this); //CommaExpressionList
+		}
 		tabsCount--;
 	}
 };
