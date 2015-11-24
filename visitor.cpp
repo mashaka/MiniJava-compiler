@@ -2,7 +2,7 @@
 
 void printTabs(int tabsCount) {
 	for(int i=0; i < tabsCount; ++i)
-		printf("\t");
+		printf("    ");
 }
 
 class Interpreter : public IVisitor {
@@ -53,7 +53,9 @@ public:
 		if(n->e3 != 0){
 			n->e3->accept(this); //VarDeclarationList
 		}
-		n->e4->accept(this); //MethodDeclarationList
+		if(n->e4 != 0) {
+			n->e4->accept(this); //MethodDeclarationList
+		}
 		printTabs(tabsCount+1); printf("}\n");
 		tabsCount--;
 	}
@@ -67,7 +69,9 @@ public:
 		if(n->e2 != 0){
 			n->e2->accept(this); //VarDeclarationList
 		}
-		n->e3->accept(this); //MethodDeclarationList
+		if(n->e3 != 0) {
+			n->e3->accept(this); //MethodDeclarationList
+		}
 		printTabs(tabsCount+1); printf("}\n");
 		tabsCount--;
 	}
@@ -154,7 +158,9 @@ public:
 		tabsCount++;
 		printTabs(tabsCount); 	printf("%s\n", "MethodDeclarationList");
 		n->e1->accept(this); //MethodDeclaration
-		n->e2->accept(this); //MethodDeclarationList
+		if(n->e2 != 0) {
+			n->e2->accept(this); //MethodDeclarationList
+		}
 		tabsCount--;
 	}
 
