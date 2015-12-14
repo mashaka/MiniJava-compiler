@@ -288,16 +288,27 @@ public:
 		tabsCount++;
 		printTabs(tabsCount); 	printf("%s\n", "ExpressionBinOp");
 		n->e1->accept(this); //Expression
-		printTabs(tabsCount+1); printf("&&\n");
+		if(n->e2 == B_LT) {
+			printTabs(tabsCount+1); printf("<\n");
+		} else {
+			printTabs(tabsCount+1); printf("&&\n");
+		}
 		n->e3->accept(this); //Expression
 		tabsCount--;
 	}
-	// TODO add e2
+	
 	void visit(const ExpressionAriOp* n){
 		tabsCount++;
 		printTabs(tabsCount); 	printf("%s\n", "ExpressionAriOp");
 		n->e1->accept(this); //Expression
-		printTabs(tabsCount+1); printf("+\n");
+		if(n->e2 == A_PLUS) {
+			printTabs(tabsCount+1); printf("+\n");
+		}
+		if(n->e2 == A_MINUS) {
+			printTabs(tabsCount+1); printf("-\n");
+		} else {
+			printTabs(tabsCount+1); printf("*\n");
+		}
 		n->e3->accept(this); //Expression
 		tabsCount--;
 	}
@@ -357,7 +368,11 @@ public:
 	void visit(const ExpressionLogOp* n){
 		tabsCount++;
 		printTabs(tabsCount); 	printf("%s\n", "ExpressionLogOp");
-		printTabs(tabsCount+1); printf("true\n");
+		if(n->e1 == L_TRUE){
+			printTabs(tabsCount+1); printf("true\n");
+		} else {
+			printTabs(tabsCount+1); printf("false\n");
+		}
 		tabsCount--;
 	}
 
