@@ -3,6 +3,7 @@
     void yyerror(const char *);
     #include <stdio.h>
     #include "interfaces.hpp"
+    extern FILE * yyin;
     Goal* root;
 %}
 

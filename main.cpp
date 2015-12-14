@@ -5,6 +5,7 @@
 #include "interfaces.hpp"
 #include "visitor.cpp"
 #include "visitorTable.cpp"
+#include "visitorTypeChecker.cpp"
 
 extern FILE* yyin;
 extern Goal* root;
@@ -14,6 +15,8 @@ extern Goal* root;
 
 extern int yylex(void);
 extern int yyparse(void);
+
+Symbol::CStorage symbols;
 
 // int yylex();
 // extern void yyerror(string s);
@@ -43,9 +46,14 @@ int main(int argc, char **argv)
     
     yyparse();
 
-    Interpreter print_visitor;
+    //Interpreter printVisitor;
+    //root->accept(&printVisitor);
 
-    root->accept(&print_visitor);
+    CSymbolTableBuilder symbolTableVisitor(&symbols);
+    root->accept(&symbolTableVisitor);
+
+    CTypeChecker typeCheckerVisitor(&symbols, symbolTableVisitor.table);
+    root->accept(&typeCheckerVisitor);
 }
 
 // void yyerror(string s)

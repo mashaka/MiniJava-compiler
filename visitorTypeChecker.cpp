@@ -1,19 +1,37 @@
 #include "visitor.hpp"
 #include "SymbolsTable.hpp"
+#include <iostream>
 
-class CSymbolTableBuilder : public IVisitor {
+class CTypeChecker : public IVisitor {
 public:
-	bool inMethod;
-	SymbolsTable::CClassInfo* curClass;
-	SymbolsTable::CMethodInfo* curMethod;
 	SymbolsTable::CTable table; 
 	const Symbol::CSymbol* lastTypeValue;
 	Symbol::CStorage* symbols;
 
-	CSymbolTableBuilder(Symbol::CStorage* _symbols): symbols(_symbols) {}
+	CTypeChecker(Symbol::CStorage* _symbols, SymbolsTable::CTable& _table): symbols(_symbols), table(_table) {}
+
+	void checkCyclicInheritance(const Symbol::CSymbol* parent, const Symbol::CSymbol* child) {
+		while( ( parent != child ) && ( parent != 0 ) ) {
+			int i = 0;
+			while ( ( table.classesList[i].name != parent ) )
+				++i;
+			parent = table.classesList[i].parent;
+		}
+		if( parent != 0 ) {
+			std::cout << "Cyclic inheritance with " << child->String() << std::endl;
+		}
+	}
+
+	void checkClassExistence(const Symbol::CSymbol* className) {
+		int i = 0;
+		while ( ( table.classesList[i].name != className ) && ( i < table.classesList.size() ) )
+			++i;
+		if ( i == table.classesList.size() ) {
+			std::cout << "Class " << className->String() << " does not exist"<< std::endl;
+		}
+	}
 
 	void visit(const Goal* n) {
-		inMethod = false;
 		n->e1->accept(this); //MainClass
 		if(n->e2 != 0) {
 			n->e2->accept(this); //ClassDeclarationList
@@ -21,44 +39,28 @@ public:
 	}
 
 	void visit(const MainClass* n) {
-		if( table.AddClass( symbols->Get( n->e1 ) ) ) {
-			curClass = &table.classesList.back();
-			lastTypeValue = symbols->Get( "void" );
-			if( curClass->AddMethod( symbols-> Get( "main" ), lastTypeValue ) ) {
-				inMethod = true;
-				curMethod = &curClass->methodsList.back();
-				lastTypeValue = symbols->Get( "String[]" );
-				if( curMethod->AddParam( symbols->Get( n->e2 ), lastTypeValue ) ) {
-					n->e3->accept(this); //Statement
-					inMethod = false;
-				}
-			}
-		}
+		n->e3->accept(this); //Statement
 	}
 
 	void visit(const ClassDeclaration1* n) {
-		if( table.AddClass( symbols->Get( n->e1 ) ) ) {
-			curClass = &table.classesList.back();
-			curClass->parent = symbols->Get( n->e2 );
-			if(n->e3 != 0){
-				n->e3->accept(this); //VarDeclarationList
-			}
-			if(n->e4 != 0) {
-				n->e4->accept(this); //MethodDeclarationList
-			}
+		const Symbol::CSymbol* child = symbols->Get( n->e2 );
+		const Symbol::CSymbol* parent = symbols->Get( n->e2 );
+		checkClassExistence(parent);
+		checkCyclicInheritance(parent, child);
+		if(n->e3 != 0){
+			n->e3->accept(this); //VarDeclarationList
+		}
+		if(n->e4 != 0) {
+			n->e4->accept(this); //MethodDeclarationList
 		}
 	}
 
-
 	void visit(const ClassDeclaration2* n) {
-		if( table.AddClass( symbols->Get( n->e1 ) ) ) {
-			curClass = &table.classesList.back();
-			if(n->e2 != 0){
-				n->e2->accept(this); //VarDeclarationList
-			}
-			if(n->e3 != 0) {
-				n->e3->accept(this); //MethodDeclarationList
-			}
+		if(n->e2 != 0){
+			n->e2->accept(this); //VarDeclarationList
+		}
+		if(n->e3 != 0) {
+			n->e3->accept(this); //MethodDeclarationList
 		}
 	}
 

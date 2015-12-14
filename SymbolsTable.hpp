@@ -5,12 +5,10 @@
 #include <iostream>
 #include "Symbol.hpp"
 
-using namespace Symbol;
-
 namespace SymbolsTable {
 
 	template <typename T>
-	bool checkItemAlreadyExists(const std::vector<T>& items, const CSymbol* itemName) {
+	bool checkItemAlreadyExists(const std::vector<T>& items, const Symbol::CSymbol* itemName) {
 		typename std::vector<T>::const_iterator it = items.cbegin();
 		typename std::vector<T>::const_iterator itEnd = items.cend();
 		for (; it != itEnd; ++it) {
@@ -23,33 +21,34 @@ namespace SymbolsTable {
 	}
 
 	struct CVarInfo {
-		const CSymbol* name;
-		const CSymbol* type;
-		CVarInfo(const CSymbol* _name, const CSymbol* _type):
+		const Symbol::CSymbol* name;
+		const Symbol::CSymbol* type;
+		CVarInfo(const Symbol::CSymbol* _name, const Symbol::CSymbol* _type):
 			name(_name), type(_type) {}
 	};
 
 
 	struct CMethodInfo {
-		const CSymbol* name;
-		const CSymbol* returnType;
+		const Symbol::CSymbol* name;
+		const Symbol::CSymbol* returnType;
 		std::vector<CVarInfo> paramsList;
 		std::vector<CVarInfo> varsList;
-		CMethodInfo(const CSymbol* _name, const CSymbol* _returnType): 
+		CMethodInfo(const Symbol::CSymbol* _name, const Symbol::CSymbol* _returnType): 
 			name(_name), returnType(_returnType), varsList(), paramsList() {}
 
-		bool AddParam(const CSymbol* name, const CSymbol* type) {
+		bool AddParam(const Symbol::CSymbol* name, const Symbol::CSymbol* type) {
 			if(!checkItemAlreadyExists<CVarInfo>(paramsList, name)) {
 				paramsList.push_back(CVarInfo(name, type));
-				printf( "Add parametr: %s %s\n", type->String().c_str(), name->String().c_str() );
+				std::cout << "Add parametr: " << type->String() << " " << name->String() << std::endl;
 				return true;	
 			}
 			return false;
 		}
 
-		bool AddVar(const CSymbol* name, const CSymbol* type) {
+		bool AddVar(const Symbol::CSymbol* name, const Symbol::CSymbol* type) {
 			if(!checkItemAlreadyExists<CVarInfo>(varsList, name)) {
-				varsList.push_back(CVarInfo(name, type));	
+				varsList.push_back(CVarInfo(name, type));
+				std::cout << "Add variable: " << type->String() << " " << name->String() << std::endl;	
 				return true;	
 			}
 			return false;
@@ -57,22 +56,25 @@ namespace SymbolsTable {
 	};
 
 	struct CClassInfo {
-		const CSymbol* name;
+		const Symbol::CSymbol* name;
+		const Symbol::CSymbol* parent;
 		std::vector<CVarInfo> varsList;
 		std::vector<CMethodInfo> methodsList;
-		CClassInfo(const CSymbol* _name): name(_name), varsList(), methodsList() {}
+		CClassInfo(const Symbol::CSymbol* _name): name(_name), varsList(), methodsList() {}
 		
-		bool AddVar(const CSymbol* name, const CSymbol* type) {
+		bool AddVar(const Symbol::CSymbol* name, const Symbol::CSymbol* type) {
 			if(!checkItemAlreadyExists<CVarInfo>(varsList, name)) {
 				varsList.push_back(CVarInfo(name, type));
+				std::cout << "Add variable: " << type->String() << " " << name->String() << std::endl;
 				return true;	
 			}
 			return false;
 		}
 
-		bool AddMethod(const CSymbol* name, const CSymbol* returnType) {
+		bool AddMethod(const Symbol::CSymbol* name, const Symbol::CSymbol* returnType) {
 			if(!checkItemAlreadyExists<CMethodInfo>(methodsList, name)) {
 				methodsList.push_back(CMethodInfo(name, returnType));
+				std::cout << "Add method: " << returnType->String() << " " << name->String() << std::endl;
 				return true;	
 			}
 			return false;
@@ -83,9 +85,10 @@ namespace SymbolsTable {
 		std::vector<CClassInfo> classesList;
 		CTable(): classesList() {}
 
-		bool AddClass(const CSymbol* name) {
+		bool AddClass(const Symbol::CSymbol* name) {
 			if(!checkItemAlreadyExists<CClassInfo>(classesList, name)) {
 				classesList.push_back(CClassInfo(name));
+				std::cout << "Add class: " << name->String() << std::endl;
 				return true;	
 			}
 			return false;
