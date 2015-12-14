@@ -295,6 +295,11 @@ IDENT [_a-zA-Z]+[_a-zA-Z0-9]*
 							strcpy(yylval.str, yytext);
 							return T_NUM;
 						}
+[0]						{
+							update_location(yyleng);
+							strcpy(yylval.str, yytext);
+							return T_NUM;
+						}
 .                       { 	fprintf(stderr, "Unknown token: %s\n", yytext); exit(EXIT_FAILURE); }
 
 %%
