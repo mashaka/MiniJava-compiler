@@ -4,16 +4,10 @@ class LinearSearch{
     }
 }
 
-
-// This class contains an array of integers and
-// methods to initialize, print and search the array
-// using Linear Search
 class LS {
     int[] number ;
     int size ;
     
-    // Invoke methods to initialize, print and search
-    // for elements on the array
     public int Start(int sz){
 	int aux01 ;
 	int aux02 ;
@@ -28,7 +22,6 @@ class LS {
 	return 55 ;
     }
 
-    // Print array of integers
     public int Print(){
 	int j ;
 
@@ -40,8 +33,6 @@ class LS {
 	return 0 ;
     }
 
-    // Search for a specific value (num) using
-    // linear search
     public int Search(int num){
 	int j ;
 	boolean ls01 ;
@@ -54,7 +45,6 @@ class LS {
 	ls01 = false ;
 	ifound = 0 ;
 	
-	//System.out.println(num);
 	while (j < (size)) {
 	    aux01 = number[j] ;
 	    aux02 = num + 1 ;
@@ -71,10 +61,6 @@ class LS {
 	return ifound ;
     }
 
-
-    
-    // initialize array of integers with some
-    // some sequence
     public int Init(int sz){
 	int j ;
 	int k ;

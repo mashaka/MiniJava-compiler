@@ -1,7 +1,3 @@
-// The classes are basically the same as the BinaryTree 
-// file except the visitor classes and the accept method
-// in the Tree class
-
 class TreeVisitor{
     public static void main(String[] a){
 	System.out.println(new TV().Start());
@@ -55,22 +51,6 @@ class Tree{
     boolean has_left ;
     boolean has_right ;
     Tree my_null ;
-
-
-
-    //Tree new_node ;
-    //Tree current_node ;
-    //Tree parent_node ;
-    
-   // boolean ntb ;
-    //boolean cont ;
-    //boolean found ;
-    //int ifound ;
-  //  boolean is_root ;
-  //  int     nti ;
-  //  int key_aux ;
-   // int auxkey1 ;
-   // int auxkey2 ;
 
     public boolean Init(int v_key){
 	key = v_key ;

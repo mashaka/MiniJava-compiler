@@ -4,17 +4,11 @@ class QuickSort{
     }
 }
 
-
-// This class contains the array of integers and
-// methods to initialize, print and sort the array
-// using Quicksort
 class QS{
     
     int[] number ;
     int size ;
 
-    // Invoke the Initialization, Sort and Printing
-    // Methods
     public int Start(int sz){
 	int aux01 ;
 	aux01 = this.Init(sz);
@@ -26,8 +20,6 @@ class QS{
 	return 0 ;
     }
 
- 
-    // Sort array of integers using Quicksort method
     public int Sort(int left, int right){
 	int v ;
 	int i ;
@@ -63,7 +55,6 @@ class QS{
 		t = number[i] ;
 		number[i] = number[j] ;
 		number[j] = t ;
-		//aux03 = i + 1 ;
 		if ( j < (i+1)) cont01 = false ;
 		else cont01 = true ;
 	    }
@@ -77,8 +68,6 @@ class QS{
 	return 0 ;
     }
 
-    
-    // Print array of integers
     public int Print(){
 	int j ;
 	j = 0 ;
@@ -89,8 +78,6 @@ class QS{
 	return 0 ;
     }
     
-
-    // Initialize array of integers
     public int Init(int sz){
 	size = sz ;
 	number = new int[sz] ;
