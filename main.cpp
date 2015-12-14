@@ -4,6 +4,7 @@
 #include <iostream>
 #include "interfaces.hpp"
 #include "visitor.cpp"
+#include "visitorTable.cpp"
 
 extern FILE* yyin;
 extern Goal* root;
@@ -43,6 +44,7 @@ int main(int argc, char **argv)
     yyparse();
 
     Interpreter print_visitor;
+
     root->accept(&print_visitor);
 }
 

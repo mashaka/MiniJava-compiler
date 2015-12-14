@@ -5,6 +5,8 @@
 #include <iostream>
 #include "Symbol.hpp"
 
+using namespace Symbol;
+
 namespace SymbolsTable {
 
 	template <typename T>
@@ -17,7 +19,7 @@ namespace SymbolsTable {
 				return true;
 			}
 		}
-		return fasle;
+		return false;
 	}
 
 	struct CVarInfo {
@@ -36,16 +38,21 @@ namespace SymbolsTable {
 		CMethodInfo(const CSymbol* _name, const CSymbol* _returnType): 
 			name(_name), returnType(_returnType), varsList(), paramsList() {}
 
-		void AddParam(const CSymbol* name, const CSymbol* type) {
+		bool AddParam(const CSymbol* name, const CSymbol* type) {
 			if(!checkItemAlreadyExists<CVarInfo>(paramsList, name)) {
 				paramsList.push_back(CVarInfo(name, type));
+				printf( "Add parametr: %s %s\n", type->String().c_str(), name->String().c_str() );
+				return true;	
 			}
+			return false;
 		}
 
-		void AddVar(const CSymbol* name, const CSymbol* type) {
+		bool AddVar(const CSymbol* name, const CSymbol* type) {
 			if(!checkItemAlreadyExists<CVarInfo>(varsList, name)) {
 				varsList.push_back(CVarInfo(name, type));	
+				return true;	
 			}
+			return false;
 		}
 	};
 
@@ -55,16 +62,20 @@ namespace SymbolsTable {
 		std::vector<CMethodInfo> methodsList;
 		CClassInfo(const CSymbol* _name): name(_name), varsList(), methodsList() {}
 		
-		void AddVar(const CSymbol* name, const CSymbol* type) {
+		bool AddVar(const CSymbol* name, const CSymbol* type) {
 			if(!checkItemAlreadyExists<CVarInfo>(varsList, name)) {
-				varsList.push_back(CVarInfo(name, type));	
+				varsList.push_back(CVarInfo(name, type));
+				return true;	
 			}
+			return false;
 		}
 
-		void AddMethod(const CSymbol* name, const CSymbol* returnType) {
+		bool AddMethod(const CSymbol* name, const CSymbol* returnType) {
 			if(!checkItemAlreadyExists<CMethodInfo>(methodsList, name)) {
-				methodsList.push_back(CMethodInfo(name, returnType));	
+				methodsList.push_back(CMethodInfo(name, returnType));
+				return true;	
 			}
+			return false;
 		}
 	};
 
@@ -72,10 +83,12 @@ namespace SymbolsTable {
 		std::vector<CClassInfo> classesList;
 		CTable(): classesList() {}
 
-		void AddClass(const CSymbol* name) {
+		bool AddClass(const CSymbol* name) {
 			if(!checkItemAlreadyExists<CClassInfo>(classesList, name)) {
-				classesList.push_back(CClassInfo(name));	
+				classesList.push_back(CClassInfo(name));
+				return true;	
 			}
+			return false;
 		}
 	};
 

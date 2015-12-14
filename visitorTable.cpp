@@ -1,8 +1,12 @@
 #include "visitor.hpp"
 #include "SymbolsTable.hpp"
 
-class CSymbolTableBuilder : public IVisitor{
+
+using namespace SymbolsTable;
+
+class CSymbolTableBuilder : public IVisitor {
 public:
+	bool inMethod;
 	CClassInfo* curClass;
 	CMethodInfo* curMethod;
 	CTable symbTable; 
@@ -11,8 +15,28 @@ public:
 
 	CSymbolTableBuilder(CStorage* _symbols): symbols(_symbols) {}
 
-	void visit(const Goal* n) {}
-	void visit(const MainClass* n) {}
+	void visit(const Goal* n) {
+		inMethod = false;
+		n->e1->accept(this); //MainClass
+		if(n->e2 != 0) {
+			n->e2->accept(this); //ClassDeclarationList
+		}
+	}
+
+	void visit(const MainClass* n) {
+		if( symbTable.AddClass( symbols->Get( n->e1 ) ) ) {
+			curClass = &symbTable.classesList.back();
+			lastTypeValue = symbols->Get( "void" );
+			if( curClass->AddMethod( symbols-> Get( "main" ), lastTypeValue ) ) {
+				inMethod = true;
+				curMethod = &curClass->methodsList.back();
+				lastTypeValue = symbols->Get( "String[]" );
+				if( curMethod->AddParam( symbols->Get( n->e1 ), lastTypeValue ) ) {
+					n->e3->accept(this); //Statement
+				}
+			}
+		}
+	}
 
 	void visit(const ClassDeclaration1* n) {}
 	void visit(const ClassDeclaration2* n) {}
@@ -60,5 +84,4 @@ public:
 	void visit(const ExpressionParens* n) {}
 
 	void visit(const CommaExpressionList* n) {}
-
 }

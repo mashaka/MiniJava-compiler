@@ -22,11 +22,11 @@ namespace Symbol {
 	class CStorage {
 	public:
 		const CSymbol* Get(const std::string& s) {
-			std::unordered_map<std::string, CSymbol*>::const_iterator got = dictionary->find(s);
+			std::unordered_map<std::string, CSymbol*>::const_iterator got = dictionary.find(s);
 			CSymbol* symbol;
-			if ( got == dictionary->end() ){
+			if ( got == dictionary.end() ){
 				symbol = new CSymbol(s);
-				symbolsDictionary->insert(std::make_pair<std::string, CSymbol*>(s, symbol);
+				dictionary.emplace(s, symbol);
 			} 
 			else {
 				symbol = got->second;
