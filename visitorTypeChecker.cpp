@@ -69,6 +69,7 @@ public:
 		for( int i = 0; i < table.classesList.size(); i++ ){
 			for( int j = 0; j < table.classesList[i].methodsList.size(); j++ ){
 				if( table.classesList[i].methodsList[j].name == className ){
+					lastTypeValue = table.classesList[i].methodsList[j].returnType;
 					doesExist = true;
 					break;
 				}
@@ -78,6 +79,7 @@ public:
 			}
 		}
 		if ( !doesExist ) {
+			lastTypeValue = symbols->Get("");
 			std::cout << "Method " << className->String() << " does not exist"<< std::endl;
 		}
 	}
@@ -235,7 +237,7 @@ public:
 	void visit(const StatementPrint* n) {
 		n->e1->accept(this); //Expression
 		if( lastTypeValue != symbols->Get( "int" ) ) {
-			std::cout << "Expression inside print is not int" << std::endl;
+			std::cout << "Expression inside print is not int, recieved " << lastTypeValue->String() << std::endl;
 		}
 	}
 
@@ -312,11 +314,12 @@ public:
 		n->e1->accept(this); //Expression
 		const Symbol::CSymbol* symbol = symbols->Get( n->e2 );
 		checkMethodExistence( symbol );
+		const Symbol::CSymbol* returnType = lastTypeValue; 
 		n->e3->accept(this); //Expression
 		if(n->e4 != 0) {
 			n->e4->accept(this); //CommaExpressionList
 		}
-		lastTypeValue = symbols->Get("");
+		lastTypeValue = returnType;
 	}
 
 	void visit(const ExpressionEmptyMethod* n) {
@@ -338,8 +341,6 @@ public:
 
 	void visit(const ExpressionId* n) {
 		const Symbol::CSymbol* symbol = symbols->Get( n->e1 );
-		checkClassExistence( symbol );
-		lastTypeValue = symbols->Get("id");
 	}
 	
 	void visit(const ExpressionThis* n) {

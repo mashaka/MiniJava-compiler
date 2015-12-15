@@ -46,8 +46,8 @@ int main(int argc, char **argv)
     
     yyparse();
 
-    //Interpreter printVisitor;
-    //root->accept(&printVisitor);
+    Interpreter printVisitor;
+    root->accept(&printVisitor);
 
     CSymbolTableBuilder symbolTableVisitor(&symbols);
     root->accept(&symbolTableVisitor);
