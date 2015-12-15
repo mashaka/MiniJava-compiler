@@ -195,21 +195,63 @@ public:
 		}
 	}
 
-	void visit(const ExpressionBinOp* n) {}
-	void visit(const ExpressionAriOp* n) {}
-	void visit(const ExpressionBracks* n) {}
-	void visit(const ExpressionLength* n) {}
-	void visit(const ExpressionMethod* n) {}
-	void visit(const ExpressionEmptyMethod* n) {}
+	void visit(const ExpressionBinOp* n) {
+		n->e1->accept(this); //Expression
+		n->e3->accept(this); //Expression		
+	}
+
+	void visit(const ExpressionAriOp* n) {
+		n->e1->accept(this); //Expression
+		n->e3->accept(this); //Expression
+	}
+	
+	void visit(const ExpressionBracks* n) {
+		n->e1->accept(this); //Expression
+		n->e2->accept(this); //Expression
+	}
+
+	void visit(const ExpressionLength* n) {
+		n->e1->accept(this); //Expression
+	}
+
+	void visit(const ExpressionMethod* n) {
+		n->e1->accept(this); //Expression
+		n->e3->accept(this); //Expression
+		if(n->e4 != 0) {
+			n->e4->accept(this); //CommaExpressionList
+		}
+	}
+	
+	void visit(const ExpressionEmptyMethod* n) {
+		n->e1->accept(this); //Expression
+	}
+	
 	void visit(const ExpressionNum* n) {}
+	
 	void visit(const ExpressionLogOp* n) {}
+
 	void visit(const ExpressionId* n) {}
+
 	void visit(const ExpressionThis* n) {}
-	void visit(const ExpressionNew* n) {}
+	
+	void visit(const ExpressionNew* n) {
+		n->e1->accept(this);
+	}
+
 	void visit(const ExpressionEmptyNew* n) {}
-	void visit(const ExpressionNot* n) {}
-	void visit(const ExpressionParens* n) {}
 
-	void visit(const CommaExpressionList* n) {}
+	void visit(const ExpressionNot* n) {
+		n->e1->accept(this); //Expression
+	}
+
+	void visit(const ExpressionParens* n) {
+		n->e1->accept(this); //Expression
+	}
+
+	void visit(const CommaExpressionList* n) {
+		n->e1->accept(this); //Expression
+		if(n->e2 != 0) {
+			n->e2->accept(this); //CommaExpressionList
+		}
+	}
 };
-

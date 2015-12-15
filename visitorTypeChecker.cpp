@@ -4,9 +4,10 @@
 
 class CTypeChecker : public IVisitor {
 public:
-	SymbolsTable::CTable table; 
+	SymbolsTable::CTable table;
 	const Symbol::CSymbol* lastTypeValue;
 	Symbol::CStorage* symbols;
+	const Symbol::CSymbol* curClassName;
 
 	CTypeChecker(Symbol::CStorage* _symbols, SymbolsTable::CTable& _table): symbols(_symbols), table(_table) {}
 
@@ -60,6 +61,39 @@ public:
 			++i;
 		if ( i == table.classesList.size() ) {
 			std::cout << "Class " << className->String() << " does not exist"<< std::endl;
+		}
+	}
+
+	void checkMethodExistence(const Symbol::CSymbol* className) {
+		bool doesExist = false;
+		for( int i = 0; i < table.classesList.size(); i++ ){
+			for( int j = 0; j < table.classesList[i].methodsList.size(); j++ ){
+				if( table.classesList[i].methodsList[j].name == className ){
+					doesExist = true;
+					break;
+				}
+			}
+			if( doesExist ){
+				break;
+			}
+		}
+		if ( !doesExist ) {
+			std::cout << "Method " << className->String() << " does not exist"<< std::endl;
+		}
+	}
+
+	void checkIfNumber( const Symbol::CSymbol* className) {
+		std::string value = className->String();
+		std::string::const_iterator it = value.begin();
+		while (it != value.end() && std::isdigit(*it)) ++it;
+		if( it != value.end() ) {
+			std::cout << "\"" << value << "\" is not a number"<< std::endl;
+		}
+	}
+
+	void checkLastEqual( const Symbol::CSymbol* className ) {
+		if( lastTypeValue != className ){
+			std::cout << "Wrong return value" << std::endl;
 		}
 	}
 
@@ -238,21 +272,107 @@ public:
 		}
 	}
 
-	void visit(const ExpressionBinOp* n) {}
-	void visit(const ExpressionAriOp* n) {}
-	void visit(const ExpressionBracks* n) {}
-	void visit(const ExpressionLength* n) {}
-	void visit(const ExpressionMethod* n) {}
-	void visit(const ExpressionEmptyMethod* n) {}
-	void visit(const ExpressionNum* n) {}
-	void visit(const ExpressionLogOp* n) {}
-	void visit(const ExpressionId* n) {}
-	void visit(const ExpressionThis* n) {}
-	void visit(const ExpressionNew* n) {}
-	void visit(const ExpressionEmptyNew* n) {}
-	void visit(const ExpressionNot* n) {}
-	void visit(const ExpressionParens* n) {}
+	void visit(const ExpressionBinOp* n) {
+		n->e1->accept(this); //Expression
+		if(n->e2 == B_LT) {
+			checkLastEqual(symbols->Get("int"));
+		} else {
+			checkLastEqual(symbols->Get("bool"));
+		}
+		n->e3->accept(this); //Expression
+		if(n->e2 == B_LT) {
+			checkLastEqual(symbols->Get("int"));
+		} else {
+			checkLastEqual(symbols->Get("bool"));
+		}
+		lastTypeValue = symbols->Get("bool");
+	}
 
-	void visit(const CommaExpressionList* n) {}
+	void visit(const ExpressionAriOp* n) {
+		n->e1->accept(this); //Expression
+		checkLastEqual(symbols->Get("int"));
+		n->e3->accept(this); //Expression
+		checkLastEqual(symbols->Get("int"));
+		lastTypeValue = symbols->Get("int");
+	}
+	
+	void visit(const ExpressionBracks* n) {
+		n->e1->accept(this); //Expression
+		n->e2->accept(this); //Expression
+		checkLastEqual(symbols->Get("int"));
+		lastTypeValue = symbols->Get("");
+	}
+
+	void visit(const ExpressionLength* n) {
+		n->e1->accept(this); //Expression
+		lastTypeValue = symbols->Get("int");
+	}
+
+	void visit(const ExpressionMethod* n) {
+		n->e1->accept(this); //Expression
+		const Symbol::CSymbol* symbol = symbols->Get( n->e2 );
+		checkMethodExistence( symbol );
+		n->e3->accept(this); //Expression
+		if(n->e4 != 0) {
+			n->e4->accept(this); //CommaExpressionList
+		}
+		lastTypeValue = symbols->Get("");
+	}
+
+	void visit(const ExpressionEmptyMethod* n) {
+		n->e1->accept(this);
+		const Symbol::CSymbol* symbol = symbols->Get( n->e2 );
+		checkMethodExistence( symbol );
+		lastTypeValue = symbols->Get("");
+	}
+	
+	void visit(const ExpressionNum* n) {
+		const Symbol::CSymbol* symbol = symbols->Get( n->e1 );
+		checkIfNumber( symbol );
+		lastTypeValue = symbols->Get("int");
+	}
+	
+	void visit(const ExpressionLogOp* n) {
+		lastTypeValue = symbols->Get("bool");
+	}
+
+	void visit(const ExpressionId* n) {
+		const Symbol::CSymbol* symbol = symbols->Get( n->e1 );
+		checkClassExistence( symbol );
+		lastTypeValue = symbols->Get("id");
+	}
+	
+	void visit(const ExpressionThis* n) {
+		lastTypeValue = curClassName;
+	}
+	
+	void visit(const ExpressionNew* n) {
+		n->e1->accept(this);
+		lastTypeValue = symbols->Get("int[]");
+	}
+	
+	void visit(const ExpressionEmptyNew* n) {
+		const Symbol::CSymbol* symbol = symbols->Get( n->e1 );
+		checkClassExistence( symbol );
+		lastTypeValue = symbols->Get( n->e1 );
+	}
+
+	void visit(const ExpressionNot* n) {
+		n->e1->accept(this); //Expression
+		checkLastEqual(symbols->Get("bool"));
+		lastTypeValue = symbols->Get("bool");
+	}
+
+	void visit(const ExpressionParens* n) {
+		n->e1->accept(this); //Expression
+		lastTypeValue = symbols->Get("");
+	}
+
+	void visit(const CommaExpressionList* n) {
+		n->e1->accept(this); //Expression
+		if(n->e2 != 0) {
+			n->e2->accept(this); //CommaExpressionList
+		}
+	}
 };
 
