@@ -10,6 +10,38 @@ public:
 
 	CTypeChecker(Symbol::CStorage* _symbols, SymbolsTable::CTable& _table): symbols(_symbols), table(_table) {}
 
+	void checkVarExistenceAndGetType( const Symbol::CSymbol* name ) {
+		for (int l = 0; l < table.classesList.size(); l++){
+			for (int j = 0; j < table.classesList[l].methodsList.size(); j++){
+				for (int i = 0; i < table.classesList[l].methodsList[j].varsList.size(); i++){
+					if (name == table.classesList[l].methodsList[j].varsList[i].name) {
+						lastTypeValue = table.classesList[l].methodsList[j].varsList[i].type;
+						return;
+					}
+				}
+
+				
+				for (int i = 0; i < table.classesList[l].methodsList[j].paramsList.size(); i++){
+				 	if (name == table.classesList[l].methodsList[j].paramsList[i].name) {
+						lastTypeValue = table.classesList[l].methodsList[j].paramsList[i].type;
+						return;
+					}
+				}
+
+				
+				for (int i = 0; i < table.classesList[l].varsList.size(); i++){
+					if (name == table.classesList[l].varsList[i].name) {
+						lastTypeValue = table.classesList[l].varsList[i].type;
+						return;
+					}
+				}
+				
+			}
+		}
+		std::cout << "Var " << name->String() << " does not exist" << std::endl;
+		lastTypeValue = symbols->Get("");
+	}
+
 	void checkCyclicInheritance(const Symbol::CSymbol* parent, const Symbol::CSymbol* child) {
 		while( ( parent != child ) && ( parent != 0 ) ) {
 			int i = 0;
@@ -71,30 +103,140 @@ public:
 		}
 	}
 
-	void visit(const VarDeclaration* n) {}
+	void visit(const VarDeclaration* n) {
+		n->e1->accept(this); //Type
+	}
 
-	void visit(const VarDeclarationList* n) {}
+	void visit(const VarDeclarationList* n) {
+		if(n->e1 != 0) {
+			n->e1->accept(this); //VarDeclarationList
+		}
+		n->e2->accept(this); //VarDeclaration
+	}
 
-	void visit(const MethodDeclaration1* n) {}
-	void visit(const MethodDeclaration2* n) {}
+	void visit(const MethodDeclaration1* n) {
+		n->e1->accept(this); //Type
 
-	void visit(const MethodDeclarationList* n) {}
+		n->e3->accept(this); //Type
 
-	void visit(const CommaTypeIdentifierList* n) {}
+		if(n->e5 != 0) {
+			n->e5->accept(this); //CommaTypeIdentifierList
+		}
+		if(n->e6 != 0){
+			n->e6->accept(this); //VarDeclarationList
+		}
+		if(n->e7 != 0) {
+			n->e7->accept(this); //StatementList
+		}
+		
+		n->e8->accept(this); //Expression
+	}
 
-	void visit(const TypeIntArray* n) {}
-	void visit(const TypeBoolean* n) {}
-	void visit(const TypeInt* n) {}
-	void visit(const TypeIdentifier* n) {}
+	void visit(const MethodDeclaration2* n) {
+		n->e1->accept(this); //Type
 
-	void visit(const StatementListBraced* n) {}
-	void visit(const StatementIf* n) {}
-	void visit(const StatementWhile* n) {}
-	void visit(const StatementPrint* n) {}
-	void visit(const StatementIdentifier1* n) {}
-	void visit(const StatementIdentifier2* n) {}
+		if(n->e3 != 0){
+			n->e3->accept(this); //VarDeclarationList
+		}
+		if(n->e4 != 0) {
+			n->e4->accept(this); //StatementList
+		}
+		n->e5->accept(this); //Expression
+	}
 
-	void visit(const StatementList* n) {}
+	void visit(const MethodDeclarationList* n) {
+		n->e1->accept(this); //MethodDeclaration
+		if(n->e2 != 0) {
+			n->e2->accept(this); //MethodDeclarationList
+		}
+	}
+
+	void visit(const CommaTypeIdentifierList* n) {
+		n->e1->accept(this); //Type
+		if(n->e3 != 0) {
+			n->e3->accept(this); //CommaTypeIdentifierList
+		}
+	}
+
+	void visit(const TypeIntArray* n) {
+		lastTypeValue = symbols->Get( "int[]" );
+	}
+
+	void visit(const TypeBoolean* n) {
+		lastTypeValue = symbols->Get( "bool" );
+	}
+
+	void visit(const TypeInt* n) {
+		lastTypeValue = symbols->Get( "int" );
+	}
+
+	void visit(const TypeIdentifier* n) {
+		lastTypeValue = symbols->Get( n->e1 );
+		checkClassExistence( lastTypeValue );
+	}
+
+	void visit(const StatementListBraced* n) {
+		if(n->e1 != 0) {
+			n->e1->accept(this); //StatementList
+		}
+	}
+
+	void visit(const StatementIf* n) {
+		n->e1->accept(this); //Expression
+		if( lastTypeValue != symbols->Get( "bool" ) ) {
+			std::cout << "Expression inside if is not boolean" << std::endl;
+		}
+		n->e2->accept(this); //Statement
+		n->e3->accept(this); //Statement
+	}
+
+	void visit(const StatementWhile* n) {
+		n->e1->accept(this); //Expression
+		if( lastTypeValue != symbols->Get( "bool" ) ) {
+			std::cout << "Expression inside while is not boolean" << std::endl;
+		}
+		n->e2->accept(this); //Statement
+	}
+
+	void visit(const StatementPrint* n) {
+		n->e1->accept(this); //Expression
+		if( lastTypeValue != symbols->Get( "int" ) ) {
+			std::cout << "Expression inside print is not int" << std::endl;
+		}
+	}
+
+	void visit(const StatementIdentifier1* n) {
+		
+		checkVarExistenceAndGetType( symbols->Get( n->e1 ) );
+		const Symbol::CSymbol* varType = lastTypeValue;
+
+		n->e2->accept(this); //Expression
+		if(varType != lastTypeValue) {
+			std::cout << n->e1 << "can not be recieve such value" << std::endl;
+		}
+	}
+
+	void visit(const StatementIdentifier2* n) {
+		checkVarExistenceAndGetType( symbols->Get( n->e1 ) );
+		const Symbol::CSymbol* varType = lastTypeValue;
+
+		n->e2->accept(this); //Expression
+		if( lastTypeValue != symbols->Get( "int" ) ) {
+			std::cout << "Array " << n->e1 << " is not int" << std::endl;
+		}
+
+		n->e3->accept(this); //Expression
+		if(varType != lastTypeValue) {
+			std::cout << n->e1 << "Can not be recieve such value" << std::endl;
+		}
+	}
+
+	void visit(const StatementList* n) {
+		n->e1->accept(this); //Statement
+		if(n->e2 != 0) {
+			n->e2->accept(this); //StatementList
+		}
+	}
 
 	void visit(const ExpressionBinOp* n) {}
 	void visit(const ExpressionAriOp* n) {}

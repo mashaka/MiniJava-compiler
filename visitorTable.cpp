@@ -69,30 +69,131 @@ public:
 		}
 	}
 
-	void visit(const VarDeclaration* n) {}
+	void visit(const VarDeclaration* n) {
+		n->e1->accept(this); //Type
+		if( inMethod ) {
+			curMethod->AddVar( symbols->Get( n->e2 ), lastTypeValue );
+		} else {
+			curClass->AddVar( symbols->Get( n->e2 ), lastTypeValue );
+		}
+	}
 
-	void visit(const VarDeclarationList* n) {}
+	void visit(const VarDeclarationList* n) {
+		if(n->e1 != 0) {
+			n->e1->accept(this); //VarDeclarationList
+		}
+		n->e2->accept(this); //VarDeclaration
+	}
 
-	void visit(const MethodDeclaration1* n) {}
-	void visit(const MethodDeclaration2* n) {}
+	void visit(const MethodDeclaration1* n) {
+		n->e1->accept(this); //Type
+		curClass->AddMethod( symbols->Get( n->e2 ), lastTypeValue );
 
-	void visit(const MethodDeclarationList* n) {}
+		inMethod = true;
+		curMethod = &curClass->methodsList.back();
 
-	void visit(const CommaTypeIdentifierList* n) {}
+		n->e3->accept(this); //Type
+		curMethod->AddParam(symbols->Get( n->e4 ), lastTypeValue );
 
-	void visit(const TypeIntArray* n) {}
-	void visit(const TypeBoolean* n) {}
-	void visit(const TypeInt* n) {}
-	void visit(const TypeIdentifier* n) {}
+		if(n->e5 != 0) {
+			n->e5->accept(this); //CommaTypeIdentifierList
+		}
+		if(n->e6 != 0){
+			n->e6->accept(this); //VarDeclarationList
+		}
+		if(n->e7 != 0) {
+			n->e7->accept(this); //StatementList
+		}
+		
+		n->e8->accept(this); //Expression
+		inMethod = false;
+	}
 
-	void visit(const StatementListBraced* n) {}
-	void visit(const StatementIf* n) {}
-	void visit(const StatementWhile* n) {}
-	void visit(const StatementPrint* n) {}
-	void visit(const StatementIdentifier1* n) {}
-	void visit(const StatementIdentifier2* n) {}
+	void visit(const MethodDeclaration2* n) {
+		n->e1->accept(this); //Type
+		curClass->AddMethod( symbols->Get( n->e2 ), lastTypeValue );
 
-	void visit(const StatementList* n) {}
+		inMethod = true;
+		curMethod = &curClass->methodsList.back();
+
+		if(n->e3 != 0){
+			n->e3->accept(this); //VarDeclarationList
+		}
+		if(n->e4 != 0) {
+			n->e4->accept(this); //StatementList
+		}
+		n->e5->accept(this); //Expression
+		inMethod = false;
+	}
+
+	void visit(const MethodDeclarationList* n) {
+		n->e1->accept(this); //MethodDeclaration
+		if(n->e2 != 0) {
+			n->e2->accept(this); //MethodDeclarationList
+		}
+	}
+
+	void visit(const CommaTypeIdentifierList* n) {
+		n->e1->accept(this); //Type
+
+		curMethod->AddParam(symbols->Get( n->e2 ), lastTypeValue );
+		if(n->e3 != 0) {
+			n->e3->accept(this); //CommaTypeIdentifierList
+		}
+	}
+
+	void visit(const TypeIntArray* n) {
+		lastTypeValue = symbols->Get( "int[]" );
+	}
+
+	void visit(const TypeBoolean* n) {
+		lastTypeValue = symbols->Get( "bool" );
+	}
+
+	void visit(const TypeInt* n) {
+		lastTypeValue = symbols->Get( "int" );
+	}
+
+	void visit(const TypeIdentifier* n) {
+		lastTypeValue = symbols->Get( n->e1 );
+	}
+
+	void visit(const StatementListBraced* n) {
+		if(n->e1 != 0) {
+			n->e1->accept(this); //StatementList
+		}
+	}
+
+	void visit(const StatementIf* n) {
+		n->e1->accept(this); //Expression
+		n->e2->accept(this); //Statement
+		n->e3->accept(this); //Statement
+	}
+
+	void visit(const StatementWhile* n) {
+		n->e1->accept(this); //Expression
+		n->e2->accept(this); //Statement
+	}
+
+	void visit(const StatementPrint* n) {
+		n->e1->accept(this); //Expression
+	}
+
+	void visit(const StatementIdentifier1* n) {
+		n->e2->accept(this); //Expression
+	}
+
+	void visit(const StatementIdentifier2* n) {
+		n->e2->accept(this); //Expression
+		n->e3->accept(this); //Expression
+	}
+
+	void visit(const StatementList* n) {
+		n->e1->accept(this); //Statement
+		if(n->e2 != 0) {
+			n->e2->accept(this); //StatementList
+		}
+	}
 
 	void visit(const ExpressionBinOp* n) {}
 	void visit(const ExpressionAriOp* n) {}
