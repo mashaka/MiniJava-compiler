@@ -93,7 +93,15 @@ public:
 
 	void checkLastEqual( const Symbol::CSymbol* className ) {
 		if( lastTypeValue != className ){
-			std::cout << "Wrong return value" << std::endl;
+			std::string s1 = lastTypeValue->String();
+			std::string s2 = className->String();
+			if( s1 == "" ){
+				s1 = "None";
+			} 
+			if( s2 == "" ){
+				s2 = "None";
+			}
+			std::cout << "Wrong type. Expected: " << s1 << ". Recieved: " << s2 << "." << std::endl;
 		}
 	}
 
