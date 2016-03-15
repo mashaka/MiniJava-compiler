@@ -171,13 +171,13 @@ public:
 private:
 	Stm* left;
 	Stm* right;
-}
+};
 
 class LABEL : public Stm {
 public:
 	LABEL(CLabel* _label): label(_label) {}
 private:
 	CLabel* label;
-}
+};
 
 }
