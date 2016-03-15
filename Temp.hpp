@@ -1,5 +1,5 @@
-#include<string>
-#include"Symbol.hpp"
+#include <string>
+#include "Symbol.hpp"
 
 namespace Temp {
 // Метка - точка перехода в коде
