@@ -5,6 +5,7 @@
 #include "interfaces.h"
 #include "Frame.hpp"
 #include "Temp.hpp"
+#include "IRTreePrinter.hpp"
 
 
 namespace IRTree 
@@ -42,6 +43,15 @@ enum EBINOP
 class Node {
 public:
 	virtual ~Node(){}
+	virtual void accept(const CIRVisitor* visitor) const = 0;
+};
+
+template<class TARGET, class INTERFACE>
+class CAcceptsIRVisitor : public INTERFACE {
+public:
+    virtual void accept(const CIRVisitor* visitor) const {
+        visitor->visit( static_cast<const TARGET*> (this) );
+    }
 };
 
 // 2 основных узла
@@ -76,7 +86,7 @@ private:
 
 //---------------------------------------------------------------------------------------------------
 
-class CONST : public Exp {
+class CONST : public CAcceptsIRVisitor<CONST, Exp> {
 public:
 	CONST(int _value): value(_value) {}
 private:
@@ -85,21 +95,21 @@ private:
 
 class LABEL;
 
-class NAME : public Exp {
+class NAME : public CAcceptsIRVisitor<NAME, Exp> {
 public:
 	NAME(LABEL* _label): label(_label) {}
 private:
 	LABEL* label;
 };
 
-class TEMP : public Exp {
+class TEMP : public CAcceptsIRVisitor<TEMP, Exp> {
 public:
 	TEMP(CTemp* _temp): temp(_temp) {}
 private:
 	CTemp* temp;
 };
 
-class BINOP : public Exp {
+class BINOP : public CAcceptsIRVisitor<BINOP, Exp> {
 public:
 	BINOP(EBINOP _binop, Exp* _left, Exp* _right): binop(_binop), left(_left), right(_right) {}
 private:
@@ -108,14 +118,14 @@ private:
 	Exp *right;
 };
 
-class MEM : public Exp {
+class MEM : public CAcceptsIRVisitor<MEM, Exp> {
 public:
 	MEM(Exp* _exp): exp(_exp) {}
 private:
 	Exp* exp;
 };
 
-class CALL : public Exp {
+class CALL : public CAcceptsIRVisitor<CALL, Exp> {
 public:
 	CALL(Exp* _func, ExpList* _arg): func(_func), arg(_arg) {}
 private:
@@ -123,7 +133,7 @@ private:
 	ExpList* arg;
 };
 
-class ESEQ : public Exp {
+class ESEQ : public CAcceptsIRVisitor<ESEQ, Exp> {
 public:
 	ESEQ(Stm* _stm, Exp* _exp): stm(_stm), exp(_exp) {}
 private:
@@ -133,7 +143,7 @@ private:
 
 //---------------------------------------------------------------------------------------------------
 
-class MOVE : public Stm {
+class MOVE : public CAcceptsIRVisitor<MOVE, Stm> {
 public:
 	MOVE(Exp* _dst, Exp* _src): dst(_dst), src(_src) {}
 private:
@@ -141,14 +151,14 @@ private:
 	Exp* src;
 };
 
-class EXP : public Stm {
+class EXP : public CAcceptsIRVisitor<EXP, Stm> {
 public:
 	EXP(Exp* _exp): exp(_exp) {}
 private:
 	Exp* exp;
 };
 
-class JUMP : public Stm {
+class JUMP : public CAcceptsIRVisitor<JUMP, Stm> {
 public:
 	JUMP(Exp* _exp, CLabel* _label): exp(_exp), label(_label) {}
 private:
@@ -156,7 +166,7 @@ private:
 	CLabel* target;
 };
 
-class CJUMP : public Stm {
+class CJUMP : public CAcceptsIRVisitor<CJUMP, Stm> {
 public:
 	CJUMP(ECJUMP _relop, Exp* _left, Exp* _right, CLabel* _iftrue, CLabel* _iffalse): relop(_relop), left(_left), right(_right), iftrue(_iftrue), iffalse(_iffalse) {}
 private:
@@ -167,7 +177,7 @@ private:
 	CLabel* iffalse;
 };
 
-class SEQ : public Stm {
+class SEQ : public CAcceptsIRVisitor<SEQ, Stm> {
 public:
 	SEQ(Stm* _left, Stm* _right): left(_left), right(_right) {}
 private:
@@ -175,7 +185,7 @@ private:
 	Stm* right;
 };
 
-class LABEL : public Stm {
+class LABEL : public CAcceptsIRVisitor<LABEL, Stm> {
 public:
 	LABEL(CLabel* _label): label(_label) {}
 private:
