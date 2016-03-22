@@ -74,15 +74,15 @@ public:
 	}
 	
 	const IAccess* Formal( size_t index ) const {
-		return formals[index];
+		return &(formals[index]);
 	}
 
 	const IAccess* Var( size_t index ) const {
-		return formals[index];
+		return &(formals[index]);
 	}
 
 	const IAccess* Local( size_t index ) const {
-		return formals[index];
+		return &(formals[index]);
 	}
 
 	void allocateFormal() {
