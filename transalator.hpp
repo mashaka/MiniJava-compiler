@@ -8,54 +8,54 @@
 class ISubtreeWrapper {
 public:
     virtual ~ISubtreeWrapper() { }
-    virtual const IExp* ToExp() const = 0;
-    virtual const IStm* ToStm() const = 0;
-    virtual const IStm* ToConditional(const Temp::CLabel* t, const Temp::CLabel* f) const = 0;
+    virtual const Exp* ToExp() const = 0;
+    virtual const Stm* ToStm() const = 0;
+    virtual const Stm* ToConditional(const Temp::CLabel* t, const Temp::CLabel* f) const = 0;
 };
 
 class CExpConverter : public ISubtreeWrapper {
 public:
-    CExpConverter(const IExp* _expr) : expr(_expr) {}
+    CExpConverter(const Exp* _expr) : expr(_expr) {}
 
-    const IExp* ToExp() const {
+    const Exp* ToExp() const {
         return expr;
     }
 
-    const IStm* ToStm() const {
+    const Stm* ToStm() const {
         return new EXP(expr);
     }
 
-    const IStm* ToConditional(const Temp::CLabel* t,const Temp::CLabel* f) const {
+    const Stm* ToConditional(const Temp::CLabel* t,const Temp::CLabel* f) const {
         return new CJUMP(EQ, expr, new CONST(0), f, t);
     }
 
 private:
-    const IExp* expr;
+    const Exp* expr;
 };
 
 class CStmConverter : public ISubtreeWrapper {
 public:
-    CStmConverter(const IStm* _stm): stm(_stm) {}
+    CStmConverter(const Stm* _stm): stm(_stm) {}
 
-    const IExp* ToExp() const {
+    const Exp* ToExp() const {
         assert(0);
     }
 
-    const IStm* ToStm() const {
+    const Stm* ToStm() const {
         return stm;
     }
 
-    const IStm* ToConditional(const Temp::CLabel* t, const Temp::CLabel* f) const {
+    const Stm* ToConditional(const Temp::CLabel* t, const Temp::CLabel* f) const {
         assert(0);
     }
 
 private:
-    const IStm* stm;
+    const Stm* stm;
 };
 
 class CConditionalWrapper : public ISubtreeWrapper {
 public:
-    const IExp* ToExp() const {
+    const Exp* ToExp() const {
         shared_ptr<CTemp> r = shared_ptr<CTemp>( new Temp::CTemp() );
         Temp::CLabel* t = new Temp::CLabel();
         Temp::CLabel* f = new Temp::CLabel();
@@ -68,9 +68,9 @@ public:
                new TEMP(r) );
     }
 
-    virtual const IStm* ToConditional(const Temp::CLabel* t, const Temp::CLabel* f) const = 0;
+    virtual const Stm* ToConditional(const Temp::CLabel* t, const Temp::CLabel* f) const = 0;
 
-    const IStm* ToStm() const {
+    const Stm* ToStm() const {
         Temp::CLabel* jmp = new Temp::CLabel();
         return new SEQ( ToConditional(jmp, jmp), new LABEL(jmp) );
     }
@@ -78,42 +78,42 @@ public:
 
 class CRelativeCmpWrapper : public CConditionalWrapper {
 public:
-    CRelativeCmpWrapper(CJUMP_OP _op, const IExp* _first, const IExp* _second) :
+    CRelativeCmpWrapper(CJUMP_OP _op, const Exp* _first, const Exp* _second) :
         op(_op), first(_first), second(_second) {}
-    const IStm* ToConditional(const Temp::CLabel* t, const Temp::CLabel* f) const {
+    const Stm* ToConditional(const Temp::CLabel* t, const Temp::CLabel* f) const {
         return new CJUMP(op, first, second, t, f);
     }
 private:
-    const IExp* first;
-    const IExp* second;
+    const Exp* first;
+    const Exp* second;
     CJUMP_OP op;
 };
 
 class CFromAndConverter : public CConditionalWrapper {
 public:
-    CFromAndConverter(const IExp* _leftArg, const IExp* _rightArg) :
+    CFromAndConverter(const Exp* _leftArg, const Exp* _rightArg) :
         leftArg(_leftArg), rightArg(_rightArg) {}
-    const IStm* ToConditional(const Temp::CLabel* t, const Temp::CLabel* f) const {
+    const Stm* ToConditional(const Temp::CLabel* t, const Temp::CLabel* f) const {
         const Temp::CLabel* z = new Temp::CLabel();
         return new SEQ( new CJUMP(LT, leftArg, new CONST(1), f, z),
             new SEQ(new LABEL(z), new CJUMP(LT, rightArg, new CONST(1), f, t)));
     }
 private:
-    const IExp* leftArg;
-    const IExp* rightArg;
+    const Exp* leftArg;
+    const Exp* rightArg;
 };
 
 class CFromOrConverter : public CConditionalWrapper {
 public:
-    CFromOrConverter(const IExp* _leftArg, const IExp* _rightArg) : leftArg(_leftArg), rightArg(_rightArg) {}
-    const IStm* ToConditional(const Temp::CLabel* t, const Temp::CLabel* f) const {
+    CFromOrConverter(const Exp* _leftArg, const Exp* _rightArg) : leftArg(_leftArg), rightArg(_rightArg) {}
+    const Stm* ToConditional(const Temp::CLabel* t, const Temp::CLabel* f) const {
         const CLabel* z = new CLabel();
         return new SEQ(new CJUMP(GT, leftArg, new CONST(1), t, z),
             new SEQ(new LABEL(z), new CJUMP(LT, rightArg, new CONST(1), f, t)));
     }
 private:
-    const IExp* leftArg;
-    const IExp* rightArg;
+    const Exp* leftArg;
+    const Exp* rightArg;
 };
 
 
