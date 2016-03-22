@@ -1,58 +1,62 @@
 #include "IRTree.hpp"
 
 
+// using namespace IRTree;
+// using namespace Temp;
+// using namespace Frame;
+
 class ISubtreeWrapper {
 public:
     virtual ~ISubtreeWrapper() { }
-    virtual const IRTree::Exp* ToExp() const = 0;
-    virtual const IRTree::Stm* ToStm() const = 0;
-    virtual const IRTree::Stm* ToConditional(const Temp::CLabel* t, const Temp::CLabel* f) const = 0;
+    virtual const IExp* ToExp() const = 0;
+    virtual const IStm* ToStm() const = 0;
+    virtual const IStm* ToConditional(const Temp::CLabel* t, const Temp::CLabel* f) const = 0;
 };
 
 class CExpConverter : public ISubtreeWrapper {
 public:
-    CExpConverter(const IRTree::Exp* _expr) : expr(_expr) {}
+    CExpConverter(const IExp* _expr) : expr(_expr) {}
 
-    const IRTree::Exp* ToExp() const {
+    const IExp* ToExp() const {
         return expr;
     }
 
-    const IRTree::Stm* ToStm() const {
+    const IStm* ToStm() const {
         return new EXP(expr);
     }
 
-    const IRTree::Stm* ToConditional(const Temp::CLabel* t,const Temp::CLabel* f) const {
+    const IStm* ToConditional(const Temp::CLabel* t,const Temp::CLabel* f) const {
         return new CJUMP(EQ, expr, new CONST(0), f, t);
     }
 
 private:
-    const IRTree::Exp* expr;
+    const IExp* expr;
 };
 
 class CStmConverter : public ISubtreeWrapper {
 public:
-    CStmConverter(const IRTree::Stm* _stm): stm(_stm) {}
+    CStmConverter(const IStm* _stm): stm(_stm) {}
 
-    const IRTree::Exp* ToExp() const {
+    const IExp* ToExp() const {
         assert(0);
     }
 
-    const IRTree::Stm* ToStm() const {
+    const IStm* ToStm() const {
         return stm;
     }
 
-    const IRTree::Stm* ToConditional(const Temp::CLabel* t, const Temp::CLabel* f) const {
+    const IStm* ToConditional(const Temp::CLabel* t, const Temp::CLabel* f) const {
         assert(0);
     }
 
 private:
-    const IRTree::Stm* stm;
+    const IStm* stm;
 };
 
 class CConditionalWrapper : public ISubtreeWrapper {
 public:
-    const IRTree::Exp* ToExp() const {
-        Temp::CTemp* r = new Temp::CTemp();
+    const IExp* ToExp() const {
+        shared_ptr<CTemp> r = shared_ptr<CTemp>( new Temp::CTemp() );
         Temp::CLabel* t = new Temp::CLabel();
         Temp::CLabel* f = new Temp::CLabel();
         return new ESEQ(
@@ -64,90 +68,205 @@ public:
                new TEMP(r) );
     }
 
-    virtual const IRTree::Stm* ToConditional(const Temp::CLabel* t, const Temp::CLabel* f) const = 0;
+    virtual const IStm* ToConditional(const Temp::CLabel* t, const Temp::CLabel* f) const = 0;
 
-    const IRTree::Stm* ToStm() const {
+    const IStm* ToStm() const {
         Temp::CLabel* jmp = new Temp::CLabel();
-
         return new SEQ( ToConditional(jmp, jmp), new LABEL(jmp) );
     }
 };
 
 class CRelativeCmpWrapper : public CConditionalWrapper {
 public:
-    CRelativeCmpWrapper(CJUMP_OP op, const IRTree::Exp* _first, const IRTree::Exp* _second) : first(_first), second(_second) {}
-    const IRTree::Stm* ToConditional(const Temp::CLabel* t, const Temp::CLabel* f) const {
+    CRelativeCmpWrapper(CJUMP_OP _op, const IExp* _first, const IExp* _second) :
+        op(_op), first(_first), second(_second) {}
+    const IStm* ToConditional(const Temp::CLabel* t, const Temp::CLabel* f) const {
         return new CJUMP(op, first, second, t, f);
     }
 private:
-    const IRTree::Exp* first;
-    const IRTree::Exp* second;
+    const IExp* first;
+    const IExp* second;
     CJUMP_OP op;
 };
 
 class CFromAndConverter : public CConditionalWrapper {
 public:
-    CFromAndConverter(const IRTree::Exp* _leftArg, const IRTree::Exp* _rightArg) : leftArg(_leftArg), rightArg(_rightArg) {}
-    const IRTree::Stm* ToConditional(const Temp::CLabel* t, const Temp::CLabel* f) const {
+    CFromAndConverter(const IExp* _leftArg, const IExp* _rightArg) :
+        leftArg(_leftArg), rightArg(_rightArg) {}
+    const IStm* ToConditional(const Temp::CLabel* t, const Temp::CLabel* f) const {
         const Temp::CLabel* z = new Temp::CLabel();
         return new SEQ( new CJUMP(LT, leftArg, new CONST(1), f, z),
             new SEQ(new LABEL(z), new CJUMP(LT, rightArg, new CONST(1), f, t)));
     }
 private:
-    const IRTree::Exp* leftArg;
-    const IRTree::Exp* rightArg;
+    const IExp* leftArg;
+    const IExp* rightArg;
 };
 
 class CFromOrConverter : public CConditionalWrapper {
 public:
-    CFromOrConverter(const IRTree::Exp* _leftArg, const IRTree::Exp* _rightArg) : leftArg(_leftArg), rightArg(_rightArg) {}
-    const IRTree::Stm* ToConditional(const Temp::CLabel* t, const Temp::CLabel* f) const {
+    CFromOrConverter(const IExp* _leftArg, const IExp* _rightArg) : leftArg(_leftArg), rightArg(_rightArg) {}
+    const IStm* ToConditional(const Temp::CLabel* t, const Temp::CLabel* f) const {
         const CLabel* z = new CLabel();
         return new SEQ(new CJUMP(GT, leftArg, new CONST(1), t, z),
             new SEQ(new LABEL(z), new CJUMP(LT, rightArg, new CONST(1), f, t)));
     }
 private:
-    const IRTree::Exp* leftArg;
-    const IRTree::Exp* rightArg;
+    const IExp* leftArg;
+    const IExp* rightArg;
 };
 
 
-
-class CTranslator: public CVisitor {
-    CStorage* symbolsStorage;
-    CTable table;
-    SymbolsTable::CClassInfo* current_class;
-    SymbolsTable::CMethodInfo* current_method;
-    CFrame* current_frame;
-    std::shared_ptr<ISubtreeWrapper> current_node;
-    std::vector<const INode*> trees;
-
-    IRTree::Exp* findByName(const CSymbol* name){
-        try{
-            return current_frame->getLocal(current_method->getLocalIndex(name))->getExp();
-        }
-        catch (std::out_of_range* oor){
-            delete oor;
-            try{
-                return current_frame->getFormal(current_method->getFormalIndex(name))->getExp();
-            }
-            catch (std::out_of_range* oor){
-                delete oor;
-                try{
-                    return current_frame->getVar(current_class->getVarIndex(name))->getExp();
-                }
-                catch (std::out_of_range* oor){
-                    cout<<oor->what()<< " "<<name->getString()<<endl;
-                }
-            }
-        }
-    }
+class Translator : public IVisitor {
 public:
-    CTranslator(CStorage* _symbols, CTable& _table):
-        symbolsStorage(_symbols), table(_table),
-        current_class(&table.classInfo[0]),
-        current_method(&table.classInfo[0].methods[0])
-    {}
+    // int tabsCount;
+    // Translator() : tabsCount(0) {}
 
+    void visit(const Goal* n){
 
+    }
+
+    void visit(const MainClass* n){
+
+    }
+
+    void visit(const ClassDeclaration1* n){
+
+    }
+
+    void visit(const ClassDeclaration2* n){
+
+    }
+
+    void visit(const ClassDeclarationList* n){
+
+    }
+
+    void visit(const VarDeclaration* n){
+
+    }
+
+    void visit(const VarDeclarationList* n){
+
+    }
+
+    void visit(const MethodDeclaration1* n){
+
+    }
+
+    void visit(const MethodDeclaration2* n){
+
+    }
+
+    void visit(const MethodDeclarationList* n){
+
+    }
+
+    void visit(const CommaTypeIdentifierList* n){
+
+    }
+
+    void visit(const TypeIntArray* n){
+
+    }
+
+    void visit(const TypeBoolean* n){
+
+    }
+
+    void visit(const TypeInt* n){
+
+    }
+
+    void visit(const TypeIdentifier* n){
+
+    }
+
+    void visit(const StatementListBraced* n){
+
+    }
+
+    void visit(const StatementIf* n){
+
+    }
+
+    void visit(const StatementWhile* n){
+
+    }
+
+    void visit(const StatementPrint* n){
+
+    }
+
+    void visit(const StatementIdentifier1* n){
+
+    }
+
+    void visit(const StatementIdentifier2* n){
+
+    }
+
+    void visit(const StatementList* n){
+
+    }
+
+    void visit(const ExpressionBinOp* n){
+
+    }
+
+    void visit(const ExpressionAriOp* n){
+
+    }
+
+    void visit(const ExpressionBracks* n){
+
+    }
+
+    void visit(const ExpressionLength* n){
+
+    }
+
+    void visit(const ExpressionMethod* n){
+
+    }
+
+    void visit(const ExpressionEmptyMethod* n){
+
+    }
+
+    void visit(const ExpressionNum* n){
+
+    }
+
+    void visit(const ExpressionLogOp* n){
+
+    }
+
+    void visit(const ExpressionId* n){
+
+    }
+
+    void visit(const ExpressionThis* n){
+
+    }
+
+    void visit(const ExpressionNew* n){
+
+    }
+
+    void visit(const ExpressionEmptyNew* n){
+
+    }
+
+    void visit(const ExpressionNot* n){
+
+    }
+
+    void visit(const ExpressionParens* n){
+
+    }
+
+    void visit(const CommaExpressionList* n){
+
+    }
 };
