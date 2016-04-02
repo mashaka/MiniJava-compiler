@@ -2,10 +2,10 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
-#include "interfaces.hpp"
-#include "visitor.cpp"
-#include "visitorTable.cpp"
-#include "visitorTypeChecker.cpp"
+#include "AcceptVisitor.hpp"
+#include "ASTBuilderVisitor.cpp"
+#include "SymbolTableVisitor.cpp"
+#include "TypeCheckerVisitor.cpp"
 
 extern FILE* yyin;
 extern Goal* root;

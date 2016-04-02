@@ -2,7 +2,7 @@
     int yylex(void);
     void yyerror(const char *);
     #include <stdio.h>
-    #include "interfaces.hpp"
+    #include "AcceptVisitor.hpp"
     extern FILE * yyin;
     Goal* root;
 %}

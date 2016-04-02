@@ -13,7 +13,7 @@ namespace SymbolsTable {
 		typename std::vector<T>::const_iterator itEnd = items.cend();
 		for (; it != itEnd; ++it) {
 			if (it->name == itemName) {
-				std::cerr << "redefinition: " << itemName << std::endl;
+				std::cout << "redefinition: " << itemName->String() << std::endl;
 				return true;
 			}
 		}
