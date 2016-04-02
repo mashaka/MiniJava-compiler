@@ -124,8 +124,9 @@ class Translator : public IVisitor {
 
     CClassInfo* currentClass;
     CMethodInfo* currentMethod;
-    CFrame currentFrame;
-    ISubtreeWrapper currentNode;
+    CFrame* currentFrame;
+    ISubtreeWrapper* currentNode;
+    std::vector<Node*> tree;
 
 public:
     // int tabsCount;
@@ -133,9 +134,10 @@ public:
     Translator(CStorage _symbols_storage, CTable _symbols_table) :
         symbolsStorage(_symbols_storage),
         symbolsTable(_symbols_table),
-        currentClass(nullptr),
-        CMethodInfo(nullptr) {}
+        currentClass(&symbolsTable.classesList[0]),
+        CMethodInfo(&symbolsTable.classesList[0].methodsList[0]) {}
 
+    // ok
     void visit(const Goal* n){
         n->e1->accept(this); //MainClass
         if(n->e2 != 0) {
@@ -157,6 +159,7 @@ public:
             n->e4->accept(this); //MethodDeclarationList
         }
     }
+
 
     void visit(const ClassDeclaration2* n){
         // 1?
