@@ -1,4 +1,5 @@
 #include "IRTree.hpp"
+#include "instructions.hpp"
 
 
 // using namespace IRTree;
@@ -118,9 +119,22 @@ private:
 
 
 class Translator : public IVisitor {
+    CStorage symbolsStorage;
+    CTable symbolsTable;
+
+    CClassInfo* currentClass;
+    CMethodInfo* currentMethod;
+    CFrame currentFrame;
+    ISubtreeWrapper currentNode;
+
 public:
     // int tabsCount;
     // Translator() : tabsCount(0) {}
+    Translator(CStorage _symbols_storage, CTable _symbols_table) :
+        symbolsStorage(_symbols_storage),
+        symbolsTable(_symbols_table),
+        currentClass(nullptr),
+        CMethodInfo(nullptr) {}
 
     void visit(const Goal* n){
         n->e1->accept(this); //MainClass
@@ -134,6 +148,7 @@ public:
     }
 
     void visit(const ClassDeclaration1* n){
+        get_or_create
         // 1, 2?
         if(n->e3 != 0){
             n->e3->accept(this); //VarDeclarationList
