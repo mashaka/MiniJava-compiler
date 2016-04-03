@@ -11,7 +11,7 @@ namespace Temp {
 		}
 
 		std::string toString() {
-			// requires C++ 11
+			// requires C++ 11 for to_string
 			return "t" + std::to_string(num);
 		}
 	};
