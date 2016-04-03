@@ -3,8 +3,6 @@
 
 namespace Temp {
 	class TempList {
-	private:
-
 	public:
 		std::shared_ptr<Temp> head;
 		std::shared_ptr<TempList> tail;
