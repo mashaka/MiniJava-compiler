@@ -1,11 +1,13 @@
 #include <memory>
 
 #include "Temp.hpp"
+#include "Stm.hpp"
 #include "Exp.hpp"
 #include "ExpList.hpp"
 
 namespace Tree {
 	class MOVE : public Stm {
+	public:
 		std::shared_ptr<Exp> dst, src;
 
 		MOVE(std::shared_ptr<Exp> _dst, std::shared_ptr<Exp> _src):
