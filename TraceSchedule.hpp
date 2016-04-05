@@ -41,9 +41,7 @@ namespace Canon {
 				table.remove(lab->label);
 				std::shared_ptr<Tree::StmList> last = getLast(l);
 				std::shared_ptr<Tree::Stm> s = last->tail->head;
-				// ХЗ
-				
-				if (Tree::JUMP s_obj = dynamic_cast<Tree::JUMP>(*s)) {
+				if (dynamic_cast<Tree::JUMP>(*s) != nullptr) {
 					std::shared_ptr<Tree::JUMP> j = s;
 					std::shared_ptr<Tree::StmList> target = table[j->targets->head];
 					if (j->targets->tail == nullptr && target != nullptr) {
@@ -53,7 +51,7 @@ namespace Canon {
 						last->tail->tail=getNext();
 						return;
 					}
-				} else if (Tree::CJUMP s_obj = dynamic_cast<Tree::CJUMP>(*s)) {
+				} else if (dynamic_cast<Tree::CJUMP>(*s) != nullptr) {
 					std::shared_ptr<Tree::CJUMP> j = s;
 					std::shared_ptr<Tree::StmList> t = table.get[j->iftrue];
 					std::shared_ptr<Tree::StmList> f = table.get[j->iffalse];
