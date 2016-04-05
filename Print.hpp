@@ -1,7 +1,7 @@
 #include "TempMap.hpp"
 #include "DefaultMap.hpp"
-#include "Exp.hpp"
-#include "Stm.hpp"
+#include "ExpInterface.hpp"
+#include "StmInterface.hpp"
 
 #include "SEQ.hpp"
 #include "LABEL.hpp"

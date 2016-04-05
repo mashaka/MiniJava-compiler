@@ -1,9 +1,9 @@
-#include "Temp.hpp"
+#include "TempObj.hpp"
 #include "ExpList.hpp"
 // Маша должна написать этот файл :)
-#include "Label.hpp"
+#include "LabelObj.hpp"
 // Никита должен написать этот файл :)
-#include "Stm.hpp"
+#include "StmInterface.hpp"
 
 #include <memory>
 

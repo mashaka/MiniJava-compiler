@@ -1,13 +1,13 @@
 #include <memory>
 
-#include "Temp.hpp"
-#include "Exp.hpp"
+#include "TempObj.hpp"
+#include "ExpInterface.hpp"
 #include "ExpList.hpp"
 // Маша должна написать эти файлы :)
-#include "Label.hpp"
+#include "LabelObj.hpp"
 #include "LabelList.hpp"
 // Никита должен написать эти файлы :)
-#include "Stm.hpp"
+#include "StmInterface.hpp"
 #include "NAME.hpp"
 
 namespace Tree {

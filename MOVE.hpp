@@ -1,8 +1,8 @@
 #include <memory>
 
-#include "Temp.hpp"
-#include "Stm.hpp"
-#include "Exp.hpp"
+#include "TempObj.hpp"
+#include "StmInterface.hpp"
+#include "ExpInterface.hpp"
 #include "ExpList.hpp"
 
 namespace Tree {

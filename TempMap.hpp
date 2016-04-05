@@ -1,4 +1,4 @@
-#include "Temp.hpp"
+#include "TempObj.hpp"
 
 namespace Temp {
 	// should be interface

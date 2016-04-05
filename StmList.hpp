@@ -1,4 +1,4 @@
-#include "Stm.hpp"
+#include "StmInterface.hpp"
 #include <memory>
 
 namespace Tree {

@@ -1,6 +1,6 @@
 #include "ExpList.hpp"
-#include "Label.hpp"
-#include "Exp.hpp"
+#include "LabelObj.hpp"
+#include "ExpInterface.hpp"
 #include <memory>
 
 namespace Tree {

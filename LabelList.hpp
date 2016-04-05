@@ -1,4 +1,4 @@
-#include "Label.hpp"
+#include "LabelObj.hpp"
 #include <memory>
 
 namespace Temp {

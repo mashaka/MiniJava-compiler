@@ -1,6 +1,6 @@
-#include "Stm.hpp"
-#include "Exp.hpp"
-#include "Label.hpp"
+#include "StmInterface.hpp"
+#include "ExpInterface.hpp"
+#include "LabelObj.hpp"
 #include "ExpList.hpp"
 
 #include <memory>

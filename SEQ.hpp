@@ -1,7 +1,7 @@
-#include "Temp.hpp"
+#include "TempObj.hpp"
 #include "ExpList.hpp"
-#include "Label.hpp"
-#include "Stm.hpp"
+#include "LabelObj.hpp"
+#include "StmInterface.hpp"
 
 #include <memory>
 
