@@ -7,7 +7,7 @@
 namespace Temp {
 	class Label {
 	public:
-		Label(string _name) : name(_name) {}
+		Label(std::string _name) : name(_name) {}
 
 		Label() {
 			// requires C++ 11 for to_string
@@ -20,12 +20,12 @@ namespace Temp {
 		}
 
 		// a printable representation of the label, for use in assembly language output.
-		string toString() {
+		std::string toString() {
 			return name;
 		}
 
 	private:
-		string name;
+		std::string name;
 		static int count;
 	};
 
