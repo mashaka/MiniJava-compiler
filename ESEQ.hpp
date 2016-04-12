@@ -8,7 +8,7 @@
 #include <iostream>
 
 namespace Tree {
-	public class ESEQ : public Exp {
+	class ESEQ : public Exp {
 	public:
 		std::shared_ptr<Stm> stm;
 		std::shared_ptr<Exp> exp;

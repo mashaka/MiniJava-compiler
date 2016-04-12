@@ -6,7 +6,7 @@
 #include "ASTBuilderVisitor.cpp"
 #include "SymbolTableVisitor.cpp"
 #include "TypeCheckerVisitor.cpp"
-#include "TraceSchedule.hpp"
+#include "Canon.hpp"
 
 
 extern FILE* yyin;
