@@ -14,11 +14,11 @@ namespace Tree {
 		{}
 
 		std::shared_ptr<ExpList> kids() {
-			return std::make_shared<ExpList>(ExpList(exp, nullptr));
+			return std::make_shared<ExpList>(exp, nullptr);
 		}
 
 		std::shared_ptr<Exp> build(std::shared_ptr<ExpList> _kids) {
-			return std::make_shared<Exp>(MEM(_kids.head));
+			return std::make_shared<Exp>(_kids->head);
 		}
 	};
 }

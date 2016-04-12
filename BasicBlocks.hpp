@@ -11,7 +11,7 @@ namespace Canon {
 		std::shared_ptr<Temp::Label> done;
 
 		BasicBlock(std::shared_ptr<Tree::StmList> _stms) {
-			done = std::make_shared<Temp::Label>(Temp::Label());
+			done = std::make_shared<Temp::Label>();
 			mkBlocks(_stms);
 		}
 
@@ -27,11 +27,11 @@ namespace Canon {
 		void doStms(std::shared_ptr<Tree::StmList> _list) {
 			if (_list == nullptr) {
 				doStms(std::make_shared<Tree::StmList>(std::make_shared<Tree::JUMP>(done), nullptr));
-			} else if (dynamic_cast<Tree::JUMP>(*(_list->head)) || dynamic_cast<Tree::CJUMP>(*(_list->head))) {
+			} else if (std::dynamic_pointer_cast<Tree::JUMP>(_list->head) || std::dynamic_pointer_cast<Tree::CJUMP>(_list->head)) {
 				addStm(_list->head);
 				mkBlocks(_list->tail);
-			} else if(Tree::LABEL label = dynamic_cast<Tree::LABEL>(*(_list->head))) {
-				doStms(std::make_shared<Tree::StmList>(std::make_shared<Tree::JUMP>(label.label, _list)));
+			} else if(std::shared_ptr<Tree::LABEL> label = dynamic_pointer_cast<Tree::LABEL>(_list->head)) {
+				doStms(std::make_shared<Tree::StmList>(std::make_shared<Tree::JUMP>(label->label, _list)));
 			} else {
 				addStm(_list->head);
 				doStms(_list->tail);
@@ -41,7 +41,7 @@ namespace Canon {
 		void mkBlocks(std::shared_ptr<Tree::StmList> _list) {
 			if (_list == nullptr) {
 				return;
-			} else if (dynamic_cast<Tree::LABEL>(*(_list->head))) {
+			} else if (std::dynamic_pointer_cast<Tree::LABEL>(_list->head)) {
 				lastStm = std::make_shared<Tree::StmList>(_list->head, nullptr);
 				if (lastBlock == nullptr) {
 					blocks = std::make_shared<StmListList>(lastStm, nullptr);
@@ -52,7 +52,7 @@ namespace Canon {
 				}
 				doStms(_list->tail);
 			} else {
-				mkBlocks(std::make_shared<Tree::StmList>(std::make_shared<Tree::LABEL>(Temp::Label()), _list));
+				mkBlocks(std::make_shared<Tree::StmList>(std::make_shared<Tree::LABEL>(Temp::Label(), _list));
 			}
 		}
 	};

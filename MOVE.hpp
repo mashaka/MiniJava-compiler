@@ -15,18 +15,18 @@ namespace Tree {
 		{}
 
 		std::shared_ptr<ExpList> kids() {
-			if (MEM newDst = dynamic_cast<MEM>(*dst)) {
-				return std::make_shared<ExpList>(ExpList(newDst.exp, ExpList(src, nullptr)));
+			if (std::shared_ptr<MEM> newDst = std::dynamic_pointer_cast<MEM>(dst)) {
+				return std::make_shared<ExpList>(newDst->exp, src, nullptr);
 			} else {
-				return std::make_shared<ExpList>(ExpList(src, nullptr));
+				return std::make_shared<ExpList>(src, nullptr);
 			}
 		}
 
 		std::shared_ptr<Stm> build(std::shared_ptr<ExpList> _kids) {
-			if (dynamic_cast<MEM>(*dst)) {
-				return std::make_shared<MOVE>(MOVE(MEM(_kids.head), _kids.tail.head));
+			if (std::dynamic_pointer_cast<MEM>(dst)) {
+				return std::make_shared<MOVE>(MEM(_kids->head), _kids->tail->head);
 			} else {
-				return std::make_shared<MOVE>(MOVE(dst, _kids.head));
+				return std::make_shared<MOVE>(dst, _kids->head);
 			}
 		}
 	};
