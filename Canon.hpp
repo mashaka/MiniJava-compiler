@@ -25,7 +25,7 @@ public:
 private:
   std::shared_ptr<Tree::TEMP> destination;
   std::shared_ptr<Tree::CALL> source;
-}   
+};
 
 //------------------------------------------------------------------------------------
 
@@ -44,7 +44,7 @@ public:
 
 private:
   std::shared_ptr<Tree::CALL> call;
-} 
+};
 
 //------------------------------------------------------------------------------------------- 
   
@@ -56,7 +56,7 @@ public:
 private:
     std::shared_ptr<Tree::Stm> statement;
     std::shared_ptr<Tree::ExpList> expression;
-}
+};
 
 //--------------------------------------------------------------------------------------------
 
@@ -213,6 +213,6 @@ private:
  }
 
  
-}
+};
 
 }
