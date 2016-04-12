@@ -4,6 +4,6 @@ namespace Temp {
 	// should be interface
 	interface TempMap {
 	public:
-		TempMap(Temp::Temp);
+		TempMap(std::shared_ptr<Temp::Temp>);
 	};
 }

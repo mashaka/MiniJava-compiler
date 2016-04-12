@@ -7,8 +7,8 @@ namespace Temp {
 	public:
 		DefaultMap() {}
 		
-		std::string tempMap(Temp::Temp t) {
-			return t.toString();
+		std::string tempMap(std::shared_ptr<Temp::Temp> t) {
+			return t->toString();
 		}
 	};
 }
