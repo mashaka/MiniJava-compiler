@@ -56,12 +56,12 @@ private:
   
 class StmExpList {
 public:
-    StmExpList(std::shared_ptr<Tree::Stm> _statement, std::shared_ptr<Tree::ExpList> _expression) 
-      : statement(_statement), expression(_expression) {}
+    StmExpList(std::shared_ptr<Tree::Stm> _stm, std::shared_ptr<Tree::ExpList> _exp) 
+      : stm(_stm), exp(_exp) {}
 
 private:
-    std::shared_ptr<Tree::Stm> statement;
-    std::shared_ptr<Tree::ExpList> expression;
+    std::shared_ptr<Tree::Stm> stm;
+    std::shared_ptr<Tree::ExpList> exp;
 };
 
 //--------------------------------------------------------------------------------------------
