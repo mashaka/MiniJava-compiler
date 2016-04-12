@@ -1,3 +1,5 @@
+#pragma once
+
 #include "LabelObj.hpp"
 #include <memory>
 

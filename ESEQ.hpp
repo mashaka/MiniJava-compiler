@@ -1,3 +1,5 @@
+#pragma once
+
 #include "StmInterface.hpp"
 #include "ExpInterface.hpp"
 #include "ExpList.hpp"
