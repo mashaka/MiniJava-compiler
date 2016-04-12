@@ -4,9 +4,6 @@ CXX=g++
 
 all: mini_java_compiler
 
-visitor.o: visitor.cpp
-	$(CXX) -std=c++11 $^ -o $@
-
 syntax.tab.cc syntax.tab.hh: syntax.yy
 	$(BISON) -d $<
 
