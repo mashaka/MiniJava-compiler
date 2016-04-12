@@ -55,7 +55,7 @@ namespace Canon {
 				}
 				doStms(_list->tail);
 			} else {
-				mkBlocks(std::make_shared<Tree::StmList>(std::make_shared<Tree::LABEL>(Temp::Label(), _list));
+				mkBlocks(std::make_shared<Tree::StmList>(std::make_shared<Tree::LABEL>(Temp::Label(), _list)));
 			}
 		}
 	};

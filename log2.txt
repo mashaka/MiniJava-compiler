@@ -1,0 +1,641 @@
+In file included from ExpList.hpp:3:0,
+                 from TEMP.hpp:4,
+                 from Canon.hpp:3,
+                 from main.cpp:9:
+ExpInterface.hpp:9:27: error: ‘ExpList’ was not declared in this scope
+   virtual std::shared_ptr<ExpList> kids();
+                           ^
+ExpInterface.hpp:9:34: error: template argument 1 is invalid
+   virtual std::shared_ptr<ExpList> kids();
+                                  ^
+ExpInterface.hpp:10:54: error: ‘ExpList’ was not declared in this scope
+   virtual std::shared_ptr<Exp> build(std::shared_ptr<ExpList> kids);
+                                                      ^
+ExpInterface.hpp:10:61: error: template argument 1 is invalid
+   virtual std::shared_ptr<Exp> build(std::shared_ptr<ExpList> kids);
+                                                             ^
+In file included from Canon.hpp:3:0,
+                 from main.cpp:9:
+TEMP.hpp:16:28: error: conflicting return type specified for ‘virtual std::shared_ptr<Tree::ExpList> Tree::TEMP::kids()’
+   std::shared_ptr<ExpList> kids() {
+                            ^
+In file included from ExpList.hpp:3:0,
+                 from TEMP.hpp:4,
+                 from Canon.hpp:3,
+                 from main.cpp:9:
+ExpInterface.hpp:9:36: error:   overriding ‘virtual int Tree::Exp::kids()’
+   virtual std::shared_ptr<ExpList> kids();
+                                    ^
+In file included from Canon.hpp:4:0,
+                 from main.cpp:9:
+CALL.hpp:17:28: error: conflicting return type specified for ‘virtual std::shared_ptr<Tree::ExpList> Tree::CALL::kids()’
+   std::shared_ptr<ExpList> kids() {
+                            ^
+In file included from ExpList.hpp:3:0,
+                 from TEMP.hpp:4,
+                 from Canon.hpp:3,
+                 from main.cpp:9:
+ExpInterface.hpp:9:36: error:   overriding ‘virtual int Tree::Exp::kids()’
+   virtual std::shared_ptr<ExpList> kids();
+                                    ^
+In file included from Canon.hpp:5:0,
+                 from main.cpp:9:
+MOVE.hpp: In member function ‘virtual std::shared_ptr<Tree::ExpList> Tree::MOVE::kids()’:
+MOVE.hpp:20:24: error: ‘MEM’ was not declared in this scope
+    if (std::shared_ptr<MEM> newDst = std::dynamic_pointer_cast<MEM>(dst)) {
+                        ^
+MOVE.hpp:20:27: error: template argument 1 is invalid
+    if (std::shared_ptr<MEM> newDst = std::dynamic_pointer_cast<MEM>(dst)) {
+                           ^
+MOVE.hpp:20:64: error: the value of ‘MEM’ is not usable in a constant expression
+    if (std::shared_ptr<MEM> newDst = std::dynamic_pointer_cast<MEM>(dst)) {
+                                                                ^
+MOVE.hpp:20:24: note: ‘MEM’ was not declared ‘constexpr’
+    if (std::shared_ptr<MEM> newDst = std::dynamic_pointer_cast<MEM>(dst)) {
+                        ^
+MOVE.hpp:20:72: error: no matching function for call to ‘dynamic_pointer_cast(std::shared_ptr<Tree::Exp>&)’
+    if (std::shared_ptr<MEM> newDst = std::dynamic_pointer_cast<MEM>(dst)) {
+                                                                        ^
+MOVE.hpp:20:72: note: candidates are:
+In file included from /usr/include/c++/4.8/bits/shared_ptr.h:52:0,
+                 from /usr/include/c++/4.8/memory:82,
+                 from ExpInterface.hpp:4,
+                 from ExpList.hpp:3,
+                 from TEMP.hpp:4,
+                 from Canon.hpp:3,
+                 from main.cpp:9:
+/usr/include/c++/4.8/bits/shared_ptr_base.h:1177:5: note: template<class _Tp, class _Tp1, __gnu_cxx::_Lock_policy _Lp> std::__shared_ptr<_Tp1, _Lp> std::dynamic_pointer_cast(const std::__shared_ptr<_Tp2, _Lp>&)
+     dynamic_pointer_cast(const __shared_ptr<_Tp1, _Lp>& __r) noexcept
+     ^
+/usr/include/c++/4.8/bits/shared_ptr_base.h:1177:5: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/4.8/memory:82:0,
+                 from ExpInterface.hpp:4,
+                 from ExpList.hpp:3,
+                 from TEMP.hpp:4,
+                 from Canon.hpp:3,
+                 from main.cpp:9:
+/usr/include/c++/4.8/bits/shared_ptr.h:447:5: note: template<class _Tp, class _Tp1> std::shared_ptr<_Tp1> std::dynamic_pointer_cast(const std::shared_ptr<_Tp2>&)
+     dynamic_pointer_cast(const shared_ptr<_Tp1>& __r) noexcept
+     ^
+/usr/include/c++/4.8/bits/shared_ptr.h:447:5: note:   template argument deduction/substitution failed:
+In file included from Canon.hpp:5:0,
+                 from main.cpp:9:
+MOVE.hpp:21:44: error: base operand of ‘->’ is not a pointer
+     return std::make_shared<ExpList>(newDst->exp, src, nullptr);
+                                            ^
+MOVE.hpp: In member function ‘virtual std::shared_ptr<Tree::Stm> Tree::MOVE::build(std::shared_ptr<Tree::ExpList>)’:
+MOVE.hpp:28:34: error: ‘MEM’ was not declared in this scope
+    if (std::dynamic_pointer_cast<MEM>(dst)) {
+                                  ^
+MOVE.hpp:28:42: error: no matching function for call to ‘dynamic_pointer_cast(std::shared_ptr<Tree::Exp>&)’
+    if (std::dynamic_pointer_cast<MEM>(dst)) {
+                                          ^
+MOVE.hpp:28:42: note: candidates are:
+In file included from /usr/include/c++/4.8/bits/shared_ptr.h:52:0,
+                 from /usr/include/c++/4.8/memory:82,
+                 from ExpInterface.hpp:4,
+                 from ExpList.hpp:3,
+                 from TEMP.hpp:4,
+                 from Canon.hpp:3,
+                 from main.cpp:9:
+/usr/include/c++/4.8/bits/shared_ptr_base.h:1177:5: note: template<class _Tp, class _Tp1, __gnu_cxx::_Lock_policy _Lp> std::__shared_ptr<_Tp1, _Lp> std::dynamic_pointer_cast(const std::__shared_ptr<_Tp2, _Lp>&)
+     dynamic_pointer_cast(const __shared_ptr<_Tp1, _Lp>& __r) noexcept
+     ^
+/usr/include/c++/4.8/bits/shared_ptr_base.h:1177:5: note:   template argument deduction/substitution failed:
+In file included from Canon.hpp:5:0,
+                 from main.cpp:9:
+MOVE.hpp:28:42: error: template argument 1 is invalid
+    if (std::dynamic_pointer_cast<MEM>(dst)) {
+                                          ^
+In file included from /usr/include/c++/4.8/memory:82:0,
+                 from ExpInterface.hpp:4,
+                 from ExpList.hpp:3,
+                 from TEMP.hpp:4,
+                 from Canon.hpp:3,
+                 from main.cpp:9:
+/usr/include/c++/4.8/bits/shared_ptr.h:447:5: note: template<class _Tp, class _Tp1> std::shared_ptr<_Tp1> std::dynamic_pointer_cast(const std::shared_ptr<_Tp2>&)
+     dynamic_pointer_cast(const shared_ptr<_Tp1>& __r) noexcept
+     ^
+/usr/include/c++/4.8/bits/shared_ptr.h:447:5: note:   template argument deduction/substitution failed:
+In file included from Canon.hpp:5:0,
+                 from main.cpp:9:
+MOVE.hpp:28:42: error: template argument 1 is invalid
+    if (std::dynamic_pointer_cast<MEM>(dst)) {
+                                          ^
+In file included from Canon.hpp:6:0,
+                 from main.cpp:9:
+CONST.hpp: At global scope:
+CONST.hpp:15:28: error: conflicting return type specified for ‘virtual std::shared_ptr<Tree::ExpList> Tree::CONST::kids()’
+   std::shared_ptr<ExpList> kids() {
+                            ^
+In file included from ExpList.hpp:3:0,
+                 from TEMP.hpp:4,
+                 from Canon.hpp:3,
+                 from main.cpp:9:
+ExpInterface.hpp:9:36: error:   overriding ‘virtual int Tree::Exp::kids()’
+   virtual std::shared_ptr<ExpList> kids();
+                                    ^
+In file included from Canon.hpp:7:0,
+                 from main.cpp:9:
+NAME.hpp:17:28: error: conflicting return type specified for ‘virtual std::shared_ptr<Tree::ExpList> Tree::NAME::kids()’
+   std::shared_ptr<ExpList> kids() {
+                            ^
+In file included from ExpList.hpp:3:0,
+                 from TEMP.hpp:4,
+                 from Canon.hpp:3,
+                 from main.cpp:9:
+ExpInterface.hpp:9:36: error:   overriding ‘virtual int Tree::Exp::kids()’
+   virtual std::shared_ptr<ExpList> kids();
+                                    ^
+In file included from main.cpp:9:0:
+Canon.hpp: In member function ‘std::shared_ptr<Tree::Stm> Canon::ExpCall::build(Tree::ExpList)’:
+Canon.hpp:46:56: error: no matching function for call to ‘Tree::CALL::build(Tree::ExpList&)’
+     return std::make_shared<Tree::EXP>(call->build(kids));
+                                                        ^
+Canon.hpp:46:56: note: candidate is:
+In file included from Canon.hpp:4:0,
+                 from main.cpp:9:
+CALL.hpp:20:24: note: std::shared_ptr<Tree::Exp> Tree::CALL::build(std::shared_ptr<Tree::ExpList>)
+   std::shared_ptr<Exp> build(std::shared_ptr<ExpList> _kids) {
+                        ^
+CALL.hpp:20:24: note:   no known conversion for argument 1 from ‘Tree::ExpList’ to ‘std::shared_ptr<Tree::ExpList>’
+In file included from main.cpp:9:0:
+Canon.hpp: At global scope:
+Canon.hpp:69:26: error: ‘StmList’ is not a member of ‘Tree’
+   static std::shared_ptr<Tree::StmList> linearize(std::shared_ptr<Tree::Stm> s) {
+                          ^
+Canon.hpp:69:26: error: ‘StmList’ is not a member of ‘Tree’
+Canon.hpp:69:39: error: template argument 1 is invalid
+   static std::shared_ptr<Tree::StmList> linearize(std::shared_ptr<Tree::Stm> s) {
+                                       ^
+Canon.hpp:101:12: error: ‘boolean’ does not name a type
+     static boolean commute(std::shared_ptr<Tree::Stm> a, std::shared_ptr<Tree::Exp> b) {
+            ^
+Canon.hpp:157:25: error: ‘ESEQ’ is not a member of ‘Tree’
+  static std::shared_ptr<Tree::ESEQ> do_exp(std::shared_ptr<Tree::ESEQ> e) {
+                         ^
+Canon.hpp:157:25: error: ‘ESEQ’ is not a member of ‘Tree’
+Canon.hpp:157:35: error: template argument 1 is invalid
+  static std::shared_ptr<Tree::ESEQ> do_exp(std::shared_ptr<Tree::ESEQ> e) {
+                                   ^
+Canon.hpp:157:60: error: ‘ESEQ’ is not a member of ‘Tree’
+  static std::shared_ptr<Tree::ESEQ> do_exp(std::shared_ptr<Tree::ESEQ> e) {
+                                                            ^
+Canon.hpp:157:60: error: ‘ESEQ’ is not a member of ‘Tree’
+Canon.hpp:157:70: error: template argument 1 is invalid
+  static std::shared_ptr<Tree::ESEQ> do_exp(std::shared_ptr<Tree::ESEQ> e) {
+                                                                      ^
+Canon.hpp:163:25: error: ‘ESEQ’ is not a member of ‘Tree’
+  static std::shared_ptr<Tree::ESEQ> do_exp (std::shared_ptr<Tree::Exp> e) {
+                         ^
+Canon.hpp:163:25: error: ‘ESEQ’ is not a member of ‘Tree’
+Canon.hpp:163:35: error: template argument 1 is invalid
+  static std::shared_ptr<Tree::ESEQ> do_exp (std::shared_ptr<Tree::Exp> e) {
+                                   ^
+Canon.hpp:170:25: error: ‘ESEQ’ is not a member of ‘Tree’
+  static std::shared_ptr<Tree::ESEQ> reorder_exp (std::shared_ptr<Tree::Exp> e) {
+                         ^
+Canon.hpp:170:25: error: ‘ESEQ’ is not a member of ‘Tree’
+Canon.hpp:170:35: error: template argument 1 is invalid
+  static std::shared_ptr<Tree::ESEQ> reorder_exp (std::shared_ptr<Tree::Exp> e) {
+                                   ^
+Canon.hpp:176:74: error: field initializer is not constant
+     std::make_shared<Tree::EXP>(std::shared_ptr<Tree::CONST>(0)), nullptr);
+                                                                          ^
+Canon.hpp:176:74: error: in-class initialization of static data member ‘std::shared_ptr<Canon::StmExpList> Canon::Canon::nopNull’ of non-literal type
+Canon.hpp:176:74: error: non-constant in-class initialization invalid for static member ‘Canon::Canon::nopNull’
+Canon.hpp:176:74: error: (an out of class initialization is required)
+Canon.hpp:176:74: error: ‘Canon::Canon::nopNull’ cannot be initialized by a non-constant expression when being declared
+Canon.hpp:178:25: error: ‘tmExpList’ was not declared in this scope
+  static std::shared_ptr<tmExpList> reorder(std::shared_ptr<Tree::ExpList> exps) {
+                         ^
+Canon.hpp:178:34: error: template argument 1 is invalid
+  static std::shared_ptr<tmExpList> reorder(std::shared_ptr<Tree::ExpList> exps) {
+                                  ^
+Canon.hpp:209:25: error: ‘StmList’ is not a member of ‘Tree’
+  static std::shared_ptr<Tree::StmList> linear(std::shared_ptr<Tree::SEQ> s, std::shared_ptr<Tree::StmList> l) {
+                         ^
+Canon.hpp:209:25: error: ‘StmList’ is not a member of ‘Tree’
+Canon.hpp:209:38: error: template argument 1 is invalid
+  static std::shared_ptr<Tree::StmList> linear(std::shared_ptr<Tree::SEQ> s, std::shared_ptr<Tree::StmList> l) {
+                                      ^
+Canon.hpp:209:93: error: ‘StmList’ is not a member of ‘Tree’
+  static std::shared_ptr<Tree::StmList> linear(std::shared_ptr<Tree::SEQ> s, std::shared_ptr<Tree::StmList> l) {
+                                                                                             ^
+Canon.hpp:209:93: error: ‘StmList’ is not a member of ‘Tree’
+Canon.hpp:209:106: error: template argument 1 is invalid
+  static std::shared_ptr<Tree::StmList> linear(std::shared_ptr<Tree::SEQ> s, std::shared_ptr<Tree::StmList> l) {
+                                                                                                          ^
+Canon.hpp:212:25: error: ‘StmList’ is not a member of ‘Tree’
+  static std::shared_ptr<Tree::StmList> linear(std::shared_ptr<Tree::Stm> s, std::shared_ptr<Tree::StmList> l) {
+                         ^
+Canon.hpp:212:25: error: ‘StmList’ is not a member of ‘Tree’
+Canon.hpp:212:38: error: template argument 1 is invalid
+  static std::shared_ptr<Tree::StmList> linear(std::shared_ptr<Tree::Stm> s, std::shared_ptr<Tree::StmList> l) {
+                                      ^
+Canon.hpp:212:93: error: ‘StmList’ is not a member of ‘Tree’
+  static std::shared_ptr<Tree::StmList> linear(std::shared_ptr<Tree::Stm> s, std::shared_ptr<Tree::StmList> l) {
+                                                                                             ^
+Canon.hpp:212:93: error: ‘StmList’ is not a member of ‘Tree’
+Canon.hpp:212:106: error: template argument 1 is invalid
+  static std::shared_ptr<Tree::StmList> linear(std::shared_ptr<Tree::Stm> s, std::shared_ptr<Tree::StmList> l) {
+                                                                                                          ^
+Canon.hpp: In static member function ‘static int Canon::Canon::linearize(std::shared_ptr<Tree::Stm>)’:
+Canon.hpp:70:37: error: no matching function for call to ‘Canon::Canon::linear(std::shared_ptr<Tree::Stm>, std::nullptr_t)’
+     return linear(do_stm(s), nullptr);
+                                     ^
+Canon.hpp:70:37: note: candidates are:
+Canon.hpp:209:40: note: static int Canon::Canon::linear(std::shared_ptr<Tree::SEQ>, int)
+  static std::shared_ptr<Tree::StmList> linear(std::shared_ptr<Tree::SEQ> s, std::shared_ptr<Tree::StmList> l) {
+                                        ^
+Canon.hpp:209:40: note:   no known conversion for argument 1 from ‘std::shared_ptr<Tree::Stm>’ to ‘std::shared_ptr<Tree::SEQ>’
+Canon.hpp:212:40: note: static int Canon::Canon::linear(std::shared_ptr<Tree::Stm>, int)
+  static std::shared_ptr<Tree::StmList> linear(std::shared_ptr<Tree::Stm> s, std::shared_ptr<Tree::StmList> l) {
+                                        ^
+Canon.hpp:212:40: note:   no known conversion for argument 2 from ‘std::nullptr_t’ to ‘int’
+In file included from Canon.hpp:8:0,
+                 from main.cpp:9:
+EXP.hpp: In static member function ‘static bool Canon::Canon::isNop(std::shared_ptr<Tree::Stm>)’:
+EXP.hpp:11:24: error: ‘std::shared_ptr<Tree::Exp> Tree::EXP::exp’ is private
+   std::shared_ptr<Exp> exp; 
+                        ^
+In file included from main.cpp:9:0:
+Canon.hpp:76:87: error: within this context
+         if(std::shared_ptr<Tree::CONST> c = std::dynamic_pointer_cast<Tree::CONST>(e->exp)) {
+                                                                                       ^
+Canon.hpp: In static member function ‘static std::shared_ptr<Tree::Stm> Canon::Canon::do_stm(std::shared_ptr<Tree::MOVE>)’:
+Canon.hpp:121:64: error: expected ‘)’ before ‘;’ token
+             return reorder_stm(std::make_shared<MoveCall>(t, c);
+                                                                ^
+Canon.hpp:124:28: error: ‘ESEQ’ is not a member of ‘Tree’
+         if(std::shared_ptr<Tree::ESEQ> e = std::dynamic_pointer_cast<Tree::ESEQ>(s->dst)) {
+                            ^
+Canon.hpp:124:28: error: ‘ESEQ’ is not a member of ‘Tree’
+Canon.hpp:124:38: error: template argument 1 is invalid
+         if(std::shared_ptr<Tree::ESEQ> e = std::dynamic_pointer_cast<Tree::ESEQ>(s->dst)) {
+                                      ^
+Canon.hpp:124:70: error: ‘ESEQ’ is not a member of ‘Tree’
+         if(std::shared_ptr<Tree::ESEQ> e = std::dynamic_pointer_cast<Tree::ESEQ>(s->dst)) {
+                                                                      ^
+Canon.hpp:124:70: error: ‘ESEQ’ is not a member of ‘Tree’
+Canon.hpp:124:88: error: no matching function for call to ‘dynamic_pointer_cast(std::shared_ptr<Tree::Exp>&)’
+         if(std::shared_ptr<Tree::ESEQ> e = std::dynamic_pointer_cast<Tree::ESEQ>(s->dst)) {
+                                                                                        ^
+Canon.hpp:124:88: note: candidates are:
+In file included from /usr/include/c++/4.8/bits/shared_ptr.h:52:0,
+                 from /usr/include/c++/4.8/memory:82,
+                 from ExpInterface.hpp:4,
+                 from ExpList.hpp:3,
+                 from TEMP.hpp:4,
+                 from Canon.hpp:3,
+                 from main.cpp:9:
+/usr/include/c++/4.8/bits/shared_ptr_base.h:1177:5: note: template<class _Tp, class _Tp1, __gnu_cxx::_Lock_policy _Lp> std::__shared_ptr<_Tp1, _Lp> std::dynamic_pointer_cast(const std::__shared_ptr<_Tp2, _Lp>&)
+     dynamic_pointer_cast(const __shared_ptr<_Tp1, _Lp>& __r) noexcept
+     ^
+/usr/include/c++/4.8/bits/shared_ptr_base.h:1177:5: note:   template argument deduction/substitution failed:
+In file included from main.cpp:9:0:
+Canon.hpp:124:88: error: template argument 1 is invalid
+         if(std::shared_ptr<Tree::ESEQ> e = std::dynamic_pointer_cast<Tree::ESEQ>(s->dst)) {
+                                                                                        ^
+In file included from /usr/include/c++/4.8/memory:82:0,
+                 from ExpInterface.hpp:4,
+                 from ExpList.hpp:3,
+                 from TEMP.hpp:4,
+                 from Canon.hpp:3,
+                 from main.cpp:9:
+/usr/include/c++/4.8/bits/shared_ptr.h:447:5: note: template<class _Tp, class _Tp1> std::shared_ptr<_Tp1> std::dynamic_pointer_cast(const std::shared_ptr<_Tp2>&)
+     dynamic_pointer_cast(const shared_ptr<_Tp1>& __r) noexcept
+     ^
+/usr/include/c++/4.8/bits/shared_ptr.h:447:5: note:   template argument deduction/substitution failed:
+In file included from main.cpp:9:0:
+Canon.hpp:124:88: error: template argument 1 is invalid
+         if(std::shared_ptr<Tree::ESEQ> e = std::dynamic_pointer_cast<Tree::ESEQ>(s->dst)) {
+                                                                                        ^
+Canon.hpp:125:54: error: base operand of ‘->’ is not a pointer
+           return do_stm(std::make_shared<Tree::SEQ>(e->stm,
+                                                      ^
+Canon.hpp:126:43: error: base operand of ‘->’ is not a pointer
+             std::make_shared<Tree::MOVE>(e->exp,
+                                           ^
+In file included from Canon.hpp:8:0,
+                 from main.cpp:9:
+EXP.hpp: In static member function ‘static std::shared_ptr<Tree::Stm> Canon::Canon::do_stm(std::shared_ptr<Tree::EXP>)’:
+EXP.hpp:11:24: error: ‘std::shared_ptr<Tree::Exp> Tree::EXP::exp’ is private
+   std::shared_ptr<Exp> exp; 
+                        ^
+In file included from main.cpp:9:0:
+Canon.hpp:133:86: error: within this context
+         if (std::shared_ptr<Tree::CALL> e = std::dynamic_pointer_cast<Tree::CALL>(s->exp)){
+                                                                                      ^
+Canon.hpp:134:60: error: expected ‘)’ before ‘;’ token
+             return reorder_stm(std::make_shared<ExpCall>(e);
+                                                            ^
+Canon.hpp: In static member function ‘static std::shared_ptr<Tree::Stm> Canon::Canon::reorder_stm(std::shared_ptr<Tree::Stm>)’:
+Canon.hpp:153:55: error: conversion from ‘int’ to non-scalar type ‘std::shared_ptr<Canon::StmExpList>’ requested
+      std::shared_ptr<StmExpList> x = reorder(s->kids());
+                                                       ^
+Canon.hpp:154:20: error: ‘class Canon::StmExpList’ has no member named ‘stm’
+      return seq(x->stm, s->build(x->exps));
+                    ^
+Canon.hpp:154:37: error: ‘class Canon::StmExpList’ has no member named ‘exps’
+      return seq(x->stm, s->build(x->exps));
+                                     ^
+Canon.hpp: In static member function ‘static int Canon::Canon::do_exp(int)’:
+Canon.hpp:158:49: error: base operand of ‘->’ is not a pointer
+       std::shared_ptr<Tree::Stm> stms = do_stm(e->stm);
+                                                 ^
+Canon.hpp:159:23: error: ‘ESEQ’ is not a member of ‘Tree’
+       std::shared_ptr<Tree::ESEQ> b = do_exp(e->exp);
+                       ^
+Canon.hpp:159:23: error: ‘ESEQ’ is not a member of ‘Tree’
+Canon.hpp:159:33: error: template argument 1 is invalid
+       std::shared_ptr<Tree::ESEQ> b = do_exp(e->exp);
+                                 ^
+Canon.hpp:159:37: error: invalid type in declaration before ‘=’ token
+       std::shared_ptr<Tree::ESEQ> b = do_exp(e->exp);
+                                     ^
+Canon.hpp:159:47: error: base operand of ‘->’ is not a pointer
+       std::shared_ptr<Tree::ESEQ> b = do_exp(e->exp);
+                                               ^
+Canon.hpp:160:31: error: ‘ESEQ’ is not a member of ‘Tree’
+       return std::make_shared<Tree::ESEQ>(seq(stms, b->stm), b->exp);
+                               ^
+Canon.hpp:160:31: error: ‘ESEQ’ is not a member of ‘Tree’
+Canon.hpp:160:54: error: base operand of ‘->’ is not a pointer
+       return std::make_shared<Tree::ESEQ>(seq(stms, b->stm), b->exp);
+                                                      ^
+Canon.hpp:160:63: error: base operand of ‘->’ is not a pointer
+       return std::make_shared<Tree::ESEQ>(seq(stms, b->stm), b->exp);
+                                                               ^
+Canon.hpp: In static member function ‘static int Canon::Canon::do_exp(std::shared_ptr<Tree::Exp>)’:
+Canon.hpp:164:27: error: ‘ESEQ’ is not a member of ‘Tree’
+       if (std::shared_ptr<Tree::ESEQ> es = std::dynamic_pointer_cast<Tree::ESEQ>(e)) {
+                           ^
+Canon.hpp:164:27: error: ‘ESEQ’ is not a member of ‘Tree’
+Canon.hpp:164:37: error: template argument 1 is invalid
+       if (std::shared_ptr<Tree::ESEQ> es = std::dynamic_pointer_cast<Tree::ESEQ>(e)) {
+                                     ^
+Canon.hpp:164:70: error: ‘ESEQ’ is not a member of ‘Tree’
+       if (std::shared_ptr<Tree::ESEQ> es = std::dynamic_pointer_cast<Tree::ESEQ>(e)) {
+                                                                      ^
+Canon.hpp:164:70: error: ‘ESEQ’ is not a member of ‘Tree’
+Canon.hpp:164:83: error: no matching function for call to ‘dynamic_pointer_cast(std::shared_ptr<Tree::Exp>&)’
+       if (std::shared_ptr<Tree::ESEQ> es = std::dynamic_pointer_cast<Tree::ESEQ>(e)) {
+                                                                                   ^
+Canon.hpp:164:83: note: candidates are:
+In file included from /usr/include/c++/4.8/bits/shared_ptr.h:52:0,
+                 from /usr/include/c++/4.8/memory:82,
+                 from ExpInterface.hpp:4,
+                 from ExpList.hpp:3,
+                 from TEMP.hpp:4,
+                 from Canon.hpp:3,
+                 from main.cpp:9:
+/usr/include/c++/4.8/bits/shared_ptr_base.h:1177:5: note: template<class _Tp, class _Tp1, __gnu_cxx::_Lock_policy _Lp> std::__shared_ptr<_Tp1, _Lp> std::dynamic_pointer_cast(const std::__shared_ptr<_Tp2, _Lp>&)
+     dynamic_pointer_cast(const __shared_ptr<_Tp1, _Lp>& __r) noexcept
+     ^
+/usr/include/c++/4.8/bits/shared_ptr_base.h:1177:5: note:   template argument deduction/substitution failed:
+In file included from main.cpp:9:0:
+Canon.hpp:164:83: error: template argument 1 is invalid
+       if (std::shared_ptr<Tree::ESEQ> es = std::dynamic_pointer_cast<Tree::ESEQ>(e)) {
+                                                                                   ^
+In file included from /usr/include/c++/4.8/memory:82:0,
+                 from ExpInterface.hpp:4,
+                 from ExpList.hpp:3,
+                 from TEMP.hpp:4,
+                 from Canon.hpp:3,
+                 from main.cpp:9:
+/usr/include/c++/4.8/bits/shared_ptr.h:447:5: note: template<class _Tp, class _Tp1> std::shared_ptr<_Tp1> std::dynamic_pointer_cast(const std::shared_ptr<_Tp2>&)
+     dynamic_pointer_cast(const shared_ptr<_Tp1>& __r) noexcept
+     ^
+/usr/include/c++/4.8/bits/shared_ptr.h:447:5: note:   template argument deduction/substitution failed:
+In file included from main.cpp:9:0:
+Canon.hpp:164:83: error: template argument 1 is invalid
+       if (std::shared_ptr<Tree::ESEQ> es = std::dynamic_pointer_cast<Tree::ESEQ>(e)) {
+                                                                                   ^
+Canon.hpp: In static member function ‘static int Canon::Canon::reorder_exp(std::shared_ptr<Tree::Exp>)’:
+Canon.hpp:171:55: error: no matching function for call to ‘Canon::Canon::reorder(int)’
+      std::shared_ptr<StmExpList> x = reorder(e->kids());
+                                                       ^
+Canon.hpp:171:55: note: candidate is:
+Canon.hpp:178:36: note: static int Canon::Canon::reorder(std::shared_ptr<Tree::ExpList>)
+  static std::shared_ptr<tmExpList> reorder(std::shared_ptr<Tree::ExpList> exps) {
+                                    ^
+Canon.hpp:178:36: note:   no known conversion for argument 1 from ‘int’ to ‘std::shared_ptr<Tree::ExpList>’
+Canon.hpp:172:30: error: ‘ESEQ’ is not a member of ‘Tree’
+      return std::make_shared<Tree::ESEQ>(x->stm, e->build(x->exps));
+                              ^
+Canon.hpp:172:30: error: ‘ESEQ’ is not a member of ‘Tree’
+Canon.hpp:172:45: error: ‘class Canon::StmExpList’ has no member named ‘stm’
+      return std::make_shared<Tree::ESEQ>(x->stm, e->build(x->exps));
+                                             ^
+Canon.hpp:172:62: error: ‘class Canon::StmExpList’ has no member named ‘exps’
+      return std::make_shared<Tree::ESEQ>(x->stm, e->build(x->exps));
+                                                              ^
+Canon.hpp: In static member function ‘static int Canon::Canon::reorder(std::shared_ptr<Tree::ExpList>)’:
+Canon.hpp:180:16: error: cannot convert ‘std::shared_ptr<Canon::StmExpList>’ to ‘int’ in return
+         return nopNull;
+                ^
+Canon.hpp:186:61: error: ‘ESEQ’ is not a member of ‘Tree’
+             std::shared_ptr<Tree::Exp> e = std::make_shared<Tree::ESEQ>(
+                                                             ^
+Canon.hpp:186:61: error: ‘ESEQ’ is not a member of ‘Tree’
+Canon.hpp:187:73: error: temporary of non-literal type ‘Tree::TEMP’ in a constant expression
+               std::make_shared<Tree::MOVE>(std::make_shared<Tree::TEMP(t), a),
+                                                                         ^
+In file included from Canon.hpp:3:0,
+                 from main.cpp:9:
+TEMP.hpp:10:8: note: ‘Tree::TEMP’ is not literal because:
+  class TEMP : public Exp {
+        ^
+TEMP.hpp:10:8: note:   ‘Tree::TEMP’ has a non-trivial destructor
+In file included from main.cpp:9:0:
+Canon.hpp:187:76: error: the value of ‘a’ is not usable in a constant expression
+               std::make_shared<Tree::MOVE>(std::make_shared<Tree::TEMP(t), a),
+                                                                            ^
+Canon.hpp:183:36: note: ‘a’ was not declared ‘constexpr’
+         std::shared_ptr<Tree::Exp> a = exps->head;
+                                    ^
+Canon.hpp:187:49: error: parse error in template argument list
+               std::make_shared<Tree::MOVE>(std::make_shared<Tree::TEMP(t), a),
+                                                 ^
+Canon.hpp:187:77: error: too many arguments to function ‘std::shared_ptr<_Tp1> std::make_shared(_Args&& ...) [with _Tp = Tree::MOVE; _Args = {}]’
+               std::make_shared<Tree::MOVE>(std::make_shared<Tree::TEMP(t), a),
+                                                                             ^
+In file included from /usr/include/c++/4.8/memory:82:0,
+                 from ExpInterface.hpp:4,
+                 from ExpList.hpp:3,
+                 from TEMP.hpp:4,
+                 from Canon.hpp:3,
+                 from main.cpp:9:
+/usr/include/c++/4.8/bits/shared_ptr.h:610:5: note: declared here
+     make_shared(_Args&&... __args)
+     ^
+In file included from main.cpp:9:0:
+Canon.hpp:188:40: error: temporary of non-literal type ‘Tree::TEMP’ in a constant expression
+           std::make_shared<Tree::TEMP(t));
+                                        ^
+Canon.hpp:188:16: error: parse error in template argument list
+           std::make_shared<Tree::TEMP(t));
+                ^
+Canon.hpp:188:41: error: no matching function for call to ‘make_shared(std::shared_ptr<Tree::MOVE>, <unresolved overloaded function type>)’
+           std::make_shared<Tree::TEMP(t));
+                                         ^
+Canon.hpp:188:41: note: candidate is:
+In file included from /usr/include/c++/4.8/memory:82:0,
+                 from ExpInterface.hpp:4,
+                 from ExpList.hpp:3,
+                 from TEMP.hpp:4,
+                 from Canon.hpp:3,
+                 from main.cpp:9:
+/usr/include/c++/4.8/bits/shared_ptr.h:610:5: note: template<class _Tp, class ... _Args> std::shared_ptr<_Tp1> std::make_shared(_Args&& ...)
+     make_shared(_Args&&... __args)
+     ^
+/usr/include/c++/4.8/bits/shared_ptr.h:610:5: note:   template argument deduction/substitution failed:
+In file included from main.cpp:9:0:
+Canon.hpp:188:41: error: template argument 1 is invalid
+           std::make_shared<Tree::TEMP(t));
+                                         ^
+Canon.hpp:191:29: error: ‘ESEQ’ is not a member of ‘Tree’
+             std::shared_ptr<Tree::ESEQ> aa = do_exp(a);
+                             ^
+Canon.hpp:191:29: error: ‘ESEQ’ is not a member of ‘Tree’
+Canon.hpp:191:39: error: template argument 1 is invalid
+             std::shared_ptr<Tree::ESEQ> aa = do_exp(a);
+                                       ^
+Canon.hpp:191:44: error: invalid type in declaration before ‘=’ token
+             std::shared_ptr<Tree::ESEQ> aa = do_exp(a);
+                                            ^
+Canon.hpp:192:64: error: conversion from ‘int’ to non-scalar type ‘std::shared_ptr<Canon::StmExpList>’ requested
+             std::shared_ptr<StmExpList> bb = reorder(exps->tail);
+                                                                ^
+Canon.hpp:193:29: error: ‘class Canon::StmExpList’ has no member named ‘stm’
+             if (commute(bb->stm, aa->exp))
+                             ^
+Canon.hpp:193:36: error: base operand of ‘->’ is not a pointer
+             if (commute(bb->stm, aa->exp))
+                                    ^
+Canon.hpp:193:41: error: ‘commute’ was not declared in this scope
+             if (commute(bb->stm, aa->exp))
+                                         ^
+Canon.hpp:194:59: error: base operand of ‘->’ is not a pointer
+                 return std::make_shared<StmExpList>(seq(aa->stm, bb->stm), 
+                                                           ^
+Canon.hpp:194:70: error: ‘class Canon::StmExpList’ has no member named ‘stm’
+                 return std::make_shared<StmExpList>(seq(aa->stm, bb->stm), 
+                                                                      ^
+Canon.hpp:195:53: error: base operand of ‘->’ is not a pointer
+                   std::make_shared<Tree::ExpList>(aa->exp, bb->exps));
+                                                     ^
+Canon.hpp:195:64: error: ‘class Canon::StmExpList’ has no member named ‘exps’
+                   std::make_shared<Tree::ExpList>(aa->exp, bb->exps));
+                                                                ^
+Canon.hpp:199:29: error: base operand of ‘->’ is not a pointer
+                       seq(aa->stm, 
+                             ^
+Canon.hpp:201:62: error: base operand of ‘->’ is not a pointer
+                           std::make_shared<Tree::TEMP>(t), aa->exp), bb->stm)),
+                                                              ^
+Canon.hpp:201:74: error: ‘class Canon::StmExpList’ has no member named ‘stm’
+                           std::make_shared<Tree::TEMP>(t), aa->exp), bb->stm)),
+                                                                          ^
+Canon.hpp:203:62: error: ‘class Canon::StmExpList’ has no member named ‘exps’
+                         std::make_shared<Tree::TEMP>(t), bb->exps));
+                                                              ^
+Canon.hpp: In static member function ‘static int Canon::Canon::linear(std::shared_ptr<Tree::Stm>, int)’:
+Canon.hpp:216:31: error: ‘StmList’ is not a member of ‘Tree’
+       return std::make_shared<Tree::StmList>(s, l);
+                               ^
+Canon.hpp:216:31: error: ‘StmList’ is not a member of ‘Tree’
+Canon.hpp:216:50: error: no matching function for call to ‘make_shared(std::shared_ptr<Tree::Stm>&, int&)’
+       return std::make_shared<Tree::StmList>(s, l);
+                                                  ^
+Canon.hpp:216:50: note: candidate is:
+In file included from /usr/include/c++/4.8/memory:82:0,
+                 from ExpInterface.hpp:4,
+                 from ExpList.hpp:3,
+                 from TEMP.hpp:4,
+                 from Canon.hpp:3,
+                 from main.cpp:9:
+/usr/include/c++/4.8/bits/shared_ptr.h:610:5: note: template<class _Tp, class ... _Args> std::shared_ptr<_Tp1> std::make_shared(_Args&& ...)
+     make_shared(_Args&&... __args)
+     ^
+/usr/include/c++/4.8/bits/shared_ptr.h:610:5: note:   template argument deduction/substitution failed:
+In file included from main.cpp:9:0:
+Canon.hpp:216:50: error: template argument 1 is invalid
+       return std::make_shared<Tree::StmList>(s, l);
+                                                  ^
+In file included from Canon.hpp:8:0,
+                 from main.cpp:9:
+/usr/include/c++/4.8/ext/new_allocator.h: In instantiation of ‘void __gnu_cxx::new_allocator<_Tp>::construct(_Up*, _Args&& ...) [with _Up = Tree::EXP; _Args = {std::shared_ptr<Tree::Exp>&}; _Tp = Tree::EXP]’:
+/usr/include/c++/4.8/bits/alloc_traits.h:254:4:   required from ‘static typename std::enable_if<std::allocator_traits<_Alloc>::__construct_helper<_Tp, _Args>::value, void>::type std::allocator_traits<_Alloc>::_S_construct(_Alloc&, _Tp*, _Args&& ...) [with _Tp = Tree::EXP; _Args = {std::shared_ptr<Tree::Exp>&}; _Alloc = std::allocator<Tree::EXP>; typename std::enable_if<std::allocator_traits<_Alloc>::__construct_helper<_Tp, _Args>::value, void>::type = void]’
+/usr/include/c++/4.8/bits/alloc_traits.h:393:57:   required from ‘static decltype (_S_construct(__a, __p, (forward<_Args>)(std::allocator_traits::construct::__args)...)) std::allocator_traits<_Alloc>::construct(_Alloc&, _Tp*, _Args&& ...) [with _Tp = Tree::EXP; _Args = {std::shared_ptr<Tree::Exp>&}; _Alloc = std::allocator<Tree::EXP>; decltype (_S_construct(__a, __p, (forward<_Args>)(std::allocator_traits::construct::__args)...)) = <type error>]’
+/usr/include/c++/4.8/bits/shared_ptr_base.h:400:38:   required from ‘std::_Sp_counted_ptr_inplace<_Tp, _Alloc, _Lp>::_Sp_counted_ptr_inplace(_Alloc, _Args&& ...) [with _Args = {std::shared_ptr<Tree::Exp>&}; _Tp = Tree::EXP; _Alloc = std::allocator<Tree::EXP>; __gnu_cxx::_Lock_policy _Lp = (__gnu_cxx::_Lock_policy)2u]’
+/usr/include/c++/4.8/ext/new_allocator.h:120:4:   required from ‘void __gnu_cxx::new_allocator<_Tp>::construct(_Up*, _Args&& ...) [with _Up = std::_Sp_counted_ptr_inplace<Tree::EXP, std::allocator<Tree::EXP>, (__gnu_cxx::_Lock_policy)2u>; _Args = {const std::allocator<Tree::EXP>, std::shared_ptr<Tree::Exp>&}; _Tp = std::_Sp_counted_ptr_inplace<Tree::EXP, std::allocator<Tree::EXP>, (__gnu_cxx::_Lock_policy)2u>]’
+/usr/include/c++/4.8/bits/alloc_traits.h:254:4:   [ skipping 2 instantiation contexts, use -ftemplate-backtrace-limit=0 to disable ]
+/usr/include/c++/4.8/bits/shared_ptr_base.h:503:37:   required from ‘std::__shared_count<_Lp>::__shared_count(std::_Sp_make_shared_tag, _Tp*, const _Alloc&, _Args&& ...) [with _Tp = Tree::EXP; _Alloc = std::allocator<Tree::EXP>; _Args = {std::shared_ptr<Tree::Exp>&}; __gnu_cxx::_Lock_policy _Lp = (__gnu_cxx::_Lock_policy)2u]’
+/usr/include/c++/4.8/bits/shared_ptr_base.h:957:35:   required from ‘std::__shared_ptr<_Tp, _Lp>::__shared_ptr(std::_Sp_make_shared_tag, const _Alloc&, _Args&& ...) [with _Alloc = std::allocator<Tree::EXP>; _Args = {std::shared_ptr<Tree::Exp>&}; _Tp = Tree::EXP; __gnu_cxx::_Lock_policy _Lp = (__gnu_cxx::_Lock_policy)2u]’
+/usr/include/c++/4.8/bits/shared_ptr.h:316:64:   required from ‘std::shared_ptr<_Tp>::shared_ptr(std::_Sp_make_shared_tag, const _Alloc&, _Args&& ...) [with _Alloc = std::allocator<Tree::EXP>; _Args = {std::shared_ptr<Tree::Exp>&}; _Tp = Tree::EXP]’
+/usr/include/c++/4.8/bits/shared_ptr.h:598:39:   required from ‘std::shared_ptr<_Tp1> std::allocate_shared(const _Alloc&, _Args&& ...) [with _Tp = Tree::EXP; _Alloc = std::allocator<Tree::EXP>; _Args = {std::shared_ptr<Tree::Exp>&}]’
+/usr/include/c++/4.8/bits/shared_ptr.h:614:42:   required from ‘std::shared_ptr<_Tp1> std::make_shared(_Args&& ...) [with _Tp = Tree::EXP; _Args = {std::shared_ptr<Tree::Exp>&}]’
+EXP.hpp:19:46:   required from here
+EXP.hpp:13:3: error: ‘Tree::EXP::EXP(std::shared_ptr<Tree::Exp>)’ is private
+   EXP(std::shared_ptr<Exp> _exp) : exp(_exp) {}
+   ^
+In file included from /usr/include/x86_64-linux-gnu/c++/4.8/bits/c++allocator.h:33:0,
+                 from /usr/include/c++/4.8/bits/allocator.h:46,
+                 from /usr/include/c++/4.8/string:41,
+                 from main.cpp:3:
+/usr/include/c++/4.8/ext/new_allocator.h:120:4: error: within this context
+  { ::new((void *)__p) _Up(std::forward<_Args>(__args)...); }
+    ^
+In file included from Canon.hpp:8:0,
+                 from main.cpp:9:
+/usr/include/c++/4.8/ext/new_allocator.h: In instantiation of ‘void __gnu_cxx::new_allocator<_Tp>::construct(_Up*, _Args&& ...) [with _Up = Tree::EXP; _Args = {std::shared_ptr<Tree::CONST>}; _Tp = Tree::EXP]’:
+/usr/include/c++/4.8/bits/alloc_traits.h:254:4:   required from ‘static typename std::enable_if<std::allocator_traits<_Alloc>::__construct_helper<_Tp, _Args>::value, void>::type std::allocator_traits<_Alloc>::_S_construct(_Alloc&, _Tp*, _Args&& ...) [with _Tp = Tree::EXP; _Args = {std::shared_ptr<Tree::CONST>}; _Alloc = std::allocator<Tree::EXP>; typename std::enable_if<std::allocator_traits<_Alloc>::__construct_helper<_Tp, _Args>::value, void>::type = void]’
+/usr/include/c++/4.8/bits/alloc_traits.h:393:57:   required from ‘static decltype (_S_construct(__a, __p, (forward<_Args>)(std::allocator_traits::construct::__args)...)) std::allocator_traits<_Alloc>::construct(_Alloc&, _Tp*, _Args&& ...) [with _Tp = Tree::EXP; _Args = {std::shared_ptr<Tree::CONST>}; _Alloc = std::allocator<Tree::EXP>; decltype (_S_construct(__a, __p, (forward<_Args>)(std::allocator_traits::construct::__args)...)) = <type error>]’
+/usr/include/c++/4.8/bits/shared_ptr_base.h:400:38:   required from ‘std::_Sp_counted_ptr_inplace<_Tp, _Alloc, _Lp>::_Sp_counted_ptr_inplace(_Alloc, _Args&& ...) [with _Args = {std::shared_ptr<Tree::CONST>}; _Tp = Tree::EXP; _Alloc = std::allocator<Tree::EXP>; __gnu_cxx::_Lock_policy _Lp = (__gnu_cxx::_Lock_policy)2u]’
+/usr/include/c++/4.8/ext/new_allocator.h:120:4:   required from ‘void __gnu_cxx::new_allocator<_Tp>::construct(_Up*, _Args&& ...) [with _Up = std::_Sp_counted_ptr_inplace<Tree::EXP, std::allocator<Tree::EXP>, (__gnu_cxx::_Lock_policy)2u>; _Args = {const std::allocator<Tree::EXP>, std::shared_ptr<Tree::CONST>}; _Tp = std::_Sp_counted_ptr_inplace<Tree::EXP, std::allocator<Tree::EXP>, (__gnu_cxx::_Lock_policy)2u>]’
+/usr/include/c++/4.8/bits/alloc_traits.h:254:4:   [ skipping 2 instantiation contexts, use -ftemplate-backtrace-limit=0 to disable ]
+/usr/include/c++/4.8/bits/shared_ptr_base.h:503:37:   required from ‘std::__shared_count<_Lp>::__shared_count(std::_Sp_make_shared_tag, _Tp*, const _Alloc&, _Args&& ...) [with _Tp = Tree::EXP; _Alloc = std::allocator<Tree::EXP>; _Args = {std::shared_ptr<Tree::CONST>}; __gnu_cxx::_Lock_policy _Lp = (__gnu_cxx::_Lock_policy)2u]’
+/usr/include/c++/4.8/bits/shared_ptr_base.h:957:35:   required from ‘std::__shared_ptr<_Tp, _Lp>::__shared_ptr(std::_Sp_make_shared_tag, const _Alloc&, _Args&& ...) [with _Alloc = std::allocator<Tree::EXP>; _Args = {std::shared_ptr<Tree::CONST>}; _Tp = Tree::EXP; __gnu_cxx::_Lock_policy _Lp = (__gnu_cxx::_Lock_policy)2u]’
+/usr/include/c++/4.8/bits/shared_ptr.h:316:64:   required from ‘std::shared_ptr<_Tp>::shared_ptr(std::_Sp_make_shared_tag, const _Alloc&, _Args&& ...) [with _Alloc = std::allocator<Tree::EXP>; _Args = {std::shared_ptr<Tree::CONST>}; _Tp = Tree::EXP]’
+/usr/include/c++/4.8/bits/shared_ptr.h:598:39:   required from ‘std::shared_ptr<_Tp1> std::allocate_shared(const _Alloc&, _Args&& ...) [with _Tp = Tree::EXP; _Alloc = std::allocator<Tree::EXP>; _Args = {std::shared_ptr<Tree::CONST>}]’
+/usr/include/c++/4.8/bits/shared_ptr.h:614:42:   required from ‘std::shared_ptr<_Tp1> std::make_shared(_Args&& ...) [with _Tp = Tree::EXP; _Args = {std::shared_ptr<Tree::CONST>}]’
+Canon.hpp:176:64:   required from here
+EXP.hpp:13:3: error: ‘Tree::EXP::EXP(std::shared_ptr<Tree::Exp>)’ is private
+   EXP(std::shared_ptr<Exp> _exp) : exp(_exp) {}
+   ^
+In file included from /usr/include/x86_64-linux-gnu/c++/4.8/bits/c++allocator.h:33:0,
+                 from /usr/include/c++/4.8/bits/allocator.h:46,
+                 from /usr/include/c++/4.8/string:41,
+                 from main.cpp:3:
+/usr/include/c++/4.8/ext/new_allocator.h:120:4: error: within this context
+  { ::new((void *)__p) _Up(std::forward<_Args>(__args)...); }
+    ^
+/usr/include/c++/4.8/ext/new_allocator.h: In instantiation of ‘void __gnu_cxx::new_allocator<_Tp>::construct(_Up*, _Args&& ...) [with _Up = Tree::MOVE; _Args = {}; _Tp = Tree::MOVE]’:
+/usr/include/c++/4.8/bits/alloc_traits.h:254:4:   required from ‘static typename std::enable_if<std::allocator_traits<_Alloc>::__construct_helper<_Tp, _Args>::value, void>::type std::allocator_traits<_Alloc>::_S_construct(_Alloc&, _Tp*, _Args&& ...) [with _Tp = Tree::MOVE; _Args = {}; _Alloc = std::allocator<Tree::MOVE>; typename std::enable_if<std::allocator_traits<_Alloc>::__construct_helper<_Tp, _Args>::value, void>::type = void]’
+/usr/include/c++/4.8/bits/alloc_traits.h:393:57:   required from ‘static decltype (_S_construct(__a, __p, (forward<_Args>)(std::allocator_traits::construct::__args)...)) std::allocator_traits<_Alloc>::construct(_Alloc&, _Tp*, _Args&& ...) [with _Tp = Tree::MOVE; _Args = {}; _Alloc = std::allocator<Tree::MOVE>; decltype (_S_construct(__a, __p, (forward<_Args>)(std::allocator_traits::construct::__args)...)) = <type error>]’
+/usr/include/c++/4.8/bits/shared_ptr_base.h:400:38:   required from ‘std::_Sp_counted_ptr_inplace<_Tp, _Alloc, _Lp>::_Sp_counted_ptr_inplace(_Alloc, _Args&& ...) [with _Args = {}; _Tp = Tree::MOVE; _Alloc = std::allocator<Tree::MOVE>; __gnu_cxx::_Lock_policy _Lp = (__gnu_cxx::_Lock_policy)2u]’
+/usr/include/c++/4.8/ext/new_allocator.h:120:4:   required from ‘void __gnu_cxx::new_allocator<_Tp>::construct(_Up*, _Args&& ...) [with _Up = std::_Sp_counted_ptr_inplace<Tree::MOVE, std::allocator<Tree::MOVE>, (__gnu_cxx::_Lock_policy)2u>; _Args = {const std::allocator<Tree::MOVE>}; _Tp = std::_Sp_counted_ptr_inplace<Tree::MOVE, std::allocator<Tree::MOVE>, (__gnu_cxx::_Lock_policy)2u>]’
+/usr/include/c++/4.8/bits/alloc_traits.h:254:4:   [ skipping 2 instantiation contexts, use -ftemplate-backtrace-limit=0 to disable ]
+/usr/include/c++/4.8/bits/shared_ptr_base.h:503:37:   required from ‘std::__shared_count<_Lp>::__shared_count(std::_Sp_make_shared_tag, _Tp*, const _Alloc&, _Args&& ...) [with _Tp = Tree::MOVE; _Alloc = std::allocator<Tree::MOVE>; _Args = {}; __gnu_cxx::_Lock_policy _Lp = (__gnu_cxx::_Lock_policy)2u]’
+/usr/include/c++/4.8/bits/shared_ptr_base.h:957:35:   required from ‘std::__shared_ptr<_Tp, _Lp>::__shared_ptr(std::_Sp_make_shared_tag, const _Alloc&, _Args&& ...) [with _Alloc = std::allocator<Tree::MOVE>; _Args = {}; _Tp = Tree::MOVE; __gnu_cxx::_Lock_policy _Lp = (__gnu_cxx::_Lock_policy)2u]’
+/usr/include/c++/4.8/bits/shared_ptr.h:316:64:   required from ‘std::shared_ptr<_Tp>::shared_ptr(std::_Sp_make_shared_tag, const _Alloc&, _Args&& ...) [with _Alloc = std::allocator<Tree::MOVE>; _Args = {}; _Tp = Tree::MOVE]’
+/usr/include/c++/4.8/bits/shared_ptr.h:598:39:   required from ‘std::shared_ptr<_Tp1> std::allocate_shared(const _Alloc&, _Args&& ...) [with _Tp = Tree::MOVE; _Alloc = std::allocator<Tree::MOVE>; _Args = {}]’
+/usr/include/c++/4.8/bits/shared_ptr.h:614:42:   required from ‘std::shared_ptr<_Tp1> std::make_shared(_Args&& ...) [with _Tp = Tree::MOVE; _Args = {}]’
+Canon.hpp:187:77:   required from here
+/usr/include/c++/4.8/ext/new_allocator.h:120:4: error: no matching function for call to ‘Tree::MOVE::MOVE()’
+/usr/include/c++/4.8/ext/new_allocator.h:120:4: note: candidates are:
+In file included from Canon.hpp:5:0,
+                 from main.cpp:9:
+MOVE.hpp:15:3: note: Tree::MOVE::MOVE(std::shared_ptr<Tree::Exp>, std::shared_ptr<Tree::Exp>)
+   MOVE(std::shared_ptr<Exp> _dst, std::shared_ptr<Exp> _src):
+   ^
+MOVE.hpp:15:3: note:   candidate expects 2 arguments, 0 provided
+MOVE.hpp:11:8: note: Tree::MOVE::MOVE(const Tree::MOVE&)
+  class MOVE : public Stm {
+        ^
+MOVE.hpp:11:8: note:   candidate expects 1 argument, 0 provided
+MOVE.hpp:11:8: note: Tree::MOVE::MOVE(Tree::MOVE&&)
+MOVE.hpp:11:8: note:   candidate expects 1 argument, 0 provided
+make: *** [mini_java_compiler] Error 1
