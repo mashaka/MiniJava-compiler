@@ -4,10 +4,12 @@
 #include "CALL.hpp"
 #include "MOVE.hpp"
 #include "CONST.hpp"
+#include "ESEQ.hpp"
 #include "NAME.hpp"
 #include "EXP.hpp"
 #include "SEQ.hpp"
 #include "StmInterface.hpp"
+#include "StmList.hpp"
 #include "ExpList.hpp"
 
 #include <memory>
@@ -42,7 +44,7 @@ public:
   std::shared_ptr<Tree::ExpList> kids() {
     return call->kids();
   }
-  std::shared_ptr<Tree::Stm> build(Tree::ExpList kids) {
+  std::shared_ptr<Tree::Stm> build(std::shared_ptr<Tree::ExpList> kids) {
     return std::make_shared<Tree::EXP>(call->build(kids));
   }
 
@@ -98,7 +100,7 @@ private:
         }
     }
 
-    static boolean commute(std::shared_ptr<Tree::Stm> a, std::shared_ptr<Tree::Exp> b) {
+    static bool commute(std::shared_ptr<Tree::Stm> a, std::shared_ptr<Tree::Exp> b) {
         if(isNop(a)) {
           return true;
         }
@@ -173,7 +175,7 @@ private:
  }
 
  static std::shared_ptr<StmExpList> nopNull = std::make_shared<StmExpList>(
-    std::make_shared<Tree::EXP>(std::shared_ptr<Tree::CONST>(0)), nullptr);
+    std::make_shared<Tree::EXP>(std::make_shared<Tree::CONST>(0)), nullptr);
 
  static std::shared_ptr<tmExpList> reorder(std::shared_ptr<Tree::ExpList> exps) {
      if (exps == nullptr) {
