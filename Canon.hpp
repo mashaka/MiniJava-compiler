@@ -48,7 +48,6 @@ public:
     return std::make_shared<Tree::EXP>(call->build(kids));
   }
 
-private:
   std::shared_ptr<Tree::CALL> call;
 };
 
@@ -56,12 +55,11 @@ private:
   
 class StmExpList {
 public:
-    StmExpList(std::shared_ptr<Tree::Stm> _stm, std::shared_ptr<Tree::ExpList> _exp) 
-      : stm(_stm), exp(_exp) {}
+    StmExpList(std::shared_ptr<Tree::Stm> _stm, std::shared_ptr<Tree::ExpList> _exps)
+      : stm(_stm), exps(_exps) {}
 
-private:
     std::shared_ptr<Tree::Stm> stm;
-    std::shared_ptr<Tree::ExpList> exp;
+    std::shared_ptr<Tree::ExpList> exps;
 };
 
 //--------------------------------------------------------------------------------------------
@@ -119,20 +117,18 @@ public:
     static std::shared_ptr<Tree::Stm> do_stm(std::shared_ptr<Tree::MOVE> s) {
         if(std::shared_ptr<Tree::TEMP> t = std::dynamic_pointer_cast<Tree::TEMP>(s->dst)) {
           if(std::shared_ptr<Tree::CALL> c = std::dynamic_pointer_cast<Tree::CALL>(s->src)) {
-            return reorder_stm(std::make_shared<MoveCall>(t, c);
+            return reorder_stm(std::make_shared<MoveCall>(t, c));
           }
         }
         if(std::shared_ptr<Tree::ESEQ> e = std::dynamic_pointer_cast<Tree::ESEQ>(s->dst)) {
-          return do_stm(std::make_shared<Tree::SEQ>(e->stm,
-            std::make_shared<Tree::MOVE>(e->exp,
-                s->src)));
+          return do_stm(std::make_shared<Tree::SEQ>(e->stm, std::make_shared<Tree::MOVE>(e->exp, s->src)));
         }
         return reorder_stm(s);
     }
 
     static std::shared_ptr<Tree::Stm> do_stm(std::shared_ptr<Tree::EXP> s) { 
         if (std::shared_ptr<Tree::CALL> e = std::dynamic_pointer_cast<Tree::CALL>(s->exp)){
-            return reorder_stm(std::make_shared<ExpCall>(e);
+            return reorder_stm(std::make_shared<ExpCall>(e));
         }
         return reorder_stm(s);
     }
@@ -183,9 +179,12 @@ public:
         std::shared_ptr<Tree::Exp> a = exps->head;
         if (std::shared_ptr<Tree::CALL> c = std::dynamic_pointer_cast<Tree::CALL>(a)) {
             std::shared_ptr<Temp::Temp> t = std::make_shared<Temp::Temp>();
-            std::shared_ptr<Tree::Exp> e = std::make_shared<Tree::ESEQ>(
-              std::make_shared<Tree::MOVE>(std::make_shared<Tree::TEMP(t), a),
-				      std::make_shared<Tree::TEMP(t));
+            std::shared_ptr<Tree::Exp> e = std::dynamic_pointer_cast<Tree::Exp>(
+                std::make_shared<Tree::ESEQ>(
+                    std::dynamic_pointer_cast<Tree::Stm>(std::make_shared<Tree::MOVE>(std::make_shared<Tree::TEMP>(t), a)),
+				    std::dynamic_pointer_cast<Tree::Exp>(std::make_shared<Tree::TEMP>(t))
+                )
+            );
             return reorder(std::make_shared<Tree::ExpList>(e, exps->tail));
        } else {
             std::shared_ptr<Tree::ESEQ> aa = do_exp(a);

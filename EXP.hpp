@@ -8,6 +8,7 @@
 
 namespace Tree {
 	class EXP : public Stm {
+	public:
 		std::shared_ptr<Exp> exp; 
 
 		EXP(std::shared_ptr<Exp> _exp) : exp(_exp) {}

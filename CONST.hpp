@@ -16,7 +16,7 @@ namespace Tree {
 			return nullptr;
 		}
 		std::shared_ptr<Exp> build(std::shared_ptr<ExpList> kids) {
-			return std::make_shared<Exp>(*this);
+			return std::dynamic_pointer_cast<Exp>(std::make_shared<CONST>(*this));
 		}
 	};
 }

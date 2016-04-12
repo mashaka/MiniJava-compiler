@@ -20,7 +20,7 @@ namespace Tree {
 		}
 
 		std::shared_ptr<Exp> build(std::shared_ptr<ExpList> _kids) {
-			return std::make_shared<Exp>(_kids->head);
+			return std::make_shared<MEM>(_kids->head);
 		}
 	};
 }
