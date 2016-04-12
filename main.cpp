@@ -7,6 +7,7 @@
 #include "SymbolTableVisitor.cpp"
 #include "TypeCheckerVisitor.cpp"
 
+
 extern FILE* yyin;
 extern Goal* root;
 
