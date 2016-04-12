@@ -4,6 +4,8 @@
 #include <memory>
 
 namespace Tree {
+	class ExpList;
+
 	class Exp {
 	public:
 		virtual std::shared_ptr<ExpList> kids();
