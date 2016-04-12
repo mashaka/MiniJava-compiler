@@ -13,7 +13,7 @@ namespace Tree {
 		std::shared_ptr<Stm> stm;
 		std::shared_ptr<Exp> exp;
 
-		public ESEQ(std::shared_ptr<Stm> _stm, std::shared_ptr<Exp> _exp)
+		ESEQ(std::shared_ptr<Stm> _stm, std::shared_ptr<Exp> _exp)
 			: stm(_stm), exp(_exp) {}
 
 		std::shared_ptr<ExpList> kids() {
