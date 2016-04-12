@@ -1,3 +1,5 @@
+#pragma once
+
 #include "StmList.hpp"
 #include "LabelObj.hpp"
 

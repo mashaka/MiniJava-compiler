@@ -1,3 +1,5 @@
+#pragma once
+
 #include "TempMap.hpp"
 #include "DefaultMap.hpp"
 #include "ExpInterface.hpp"

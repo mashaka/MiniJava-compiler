@@ -1,3 +1,5 @@
+#pragma once
+
 #include "ExpList.hpp"
 #include "LabelObj.hpp"
 #include "ExpInterface.hpp"
