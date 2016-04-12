@@ -12,9 +12,9 @@
 namespace Tree {
 	class LABEL : public Stm {
 	public:
-		std::shared_ptr<Label> label;
+		std::shared_ptr<Temp::Label> label;
 		
-		LABEL(std::shared_ptr<Label> _label):
+		LABEL(std::shared_ptr<Temp::Label> _label):
 		label(_label)
 		{}
 
