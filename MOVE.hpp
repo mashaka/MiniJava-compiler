@@ -6,6 +6,7 @@
 #include "StmInterface.hpp"
 #include "ExpInterface.hpp"
 #include "ExpList.hpp"
+#include "MEM.hpp"
 
 namespace Tree {
 	class MOVE : public Stm {

@@ -4,6 +4,8 @@
 #include <memory>
 
 namespace Tree {
+	class Exp;
+
 	class ExpList {
 	public:
 		std::shared_ptr<Exp> head;
