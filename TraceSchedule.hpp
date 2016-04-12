@@ -18,12 +18,12 @@ namespace Canon {
 	public:
 		std::shared_ptr<Tree::StmList> stms;
 		std::shared_ptr<TBasicBlocks> theBlocks;
-		std::unordered_map<std::shared_ptr<Tree::Label>, std::shared_ptr<Tree::StmList>> table;
+		std::unordered_map<std::shared_ptr<Temp::Label>, std::shared_ptr<Tree::StmList>> table;
 
 		TraceSchedule(std::shared_ptr<BasicBlocks> _theBlocks):
 		theBlocks(_theBlocks)
 		{
-			table = std::unordered_map<std::shared_ptr<Tree::Label>, std::shared_ptr<Tree::StmList>>();
+			table = std::unordered_map<std::shared_ptr<Temp::Label>, std::shared_ptr<Tree::StmList>>();
 			for (std::shared_ptr<StmListList> l = b->blocks; l != nullptr; l = l->tail) {
 				table[l->head->head->label] = l->head;
 			}
@@ -39,7 +39,7 @@ namespace Canon {
 
 		void trace(std::shared_ptr<Tree::StmList> l) {
 			while (true) {
-				std::shared_ptr<Tree::Label> lab = l->head;
+				std::shared_ptr<Temp::Label> lab = l->head;
 				table.remove(lab->label);
 				std::shared_ptr<Tree::StmList> last = getLast(l);
 				std::shared_ptr<Tree::Stm> s = last->tail->head;

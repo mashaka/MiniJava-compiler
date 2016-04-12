@@ -6,6 +6,7 @@
 #include "ASTBuilderVisitor.cpp"
 #include "SymbolTableVisitor.cpp"
 #include "TypeCheckerVisitor.cpp"
+#include "TraceSchedule.hpp"
 
 extern FILE* yyin;
 extern Goal* root;
