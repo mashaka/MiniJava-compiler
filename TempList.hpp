@@ -1,3 +1,5 @@
+#pragma once
+
 #include "TempObj.hpp"
 #include <memory>
 
