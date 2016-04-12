@@ -7,8 +7,8 @@
 #include "NAME.hpp"
 #include "EXP.hpp"
 #include "SEQ.hpp"
-#include "Stm.hpp"
-#include "ExpList.cpp"
+#include "StmInterface.hpp"
+#include "ExpList.hpp"
 
 #include <memory>
 

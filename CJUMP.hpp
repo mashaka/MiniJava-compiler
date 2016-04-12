@@ -17,8 +17,11 @@ namespace Tree {
         static const int EQ = 0, NE = 1, LT = 2, GT = 3, LE = 4, GE = 5,
             ULT = 6, ULE = 7, UGT = 8, UGE = 9;
 
-        CJUMP(int _relop, std::shared_ptr<Exp> _left, std::shared_ptr<Exp> _right, 
-            std::shared_ptr<Label> _iftrue, std::shared_ptr<Label> _iffalse)
+        CJUMP(int _relop, 
+            std::shared_ptr<Exp> _left, 
+            std::shared_ptr<Exp> _right, 
+            std::shared_ptr<Label> _iftrue, 
+            std::shared_ptr<Label> _iffalse)
             : relop(_relop), left(_left), right(_right), iftrue(_iftrue), iffalse(_iffalse) {}
 
         std::shared_ptr<ExpList> kids() {

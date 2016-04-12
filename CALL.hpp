@@ -18,7 +18,7 @@ namespace Tree {
 			return std::make_shared<ExpList>(func, args);
 		}
 		std::shared_ptr<Exp> build(std::shared_ptr<ExpList> _kids) {
-			return std::make_shared<CALL>(_kids.head, _kids.tail);
+			return std::make_shared<CALL>(_kids->head, _kids->tail);
 		}
 	  
 	};
