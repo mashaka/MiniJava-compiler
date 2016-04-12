@@ -72,7 +72,6 @@ public:
     return linear(do_stm(s), nullptr);
   }
 
-private:
     static bool isNop(std::shared_ptr<Tree::Stm> a) {
       if(std::shared_ptr<Tree::EXP> e = std::dynamic_pointer_cast<Tree::EXP>(a)) {
         if(std::shared_ptr<Tree::CONST> c = std::dynamic_pointer_cast<Tree::CONST>(e->exp)) {
@@ -174,10 +173,9 @@ private:
      return std::make_shared<Tree::ESEQ>(x->stm, e->build(x->exps));
  }
 
- static std::shared_ptr<StmExpList> nopNull = std::make_shared<StmExpList>(
-    std::make_shared<Tree::EXP>(std::make_shared<Tree::CONST>(0)), nullptr);
+ static std::shared_ptr<StmExpList> nopNull;
 
- static std::shared_ptr<tmExpList> reorder(std::shared_ptr<Tree::ExpList> exps) {
+ static std::shared_ptr<StmExpList> reorder(std::shared_ptr<Tree::ExpList> exps) {
      if (exps == nullptr) {
         return nopNull;
      }    
@@ -220,5 +218,8 @@ private:
 
  
 };
+
+std::shared_ptr<StmExpList> Canon::nopNull = std::make_shared<StmExpList>(
+    std::make_shared<Tree::EXP>(std::make_shared<Tree::CONST>(0)), nullptr);
 
 }
