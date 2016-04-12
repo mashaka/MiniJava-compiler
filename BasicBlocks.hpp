@@ -8,12 +8,12 @@
 #include "LABEL.hpp"
 
 namespace Canon {
-	class BasicBlock {
+	class BasicBlocks {
 	public:
 		std::shared_ptr<StmListList> blocks;
 		std::shared_ptr<Temp::Label> done;
 
-		BasicBlock(std::shared_ptr<Tree::StmList> _stms) {
+		BasicBlocks(std::shared_ptr<Tree::StmList> _stms) {
 			done = std::make_shared<Temp::Label>();
 			mkBlocks(_stms);
 		}
