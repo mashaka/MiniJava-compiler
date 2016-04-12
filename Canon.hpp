@@ -1,3 +1,5 @@
+#pragma once
+
 #include "TEMP.hpp"
 #include "CALL.hpp"
 #include "MOVE.hpp"
@@ -7,6 +9,8 @@
 #include "SEQ.hpp"
 #include "Stm.hpp"
 #include "ExpList.cpp"
+
+#include <memory>
 
 namespace Canon{
 
