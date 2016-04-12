@@ -8,9 +8,9 @@
 namespace Tree {
 	class NAME : public Exp {
 	public:
-		std::shared_ptr<Label> label;
+		std::shared_ptr<Temp::Label> label;
 
-		NAME(std::shared_ptr<Label> _label):
+		NAME(std::shared_ptr<Temp::Label> _label):
 		label(_label)
 		{}
 

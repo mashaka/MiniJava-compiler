@@ -9,6 +9,7 @@
 #include "LABEL.hpp"
 #include "JUMP.hpp"
 #include "CJUMP.hpp"
+#include "BasicBlocks.hpp"
 
 #include <memory>
 #include <unordered_map>
@@ -17,13 +18,13 @@ namespace Canon {
 	class TraceSchedule {
 	public:
 		std::shared_ptr<Tree::StmList> stms;
-		std::shared_ptr<TBasicBlocks> theBlocks;
-		std::unordered_map<std::shared_ptr<Tree::Label>, std::shared_ptr<Tree::StmList>> table;
+		std::shared_ptr<BasicBlocks> theBlocks;
+		std::unordered_map<std::shared_ptr<Tree::LABEL>, std::shared_ptr<Tree::StmList>> table;
 
 		TraceSchedule(std::shared_ptr<BasicBlocks> _theBlocks):
 		theBlocks(_theBlocks)
 		{
-			table = std::unordered_map<std::shared_ptr<Tree::Label>, std::shared_ptr<Tree::StmList>>();
+			table = std::unordered_map<std::shared_ptr<Tree::LABEL>, std::shared_ptr<Tree::StmList>>();
 			for (std::shared_ptr<StmListList> l = b->blocks; l != nullptr; l = l->tail) {
 				table[l->head->head->label] = l->head;
 			}
@@ -39,8 +40,8 @@ namespace Canon {
 
 		void trace(std::shared_ptr<Tree::StmList> l) {
 			while (true) {
-				std::shared_ptr<Tree::Label> lab = l->head;
-				table.remove(lab->label);
+				std::shared_ptr<Tree::LABEL> lab = l->head;
+				table.erase(lab->label);
 				std::shared_ptr<Tree::StmList> last = getLast(l);
 				std::shared_ptr<Tree::Stm> s = last->tail->head;
 				if (dynamic_pointer_cast<Tree::JUMP>(s) != nullptr) {
@@ -65,7 +66,7 @@ namespace Canon {
 						last->tail->tail = t;
 						l = t;
 					} else {
-						std::shared_ptr<Temp::Label> ff = std::make_shared<Temp::Label>();
+						std::shared_ptr<Tree::LABEL> ff = std::make_shared<Tree::LABEL>();
 						last->tail->head = std::make_shared<Tree::CJUMP>(j->relop, j->left, j->right, j->iftrue, ff);
 						last->tail->tail = std::make_shared<Tree::StmList>(std::make_shared<Tree::LABEL>(ff), std::make_shared<Tree::StmList>(std::make_shared<Tree::JUMP>(j->iffalse), getNext()));
 						return;

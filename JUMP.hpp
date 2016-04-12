@@ -22,17 +22,15 @@ namespace Tree {
 		exp(_exp), targets(_targets) 
 		{}
 
-		JUMP(std::shared_ptr<Temp::Label> _target) {
-			// requires C++ 11 for nullptr
-			this = new JUMP(NAME(_target), Temp::LabelList(_target, nullptr));
-		}
+		JUMP(std::shared_ptr<Temp::Label> _target) : JUMP(std::make_shared<NAME>(_target), std::make_shared<Temp::LabelList>(_target, nullptr))
+		{}
 
 		std::shared_ptr<ExpList> kids() {
 			return std::make_shared<ExpList>(exp, nullptr);
 		}
 
 		std::shared_ptr<Stm> build(std::shared_ptr<ExpList> _kids) {
-			return std::make_shared<JUMP>(_kids.head, targets);
+			return std::make_shared<JUMP>(_kids->head, targets);
 		}
 	};
 }
