@@ -11,11 +11,11 @@ namespace Temp {
 
 		Label() {
 			// requires C++ 11 for to_string
-			name =  "L" + std::to_string(num++);
+			name =  "L" + std::to_string(count++);
 		}
 
 		// Makes a new label whose name is the same as a symbol
-		Label(const CSymbol& s) {
+		Label(const Symbol::CSymbol& s) {
 			name = s.String();
 		}
 
