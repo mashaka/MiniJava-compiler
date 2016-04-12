@@ -5,6 +5,7 @@
 #include "LabelObj.hpp"
 #include "JUMP.hpp"
 #include "CJUMP.hpp"
+#include "LABEL.hpp"
 
 namespace Canon {
 	class BasicBlock {
@@ -21,9 +22,9 @@ namespace Canon {
 		std::shared_ptr<StmListList> lastBlock;
 		std::shared_ptr<Tree::StmList> lastStm;
 
-		void addStm(std::shared_ptr<Tree::Stm _stm>) {
+		void addStm(std::shared_ptr<Tree::Stm> _stm) {
 			lastStm->tail = std::make_shared<Tree::StmList>(_stm, nullptr);
-			lastStm = lastStm.tail;
+			lastStm = lastStm->tail;
 		}
 
 		void doStms(std::shared_ptr<Tree::StmList> _list) {
@@ -32,7 +33,7 @@ namespace Canon {
 			} else if (std::dynamic_pointer_cast<Tree::JUMP>(_list->head) || std::dynamic_pointer_cast<Tree::CJUMP>(_list->head)) {
 				addStm(_list->head);
 				mkBlocks(_list->tail);
-			} else if(std::shared_ptr<Tree::LABEL> label = dynamic_pointer_cast<Tree::LABEL>(_list->head)) {
+			} else if(std::shared_ptr<Tree::LABEL> label = std::dynamic_pointer_cast<Tree::LABEL>(_list->head)) {
 				doStms(std::make_shared<Tree::StmList>(std::make_shared<Tree::JUMP>(label->label, _list)));
 			} else {
 				addStm(_list->head);
