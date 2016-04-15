@@ -4,9 +4,6 @@
 
 namespace Temp {
 	class Temp {
-	private:
-		static int count;
-		int num;
 	public:
 		Temp() {
 			num = count++;
@@ -16,5 +13,13 @@ namespace Temp {
 			// requires C++ 11 for to_string
 			return "t" + std::to_string(num);
 		}
+
+	private:
+		static int count;
+		int num;
 	};
+
+	int Temp::count = 0;
 }
+
+

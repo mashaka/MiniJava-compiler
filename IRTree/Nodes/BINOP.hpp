@@ -17,11 +17,11 @@ namespace Tree {
 			: binop(_binop), left(_left), right(_right) {}
 
 		std::shared_ptr<ExpList> kids() {
-			return std::make_shared<ExpList>(left, std::make_shared<ExpList>(ExpList(right, null)));
+			return std::make_shared<ExpList>(left, std::make_shared<ExpList>(right, nullptr));
 		}
 
 		std::shared_ptr<Exp> build(std::shared_ptr<ExpList> _kids) {
-			return std::make_shared<BINOP>(binop, _kids.head, _kids.tail.head);
+			return std::make_shared<BINOP>(binop, _kids->head, _kids->tail->head);
 		}
 	};
 }

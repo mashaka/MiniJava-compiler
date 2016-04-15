@@ -1,9 +1,13 @@
+#pragma once
+
 #include "ASTVisitor.hpp"
 
 void printTabs(int tabsCount) {
 	for(int i=0; i < tabsCount; ++i)
 		printf("    ");
 }
+
+//----------------------------------------------------
 
 class Interpreter : public IVisitor {
 public:
@@ -12,14 +16,14 @@ public:
 	Interpreter() : tabsCount(0) {}
 
 	void visit(const Goal* n) {
-		tabsCount++;
-		printTabs(tabsCount); 	printf("%s\n", "Goal");
-		n->e1->accept(this); //MainClass
-		if(n->e2 != 0) {
-			n->e2->accept(this); //ClassDeclarationList
-		}
-		tabsCount--;
+	tabsCount++;
+	printTabs(tabsCount); 	printf("%s\n", "Goal");
+	n->e1->accept(this); //MainClass
+	if(n->e2 != 0) {
+		n->e2->accept(this); //ClassDeclarationList
 	}
+	tabsCount--;
+}
 
 	void visit(const MainClass* n){
 		tabsCount++;
@@ -439,3 +443,5 @@ public:
 		tabsCount--;
 	}
 };
+
+

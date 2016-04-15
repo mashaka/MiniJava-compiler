@@ -3,11 +3,9 @@
 #include <string>
 #include <iostream>
 #include "AcceptVisitor.hpp"
-#include "ASTBuilderVisitor.cpp"
+#include "ASTBuilderVisitor.h"
 #include "SymbolTableVisitor.cpp"
 #include "TypeCheckerVisitor.cpp"
-//#include "Canon.hpp"
-
 
 extern FILE* yyin;
 extern Goal* root;
