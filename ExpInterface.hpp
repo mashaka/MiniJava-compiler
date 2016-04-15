@@ -8,7 +8,7 @@ namespace Tree {
 
 	class Exp {
 	public:
-		virtual std::shared_ptr<ExpList> kids();
-		virtual std::shared_ptr<Exp> build(std::shared_ptr<ExpList> kids);
+		virtual std::shared_ptr<ExpList> kids() = 0;
+		virtual std::shared_ptr<Exp> build(std::shared_ptr<ExpList> kids) = 0;
 	};
 }
