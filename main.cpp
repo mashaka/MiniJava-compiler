@@ -6,7 +6,7 @@
 #include "ASTBuilderVisitor.cpp"
 #include "SymbolTableVisitor.cpp"
 #include "TypeCheckerVisitor.cpp"
-#include "Canon.hpp"
+//#include "Canon.hpp"
 
 
 extern FILE* yyin;
