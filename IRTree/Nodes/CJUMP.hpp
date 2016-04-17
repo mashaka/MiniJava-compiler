@@ -4,6 +4,7 @@
 #include "ExpInterface.hpp"
 #include "LabelObj.hpp"
 #include "ExpList.hpp"
+#include "Print.hpp"
 
 #include <memory>
 #include <iostream>
@@ -48,6 +49,34 @@ namespace Tree {
                     std::cerr << "bad relop in CJUMP.notRel" << std::endl;
                     return -1;
             }
+        }
+
+        void print(CJUMP stm, int d=0) {
+            Print::indent(d); 
+            Print::say("CJUMP("); 
+            switch(stm.relop) {
+                case EQ:  Print::say("EQ");  break;
+                case NE:  Print::say("NE");  break;
+                case LT:  Print::say("LT");  break;
+                case GT:  Print::say("GT");  break;
+                case LE:  Print::say("LE");  break;
+                case GE:  Print::say("GE");  break;
+                case ULT: Print::say("ULT"); break;
+                case ULE: Print::say("ULE"); break;
+                case UGT: Print::say("UGT"); break;
+                case UGE: Print::say("UGE"); break;
+                default: throw "Wrong CJUMP field";
+            }
+            Print::sayln(","); 
+            Print::print(stm.left, d+1); 
+            Print::sayln(",");
+            Print::print(stm.right, d+1); 
+            Print::sayln(",");
+            Print::indent(d+1); 
+            Print::say(stm.iftrue->toString()); 
+            Print::say(",");
+            Print::say(stm.iffalse->toString()); 
+            Print::say(")");
         }
     };
 }

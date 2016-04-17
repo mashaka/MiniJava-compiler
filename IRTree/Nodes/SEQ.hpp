@@ -4,6 +4,7 @@
 #include "ExpList.hpp"
 #include "LabelObj.hpp"
 #include "StmInterface.hpp"
+#include "Print.hpp"
 
 #include <memory>
 
@@ -23,6 +24,15 @@ namespace Tree {
 
 		std::shared_ptr<Stm> build(std::shared_ptr<ExpList> _kids) {
 			throw "kids() not applicable to SEQ";
+		}
+
+		void print(SEQ stm, int d = 0) {
+			Print::indent(d); 
+			Print::sayln("SEQ("); 
+			Print::print(stm.left, d + 1); 
+			Print::sayln(",");
+			Print::print(stm.right, d + 1); 
+			Print::say(")");
 		}
 	};
 }

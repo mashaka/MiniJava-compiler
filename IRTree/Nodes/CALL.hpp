@@ -2,6 +2,7 @@
 
 #include "ExpInterface.hpp"
 #include "ExpList.hpp"
+#include "Print.hpp"
 
 #include <memory>
 
@@ -20,6 +21,16 @@ namespace Tree {
 		std::shared_ptr<Exp> build(std::shared_ptr<ExpList> _kids) {
 			return std::make_shared<CALL>(_kids->head, _kids->tail);
 		}
-	  
+
+		void print(CALL exp, int d=0) {
+			Print::indent(d); 
+			Print::sayln("CALL(");
+			Print::print(exp.func, d+1);
+			for(std::shared_ptr<ExpList> a = exp.args; a != nullptr; a = a.tail) {
+				Print::sayln(","); 
+				Print::print(a.head, d+2); 
+			}
+			Print::say(")");
+		}
 	};
 }

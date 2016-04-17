@@ -6,6 +6,7 @@
 #include "LabelObj.hpp"
 // Никита должен написать этот файл :)
 #include "StmInterface.hpp"
+#include "Print.hpp"
 
 #include <memory>
 
@@ -25,6 +26,12 @@ namespace Tree {
 
 		std::shared_ptr<Stm> build(std::shared_ptr<ExpList> _kids) {
 			return shared_from_this();
+		}
+
+		void print(LABEL stm, int d = 0) {
+			Print::indent(d); 
+			Print::say("LABEL "); 
+			Print::say(stm.label->toString());
 		}
 	};
 }

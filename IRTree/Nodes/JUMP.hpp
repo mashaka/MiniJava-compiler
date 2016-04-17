@@ -11,6 +11,7 @@
 // Никита должен написать эти файлы :)
 #include "StmInterface.hpp"
 #include "NAME.hpp"
+#include "Print.hpp"
 
 namespace Tree {
 	class JUMP : public Stm {
@@ -31,6 +32,13 @@ namespace Tree {
 
 		std::shared_ptr<Stm> build(std::shared_ptr<ExpList> _kids) {
 			return std::make_shared<JUMP>(_kids->head, targets);
+		}
+
+		void print(JUMP stm, int d = 0) {
+			Print::indent(d); 
+			Print::sayln("JUMP("); 
+			Print::print(stm.exp, d + 1); 
+			Print::say(")");
 		}
 	};
 }

@@ -4,6 +4,7 @@
 #include "LabelObj.hpp"
 #include "ExpInterface.hpp"
 #include <memory>
+#include "Print.hpp"
 
 namespace Tree {
 	class NAME : public Exp {
@@ -21,6 +22,12 @@ namespace Tree {
 
 		std::shared_ptr<Exp> build(std::shared_ptr<ExpList> _kids) {
 			return std::dynamic_pointer_cast<Exp>(std::make_shared<NAME>(*this));
+		}
+
+		void print(NAME exp, int d = 0) {
+			Print::indent(d); 
+			Print::say("NAME "); 
+			Print::say(exp.label->toString());
 		}
 	};
 }

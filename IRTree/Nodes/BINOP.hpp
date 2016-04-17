@@ -2,6 +2,7 @@
 
 #include "ExpInterface.hpp"
 #include "ExpList.hpp"
+#include "Print.hpp"
 
 #include <memory>
 
@@ -22,6 +23,29 @@ namespace Tree {
 
 		std::shared_ptr<Exp> build(std::shared_ptr<ExpList> _kids) {
 			return std::make_shared<BINOP>(binop, _kids->head, _kids->tail->head);
+		}
+
+		void print(BINOP exp, int d = 0) {
+			Print::indent(d); 
+			Print::say("BINOP("); 
+			switch(exp.binop) {
+				case PLUS:    Print::say("PLUS");    break;
+				case MINUS:   Print::say("MINUS");   break;
+				case MUL:     Print::say("MUL");     break;
+				case DIV:     Print::say("DIV");     break;
+				case AND:     Print::say("AND");     break;
+				case OR:      Print::say("OR");      break;
+				case LSHIFT:  Print::say("LSHIFT");  break;
+				case RSHIFT:  Print::say("RSHIFT");  break;
+				case ARSHIFT: Print::say("ARSHIFT"); break;
+				case XOR:     Print::say("XOR");     break;
+				default: throw "Wrong BINOP field";
+			}
+			Print::sayln(",");
+			Print::print(exp.left, d + 1); 
+			Print::sayln(","); 
+			Print::print(exp.right, d + 1); 
+			Print::say(")");
 		}
 	};
 }

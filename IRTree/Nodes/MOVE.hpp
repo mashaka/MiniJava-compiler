@@ -7,6 +7,7 @@
 #include "ExpInterface.hpp"
 #include "ExpList.hpp"
 #include "MEM.hpp"
+#include "Print.hpp"
 
 namespace Tree {
 	class MOVE : public Stm {
@@ -31,6 +32,15 @@ namespace Tree {
 			} else {
 				return std::make_shared<MOVE>(dst, _kids->head);
 			}
+		}
+
+		void print(MOVE stm, int d = 0) {
+			Print::indent(d); 
+			Print::sayln("MOVE("); 
+			Print::print(stm.dst, d + 1); 
+			Print::sayln(",");
+			Print::print(stm.src, d + 1); 
+			Print::say(")");
 		}
 	};
 }
