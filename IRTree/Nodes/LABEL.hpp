@@ -24,7 +24,7 @@ namespace Tree {
 		}
 
 		std::shared_ptr<Stm> build(std::shared_ptr<ExpList> _kids) {
-			return std::make_shared<Stm>(*this);
+			return shared_from_this();
 		}
 	};
 }
