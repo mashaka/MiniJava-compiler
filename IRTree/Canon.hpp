@@ -21,12 +21,14 @@ public:
   MoveCall(std::shared_ptr<Tree::TEMP> _destination, std::shared_ptr<Tree::CALL> _source) 
     : destination(_destination), source(_source) {}
 
-  std::shared_ptr<Tree::ExpList> kids() {
+  std::shared_ptr<Tree::ExpList> kids() override {
     return source->kids();
   }
-  std::shared_ptr<Tree::Stm> build(std::shared_ptr<Tree::ExpList> kids) {
+  std::shared_ptr<Tree::Stm> build(std::shared_ptr<Tree::ExpList> kids) override {
     return std::make_shared<Tree::MOVE>(destination, source->build(kids));
   }
+
+  void print(int d = 0) {};
 
 private:
   std::shared_ptr<Tree::TEMP> destination;
@@ -41,12 +43,14 @@ public:
   ExpCall(std::shared_ptr<Tree::CALL> _call) 
     : call(_call) {}
 
-  std::shared_ptr<Tree::ExpList> kids() {
+  std::shared_ptr<Tree::ExpList> kids() override {
     return call->kids();
   }
-  std::shared_ptr<Tree::Stm> build(std::shared_ptr<Tree::ExpList> kids) {
+  std::shared_ptr<Tree::Stm> build(std::shared_ptr<Tree::ExpList> kids) override {
     return std::make_shared<Tree::EXP>(call->build(kids));
   }
+
+  void print(int d = 0) {};
 
   std::shared_ptr<Tree::CALL> call;
 };
