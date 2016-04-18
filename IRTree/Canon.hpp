@@ -1,72 +1,11 @@
 #pragma once
 
-#include "TEMP.hpp"
-#include "CALL.hpp"
-#include "MOVE.hpp"
-#include "CONST.hpp"
-#include "ESEQ.hpp"
-#include "NAME.hpp"
-#include "EXP.hpp"
-#include "SEQ.hpp"
-#include "StmInterface.hpp"
-#include "StmList.hpp"
-#include "ExpList.hpp"
+#include "IRTree.hpp"
 
 #include <memory>
 
 namespace Canon{
 
-class MoveCall : public Tree::Stm {
-public:
-  MoveCall(std::shared_ptr<Tree::TEMP> _destination, std::shared_ptr<Tree::CALL> _source) 
-    : destination(_destination), source(_source) {}
-
-  std::shared_ptr<Tree::ExpList> kids() override {
-    return source->kids();
-  }
-  std::shared_ptr<Tree::Stm> build(std::shared_ptr<Tree::ExpList> kids) override {
-    return std::make_shared<Tree::MOVE>(destination, source->build(kids));
-  }
-
-  void print(int d = 0) {};
-
-private:
-  std::shared_ptr<Tree::TEMP> destination;
-  std::shared_ptr<Tree::CALL> source;
-};
-
-//------------------------------------------------------------------------------------
-
-class ExpCall : public Tree::Stm {
-public:
-  
-  ExpCall(std::shared_ptr<Tree::CALL> _call) 
-    : call(_call) {}
-
-  std::shared_ptr<Tree::ExpList> kids() override {
-    return call->kids();
-  }
-  std::shared_ptr<Tree::Stm> build(std::shared_ptr<Tree::ExpList> kids) override {
-    return std::make_shared<Tree::EXP>(call->build(kids));
-  }
-
-  void print(int d = 0) {};
-
-  std::shared_ptr<Tree::CALL> call;
-};
-
-//------------------------------------------------------------------------------------------- 
-  
-class StmExpList {
-public:
-    StmExpList(std::shared_ptr<Tree::Stm> _stm, std::shared_ptr<Tree::ExpList> _exps)
-      : stm(_stm), exps(_exps) {}
-
-    std::shared_ptr<Tree::Stm> stm;
-    std::shared_ptr<Tree::ExpList> exps;
-};
-
-//--------------------------------------------------------------------------------------------
 
 class Canon {
 public:
@@ -121,7 +60,7 @@ public:
     static std::shared_ptr<Tree::Stm> do_stm(std::shared_ptr<Tree::MOVE> s) {
         if(std::shared_ptr<Tree::TEMP> t = std::dynamic_pointer_cast<Tree::TEMP>(s->dst)) {
           if(std::shared_ptr<Tree::CALL> c = std::dynamic_pointer_cast<Tree::CALL>(s->src)) {
-            return reorder_stm(std::make_shared<MoveCall>(t, c));
+            return reorder_stm(std::make_shared<Tree::MoveCall>(t, c));
           }
         }
         if(std::shared_ptr<Tree::ESEQ> e = std::dynamic_pointer_cast<Tree::ESEQ>(s->dst)) {
@@ -132,7 +71,7 @@ public:
 
     static std::shared_ptr<Tree::Stm> do_stm(std::shared_ptr<Tree::EXP> s) { 
         if (std::shared_ptr<Tree::CALL> e = std::dynamic_pointer_cast<Tree::CALL>(s->exp)){
-            return reorder_stm(std::make_shared<ExpCall>(e));
+            return reorder_stm(std::make_shared<Tree::ExpCall>(e));
         }
         return reorder_stm(s);
     }
@@ -151,7 +90,7 @@ public:
     }
 
  static std::shared_ptr<Tree::Stm> reorder_stm(std::shared_ptr<Tree::Stm> s) {
-     std::shared_ptr<StmExpList> x = reorder(s->kids());
+     std::shared_ptr<Tree::StmExpList> x = reorder(s->kids());
      return seq(x->stm, s->build(x->exps));
  }
 
@@ -169,13 +108,13 @@ public:
  }
          
  static std::shared_ptr<Tree::ESEQ> reorder_exp (std::shared_ptr<Tree::Exp> e) {
-     std::shared_ptr<StmExpList> x = reorder(e->kids());
+     std::shared_ptr<Tree::StmExpList> x = reorder(e->kids());
      return std::make_shared<Tree::ESEQ>(x->stm, e->build(x->exps));
  }
 
- static std::shared_ptr<StmExpList> nopNull;
+ static std::shared_ptr<Tree::StmExpList> nopNull;
 
- static std::shared_ptr<StmExpList> reorder(std::shared_ptr<Tree::ExpList> exps) {
+ static std::shared_ptr<Tree::StmExpList> reorder(std::shared_ptr<Tree::ExpList> exps) {
      if (exps == nullptr) {
         return nopNull;
      }    
@@ -192,13 +131,13 @@ public:
             return reorder(std::make_shared<Tree::ExpList>(e, exps->tail));
        } else {
             std::shared_ptr<Tree::ESEQ> aa = do_exp(a);
-            std::shared_ptr<StmExpList> bb = reorder(exps->tail);
+            std::shared_ptr<Tree::StmExpList> bb = reorder(exps->tail);
             if (commute(bb->stm, aa->exp))
-                return std::make_shared<StmExpList>(seq(aa->stm, bb->stm), 
+                return std::make_shared<Tree::StmExpList>(seq(aa->stm, bb->stm), 
             		    std::make_shared<Tree::ExpList>(aa->exp, bb->exps));
             else {
                     std::shared_ptr<Temp::Temp> t = std::make_shared<Temp::Temp>();
-                    return std::make_shared<StmExpList>(
+                    return std::make_shared<Tree::StmExpList>(
                       seq(aa->stm, 
                         seq(std::make_shared<Tree::MOVE>(
                           std::make_shared<Tree::TEMP>(t), aa->exp), bb->stm)),
@@ -222,7 +161,7 @@ public:
  
 };
 
-std::shared_ptr<StmExpList> Canon::nopNull = std::make_shared<StmExpList>(
+std::shared_ptr<Tree::StmExpList> Canon::nopNull = std::make_shared<Tree::StmExpList>(
     std::make_shared<Tree::EXP>(std::make_shared<Tree::CONST>(0)), nullptr);
 
 }

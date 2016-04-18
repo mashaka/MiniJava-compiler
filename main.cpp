@@ -6,6 +6,8 @@
 #include "ASTBuilderVisitor.h"
 #include "SymbolTableVisitor.cpp"
 #include "TypeCheckerVisitor.cpp"
+#include "IRTree.hpp"
+#include "Canon.hpp"
 
 extern FILE* yyin;
 extern Goal* root;
