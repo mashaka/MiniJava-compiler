@@ -68,7 +68,7 @@ namespace Canon {
 						last->tail->tail = t;
 						l = t;
 					} else {
-						std::shared_ptr<Tree::LABEL> ff = std::make_shared<Tree::LABEL>();
+						std::shared_ptr<Temp::Label> ff = std::make_shared<Temp::Label>();
 						last->tail->head = std::make_shared<Tree::CJUMP>(j->relop, j->left, j->right, j->iftrue, ff);
 						last->tail->tail = std::make_shared<Tree::StmList>(std::make_shared<Tree::LABEL>(ff), std::make_shared<Tree::StmList>(std::make_shared<Tree::JUMP>(j->iffalse), getNext()));
 						return;
