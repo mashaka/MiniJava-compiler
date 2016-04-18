@@ -11,6 +11,8 @@
 #include <memory>
 
 namespace Tree {
+	class Print;
+
 	class LABEL : public Stm {
 	public:
 		std::shared_ptr<Temp::Label> label;
@@ -28,10 +30,10 @@ namespace Tree {
 			return shared_from_this();
 		}
 
-		void print(LABEL stm, int d = 0) {
+		void print(int d = 0) override {
 			Print::indent(d); 
 			Print::say("LABEL "); 
-			Print::say(stm.label->toString());
+			Print::say(this->label->toString());
 		}
 	};
 }

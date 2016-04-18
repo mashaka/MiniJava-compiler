@@ -8,6 +8,8 @@
 #include "Print.hpp"
 
 namespace Tree {
+	class Print;
+
 	class TEMP : public Exp {
 	public:
 		std::shared_ptr<Temp::Temp> temp;
@@ -23,10 +25,10 @@ namespace Tree {
 			return std::dynamic_pointer_cast<Exp>(std::make_shared<TEMP>(*this));
 		}
 
-		void print(TEMP exp, int d = 0) {
+		void print(int d = 0) override {
 			Print::indent(d); 
 			Print::say("TEMP ");
-			Print::say(Print::tmap->tempMap(exp.temp));
+			Print::say(Print::getTmap()->tempMap(this->temp));
 		}
 	};
 }

@@ -9,6 +9,8 @@
 #include <memory>
 
 namespace Tree {
+	class Print;
+
 	class SEQ : public Stm {
 	public:
 		std::shared_ptr<Stm> left, right;
@@ -26,12 +28,12 @@ namespace Tree {
 			throw "kids() not applicable to SEQ";
 		}
 
-		void print(SEQ stm, int d = 0) {
+		void print(int d = 0) override {
 			Print::indent(d); 
 			Print::sayln("SEQ("); 
-			Print::print(stm.left, d + 1); 
+			this->left->print(d + 1); 
 			Print::sayln(",");
-			Print::print(stm.right, d + 1); 
+			this->right->print(d + 1); 
 			Print::say(")");
 		}
 	};

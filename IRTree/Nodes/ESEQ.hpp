@@ -9,6 +9,8 @@
 #include <iostream>
 
 namespace Tree {
+	class Print;
+
 	class ESEQ : public Exp {
 	public:
 		std::shared_ptr<Stm> stm;
@@ -26,12 +28,12 @@ namespace Tree {
 			return nullptr;
 		}
 
-		void print(ESEQ exp, int d = 0) {
+		void print(int d = 0) override {
 			Print::indent(d); 
 			Print::sayln("ESEQ("); 
-			Print::print(exp.stm, d + 1); 
+			this->stm->print(d + 1); 
 			Print::sayln(",");
-			Print::print(exp.exp, d + 1); 
+			this->exp->print(d + 1); 
 			Print::say(")");
 		}
 	};

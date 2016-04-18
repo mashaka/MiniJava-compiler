@@ -5,11 +5,11 @@
 #include <string>
 
 namespace Temp {
-	class DefaultMap: public Temp::TempMap {
+	class DefaultMap: public TempMap {
 	public:
 		DefaultMap() {}
 		
-		std::string tempMap(std::shared_ptr<Temp::Temp> t) {
+		std::string tempMap(std::shared_ptr<Temp> t) {
 			return t->toString();
 		}
 	};

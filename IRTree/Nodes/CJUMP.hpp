@@ -10,6 +10,8 @@
 #include <iostream>
 
 namespace Tree {
+    class Print;
+
     class CJUMP : public Stm {
     public:
         int relop;
@@ -51,10 +53,10 @@ namespace Tree {
             }
         }
 
-        void print(CJUMP stm, int d=0) {
+        void print(int d = 0) override {
             Print::indent(d); 
             Print::say("CJUMP("); 
-            switch(stm.relop) {
+            switch(this->relop) {
                 case EQ:  Print::say("EQ");  break;
                 case NE:  Print::say("NE");  break;
                 case LT:  Print::say("LT");  break;
@@ -68,14 +70,14 @@ namespace Tree {
                 default: throw "Wrong CJUMP field";
             }
             Print::sayln(","); 
-            Print::print(stm.left, d+1); 
+            this->left->print(d + 1); 
             Print::sayln(",");
-            Print::print(stm.right, d+1); 
+            this->right->print(d + 1); 
             Print::sayln(",");
             Print::indent(d+1); 
-            Print::say(stm.iftrue->toString()); 
+            Print::say(this->iftrue->toString()); 
             Print::say(",");
-            Print::say(stm.iffalse->toString()); 
+            Print::say(this->iffalse->toString()); 
             Print::say(")");
         }
     };

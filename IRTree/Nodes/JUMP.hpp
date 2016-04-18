@@ -14,6 +14,8 @@
 #include "Print.hpp"
 
 namespace Tree {
+	class Print;
+
 	class JUMP : public Stm {
 	public:
 		std::shared_ptr<Exp> exp;
@@ -34,10 +36,10 @@ namespace Tree {
 			return std::make_shared<JUMP>(_kids->head, targets);
 		}
 
-		void print(JUMP stm, int d = 0) {
+		void print(int d = 0) override {
 			Print::indent(d); 
 			Print::sayln("JUMP("); 
-			Print::print(stm.exp, d + 1); 
+			this->exp->print(d + 1); 
 			Print::say(")");
 		}
 	};

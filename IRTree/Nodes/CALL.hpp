@@ -7,6 +7,8 @@
 #include <memory>
 
 namespace Tree {
+	class Print;
+
 	class CALL : public Exp {
 	public:
 		std::shared_ptr<Exp> func;
@@ -22,13 +24,13 @@ namespace Tree {
 			return std::make_shared<CALL>(_kids->head, _kids->tail);
 		}
 
-		void print(CALL exp, int d=0) {
+		void print(int d = 0) override {
 			Print::indent(d); 
 			Print::sayln("CALL(");
-			Print::print(exp.func, d+1);
-			for(std::shared_ptr<ExpList> a = exp.args; a != nullptr; a = a.tail) {
+			this->func->print(d + 1);
+			for(std::shared_ptr<ExpList> a = this->args; a != nullptr; a = a->tail) {
 				Print::sayln(","); 
-				Print::print(a.head, d+2); 
+				a->head->print(d + 2); 
 			}
 			Print::say(")");
 		}

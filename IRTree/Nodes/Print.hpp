@@ -5,14 +5,6 @@
 #include "ExpInterface.hpp"
 #include "StmInterface.hpp"
 
-#include "SEQ.hpp"
-#include "LABEL.hpp"
-#include "JUMP.hpp"
-#include "CJUMP.hpp"
-#include "MOVE.hpp"
-#include "EXP.hpp"
-#include "BINOP.hpp"
-
 #include <memory>
 #include <iostream>
 #include <string>
@@ -23,22 +15,13 @@ namespace Tree {
 		static std::shared_ptr<Temp::TempMap> tmap;
 
 	public:
-		Tree(std::shared_ptr<Temp::TempMap> _tmap):
-		tmap(_tmap)
-		{}
-
-		Tree():
+		Print()
 		{
 			tmap = std::make_shared<Temp::DefaultMap>();
 		}
 
-		Tree(std::shared_ptr<Temp::TempMap> _tmap):
-		tmap(_tmap)
-		{}
-
-		Tree()
-		{
-			tmap = std::make_shared<Temp::DefaultMap>();
+		const static std::shared_ptr<Temp::TempMap> getTmap() {
+			return tmap;
 		}
 
 		static void indent(int d) {
@@ -63,11 +46,11 @@ namespace Tree {
 
 		// for compatibility
 		void prStm(std::shared_ptr<Stm> s, int d) { 
-			print(*s, d); 
+			s->print(d);
 		}
 
 		void prExp(std::shared_ptr<Exp> e, int d) {
-			print(*e, d);
+			e->print(d);
 		}
 	};
 }

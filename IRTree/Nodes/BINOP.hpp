@@ -7,6 +7,8 @@
 #include <memory>
 
 namespace Tree {
+	class Print;
+
 	class BINOP : public Exp {
 	public:
 		int binop;
@@ -25,10 +27,10 @@ namespace Tree {
 			return std::make_shared<BINOP>(binop, _kids->head, _kids->tail->head);
 		}
 
-		void print(BINOP exp, int d = 0) {
+		void print(int d = 0) override {
 			Print::indent(d); 
 			Print::say("BINOP("); 
-			switch(exp.binop) {
+			switch(this->binop) {
 				case PLUS:    Print::say("PLUS");    break;
 				case MINUS:   Print::say("MINUS");   break;
 				case MUL:     Print::say("MUL");     break;
@@ -42,9 +44,9 @@ namespace Tree {
 				default: throw "Wrong BINOP field";
 			}
 			Print::sayln(",");
-			Print::print(exp.left, d + 1); 
+			this->left->print(d + 1); 
 			Print::sayln(","); 
-			Print::print(exp.right, d + 1); 
+			this->right->print(d + 1); 
 			Print::say(")");
 		}
 	};

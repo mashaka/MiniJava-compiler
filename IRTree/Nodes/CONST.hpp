@@ -7,6 +7,8 @@
 #include <memory>
 
 namespace Tree {
+	class Print;
+
 	class CONST : public Exp {
 	public:
 		int value;
@@ -20,10 +22,10 @@ namespace Tree {
 			return std::dynamic_pointer_cast<Exp>(std::make_shared<CONST>(*this));
 		}
 
-		void print(CONST exp, int d = 0) {
+		void print(int d = 0) override {
 			Print::indent(d); 
 			Print::say("CONST "); 
-			Print::say(std::string(exp.value));
+			Print::say(std::to_string(this->value));
 		}
 	};
 }

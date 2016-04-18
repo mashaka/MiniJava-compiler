@@ -8,6 +8,8 @@
 #include "Print.hpp"
 
 namespace Tree {
+	class Print;
+
 	class MEM : public Exp {
 	public:
 		std::shared_ptr<Exp> exp;
@@ -24,10 +26,10 @@ namespace Tree {
 			return std::make_shared<MEM>(_kids->head);
 		}
 
-		void print(MEM exp, int d = 0) {
+		void print(int d = 0) override {
 			Print::indent(d);
 			Print::sayln("MEM("); 
-			Print::print(exp.exp, d + 1); 
+			this->exp->print(d + 1); 
 			Print::say(")");
 		}
 	};

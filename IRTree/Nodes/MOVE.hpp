@@ -10,6 +10,8 @@
 #include "Print.hpp"
 
 namespace Tree {
+	class Print;
+
 	class MOVE : public Stm {
 	public:
 		std::shared_ptr<Exp> dst, src;
@@ -34,12 +36,12 @@ namespace Tree {
 			}
 		}
 
-		void print(MOVE stm, int d = 0) {
+		void print(int d = 0) override {
 			Print::indent(d); 
 			Print::sayln("MOVE("); 
-			Print::print(stm.dst, d + 1); 
+			this->dst->print(d + 1); 
 			Print::sayln(",");
-			Print::print(stm.src, d + 1); 
+			this->src->print(d + 1); 
 			Print::say(")");
 		}
 	};

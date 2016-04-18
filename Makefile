@@ -17,7 +17,7 @@ lex.yy.c: lex.l
 	$(FLEX) $<
 
 mini_java_compiler: lex.yy.c syntax.tab.cc main.cpp
-	$(CXX) -std=c++11 $^ -o $@ $(CFLAGS)
+	$(CXX) -std=c++11 -fdiagnostics-color $^ -o $@ $(CFLAGS)
 
 	rm -f syntax.tab.cc syntax.tab.hh lex.yy.c syntax.output
 	./mini_java_compiler examplesCambridge/Factorial.java > log.txt

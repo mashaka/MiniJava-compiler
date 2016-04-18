@@ -9,6 +9,6 @@ namespace Tree {
 		virtual std::shared_ptr<ExpList> kids() = 0;
 		virtual std::shared_ptr<Stm> build(std::shared_ptr<ExpList> _kids) = 0;
 
-		virtual print(Stm stm, int d = 0) = 0;
+		virtual void print(int d = 0) = 0;
 	};
 }
