@@ -27,11 +27,11 @@ namespace Tree {
             std::shared_ptr<Temp::Label> _iffalse)
             : relop(_relop), left(_left), right(_right), iftrue(_iftrue), iffalse(_iffalse) {}
 
-        std::shared_ptr<ExpList> kids() {
+        std::shared_ptr<ExpList> kids() override {
             return std::make_shared<ExpList>(left, std::make_shared<ExpList>(right, nullptr));
         }
 
-        std::shared_ptr<Stm> build(std::shared_ptr<ExpList> _kids) {
+        std::shared_ptr<Stm> build(std::shared_ptr<ExpList> _kids) override {
             return std::make_shared<CJUMP>(relop, _kids->head, _kids->tail->head, iftrue, iffalse);
         }
 

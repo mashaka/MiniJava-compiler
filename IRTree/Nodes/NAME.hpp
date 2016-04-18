@@ -17,12 +17,12 @@ namespace Tree {
 		label(_label)
 		{}
 
-		std::shared_ptr<ExpList> kids() {
+		std::shared_ptr<ExpList> kids() override {
 			// requires C++ 11 for nullptr
 			return nullptr;
 		}
 
-		std::shared_ptr<Exp> build(std::shared_ptr<ExpList> _kids) {
+		std::shared_ptr<Exp> build(std::shared_ptr<ExpList> _kids) override {
 			return std::dynamic_pointer_cast<Exp>(std::make_shared<NAME>(*this));
 		}
 

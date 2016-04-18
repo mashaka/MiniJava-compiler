@@ -6,7 +6,9 @@
 #define interface struct
 
 struct IGlobal{
-	virtual void accept(IVisitor* visitor) = 0;	
+	virtual void accept(IVisitor* visitor) = 0;
+
+    virtual ~IGlobal() {};
 };
 
 template<class TARGET, class VISITOR, class INTERFACE>
@@ -15,6 +17,8 @@ public:
     virtual void accept(IVisitor* visitor) {
         visitor->visit( static_cast<TARGET*> (this) );
     }
+
+    virtual ~CAcceptsVisitor() {};
 };
 
 interface IGoal : public IGlobal {};

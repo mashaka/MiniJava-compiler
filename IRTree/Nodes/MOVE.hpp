@@ -20,7 +20,7 @@ namespace Tree {
 		dst(_dst), src(_src)
 		{}
 
-		std::shared_ptr<ExpList> kids() {
+		std::shared_ptr<ExpList> kids() override {
 			if (std::shared_ptr<MEM> newDst = std::dynamic_pointer_cast<MEM>(dst)) {
 				return std::make_shared<ExpList>(newDst->exp, std::make_shared<ExpList>(src, nullptr));
 			} else {
@@ -28,7 +28,7 @@ namespace Tree {
 			}
 		}
 
-		std::shared_ptr<Stm> build(std::shared_ptr<ExpList> _kids) {
+		std::shared_ptr<Stm> build(std::shared_ptr<ExpList> _kids) override {
 			if (std::dynamic_pointer_cast<MEM>(dst)) {
 				return std::make_shared<MOVE>(_kids->head, _kids->tail->head);
 			} else {

@@ -18,11 +18,11 @@ namespace Tree {
 		exp(_exp)
 		{}
 
-		std::shared_ptr<ExpList> kids() {
+		std::shared_ptr<ExpList> kids() override {
 			return std::make_shared<ExpList>(exp, nullptr);
 		}
 
-		std::shared_ptr<Exp> build(std::shared_ptr<ExpList> _kids) {
+		std::shared_ptr<Exp> build(std::shared_ptr<ExpList> _kids) override {
 			return std::make_shared<MEM>(_kids->head);
 		}
 

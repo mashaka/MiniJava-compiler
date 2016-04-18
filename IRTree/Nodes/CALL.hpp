@@ -17,10 +17,10 @@ namespace Tree {
 		CALL(std::shared_ptr<Exp> _func, std::shared_ptr<ExpList> _args) 
 			: func(_func), args(_args) {}
 
-		std::shared_ptr<ExpList> kids() {
+		std::shared_ptr<ExpList> kids() override {
 			return std::make_shared<ExpList>(func, args);
 		}
-		std::shared_ptr<Exp> build(std::shared_ptr<ExpList> _kids) {
+		std::shared_ptr<Exp> build(std::shared_ptr<ExpList> _kids) override {
 			return std::make_shared<CALL>(_kids->head, _kids->tail);
 		}
 

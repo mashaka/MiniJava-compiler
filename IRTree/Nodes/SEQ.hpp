@@ -20,11 +20,11 @@ namespace Tree {
 		right(_right)
 		{}
 
-		std::shared_ptr<ExpList> kids() {
+		std::shared_ptr<ExpList> kids() override {
 			throw "kids() not applicable to SEQ";
 		}
 
-		std::shared_ptr<Stm> build(std::shared_ptr<ExpList> _kids) {
+		std::shared_ptr<Stm> build(std::shared_ptr<ExpList> _kids) override {
 			throw "kids() not applicable to SEQ";
 		}
 

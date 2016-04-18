@@ -34,7 +34,7 @@ namespace Canon {
 				addStm(_list->head);
 				mkBlocks(_list->tail);
 			} else if(std::shared_ptr<Tree::LABEL> label = std::dynamic_pointer_cast<Tree::LABEL>(_list->head)) {
-				doStms(std::make_shared<Tree::StmList>(std::make_shared<Tree::JUMP>(label->label, _list)));
+				doStms(std::make_shared<Tree::StmList>(std::make_shared<Tree::JUMP>(label->label), _list));
 			} else {
 				addStm(_list->head);
 				doStms(_list->tail);
@@ -55,7 +55,7 @@ namespace Canon {
 				}
 				doStms(_list->tail);
 			} else {
-				mkBlocks(std::make_shared<Tree::StmList>(std::make_shared<Tree::LABEL>(Temp::Label(), _list)));
+				mkBlocks(std::make_shared<Tree::StmList>(std::make_shared<Tree::LABEL>(std::make_shared<Temp::Label>()), _list));
 			}
 		}
 	};

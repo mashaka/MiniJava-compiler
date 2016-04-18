@@ -16,10 +16,10 @@ namespace Tree {
 
 		EXP(std::shared_ptr<Exp> _exp) : exp(_exp) {}
 
-		std::shared_ptr<ExpList> kids() {
+		std::shared_ptr<ExpList> kids() override {
 			return std::make_shared<ExpList>(exp, nullptr);
 		}
-		std::shared_ptr<Stm> build(std::shared_ptr<ExpList> _kids) {
+		std::shared_ptr<Stm> build(std::shared_ptr<ExpList> _kids) override {
   			return std::make_shared<EXP>(_kids->head);
 		}
 

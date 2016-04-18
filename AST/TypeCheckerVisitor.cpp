@@ -80,8 +80,8 @@ public:
 		if ( !doesExist ) {
 			lastTypeValue = symbols->Get("");
 			std::cout << "Method " << className->String() << " does not exist"<< std::endl;
-			return 0;
 		}
+		return 0;
 	}
 
 	void checkIfNumber( const Symbol::CSymbol* className) {

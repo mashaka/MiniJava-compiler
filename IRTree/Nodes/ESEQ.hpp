@@ -19,11 +19,11 @@ namespace Tree {
 		ESEQ(std::shared_ptr<Stm> _stm, std::shared_ptr<Exp> _exp)
 			: stm(_stm), exp(_exp) {}
 
-		std::shared_ptr<ExpList> kids() {
+		std::shared_ptr<ExpList> kids() override {
 			std::cerr << "kids() not applicable to ESEQ" << std::endl;
 			return nullptr;
 		}
-		std::shared_ptr<Exp> build(std::shared_ptr<ExpList>  kids) {
+		std::shared_ptr<Exp> build(std::shared_ptr<ExpList>  kids) override {
 			std::cerr << "build() not applicable to ESEQ" << std::endl;
 			return nullptr;
 		}

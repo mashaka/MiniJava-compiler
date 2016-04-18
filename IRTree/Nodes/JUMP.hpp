@@ -28,11 +28,11 @@ namespace Tree {
 		JUMP(std::shared_ptr<Temp::Label> _target) : JUMP(std::make_shared<NAME>(_target), std::make_shared<Temp::LabelList>(_target, nullptr))
 		{}
 
-		std::shared_ptr<ExpList> kids() {
+		std::shared_ptr<ExpList> kids() override {
 			return std::make_shared<ExpList>(exp, nullptr);
 		}
 
-		std::shared_ptr<Stm> build(std::shared_ptr<ExpList> _kids) {
+		std::shared_ptr<Stm> build(std::shared_ptr<ExpList> _kids) override {
 			return std::make_shared<JUMP>(_kids->head, targets);
 		}
 

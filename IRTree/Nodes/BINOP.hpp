@@ -19,11 +19,11 @@ namespace Tree {
 		BINOP(int _binop, std::shared_ptr<Exp> _left, std::shared_ptr<Exp> _right) 
 			: binop(_binop), left(_left), right(_right) {}
 
-		std::shared_ptr<ExpList> kids() {
+		std::shared_ptr<ExpList> kids() override {
 			return std::make_shared<ExpList>(left, std::make_shared<ExpList>(right, nullptr));
 		}
 
-		std::shared_ptr<Exp> build(std::shared_ptr<ExpList> _kids) {
+		std::shared_ptr<Exp> build(std::shared_ptr<ExpList> _kids) override {
 			return std::make_shared<BINOP>(binop, _kids->head, _kids->tail->head);
 		}
 
