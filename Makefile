@@ -1,6 +1,6 @@
 BISON=bison
 FLEX=flex
-CXX=g++
+CXX=g++-4.9
 
 IDIR =./IRTree
 IDIR2 =./AST
