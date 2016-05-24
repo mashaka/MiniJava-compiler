@@ -1,12 +1,13 @@
 BISON=bison
 FLEX=flex
-CXX=g++
+CXX=g++-4.9
 
 IDIR =./IRTree
 IDIR2 =./AST
 IDIR3 =./IRTree/ActivationRecords
 IDIR4 =./IRTree/Nodes
-CFLAGS=-I$(IDIR) -I$(IDIR2) -I$(IDIR3) -I$(IDIR4) -I.
+IDIR5 =./IRTree/InstructionSelection
+CFLAGS=-I$(IDIR) -I$(IDIR2) -I$(IDIR3) -I$(IDIR4) -I$(IDIR5) -I.
 
 all: mini_java_compiler
 
